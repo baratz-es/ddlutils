@@ -39,6 +39,8 @@
     <element name="foreign-key">
       <attribute name="foreignTable" property="foreignTableName"/>
       <attribute name="name"         property="name"/>
+      <attribute name="onUpdate"     property="onUpdate"/>
+      <attribute name="onDelete"     property="onDelete"/>
 
       <element property="references" updater="addReference"/>
     </element>

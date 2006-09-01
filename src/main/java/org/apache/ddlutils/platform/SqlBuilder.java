@@ -657,7 +657,7 @@ public abstract class SqlBuilder
         addRelevantFKsFromUnchangedTables(currentModel, desiredModel, changesPerTable.keySet(), unchangedFKs);
 
         // we're dropping the unchanged foreign keys
-        for (Iterator tableFKIt = unchangedFKs.entrySet().iterator(); tableFKIt.hasNext();)
+/*        for (Iterator tableFKIt = unchangedFKs.entrySet().iterator(); tableFKIt.hasNext();)
         {
             Map.Entry entry       = (Map.Entry)tableFKIt.next();
             Table     targetTable = desiredModel.findTable((String)entry.getKey(), caseSensitive);
@@ -666,7 +666,7 @@ public abstract class SqlBuilder
             {
                 writeExternalForeignKeyDropStmt(targetTable, (ForeignKey)fkIt.next());
             }
-        }
+        }*/
 
         // We're using a copy of the current model so that the table structure changes can
         // modify it
@@ -693,6 +693,7 @@ public abstract class SqlBuilder
                                          (List)entry.getValue());
         }
         // and finally we're re-creating the unchanged foreign keys
+/*        
         for (Iterator tableFKIt = unchangedFKs.entrySet().iterator(); tableFKIt.hasNext();)
         {
             Map.Entry entry       = (Map.Entry)tableFKIt.next();
@@ -703,6 +704,7 @@ public abstract class SqlBuilder
                 writeExternalForeignKeyCreateStmt(desiredModel, targetTable, (ForeignKey)fkIt.next());
             }
         }
+        */
     }
 
     /**
@@ -2287,14 +2289,42 @@ public abstract class SqlBuilder
                     printIdentifier(getForeignKeyName(table, key));
                     print(" ");
                 }
-                print("FOREIGN KEY (");
+                print("FOREIGN KEY");
+                print(" (");
                 writeLocalReferences(key);
                 print(") REFERENCES ");
                 printIdentifier(getTableName(database.findTable(key.getForeignTableName())));
                 print(" (");
                 writeForeignReferences(key);
                 print(")");
+                writeForeignKeyOption(key);                
             }
+        }
+    }
+    
+    protected void writeForeignKeyOption(ForeignKey key) throws IOException
+    {
+        if (key.getOnUpdate() != null && !key.getOnUpdate().equals("none"))
+        {
+        	print(" ON UPDATE ");
+        	if (key.getOnUpdate().equals("cascade")) {
+        		print("CASCADE");
+        	} else if (key.getOnUpdate().equals("setnull")) {
+            	print("SET NULL");
+        	} else if (key.getOnUpdate().equals("restrict")) {
+            	print("RESTRICT");
+        	}
+        }
+        if (key.getOnDelete() != null && !key.getOnDelete().equals("none"))
+        {
+        	print(" ON DELETE ");
+        	if (key.getOnDelete().equals("cascade")) {
+        		print("CASCADE");
+        	} else if (key.getOnDelete().equals("setnull")) {
+            	print("SET NULL");
+        	} else if (key.getOnDelete().equals("restrict")) {
+            	print("RESTRICT");
+        	}
         }
     }
 
@@ -2317,13 +2347,15 @@ public abstract class SqlBuilder
 
             print("ADD CONSTRAINT ");
             printIdentifier(getForeignKeyName(table, key));
-            print(" FOREIGN KEY (");
+            print(" FOREIGN KEY");
+            print(" (");
             writeLocalReferences(key);
             print(") REFERENCES ");
             printIdentifier(getTableName(database.findTable(key.getForeignTableName())));
             print(" (");
             writeForeignReferences(key);
             print(")");
+            writeForeignKeyOption(key);            
             printEndOfStatement();
         }
     }

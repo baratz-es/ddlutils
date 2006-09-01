@@ -78,7 +78,7 @@ public class SqlTokenizer
             return (_nextDelimiterPos >= 0) || (_lastDelimiterPos < _lastCharIdx);
         }
     }
-
+    
     /**
      * Returns the next statement.
      * 

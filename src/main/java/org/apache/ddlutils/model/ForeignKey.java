@@ -37,6 +37,10 @@ public class ForeignKey implements Cloneable
     private Table          _foreignTable;
     /** The name of the foreign table. */
     private String         _foreignTableName;
+    /** The integrity action for update. */
+    private String         _onUpdate ;
+    /** The integrity action for delete. */
+    private String         _onDelete;
     /** The references between local and remote columns. */
     private ListOrderedSet _references = new ListOrderedSet();
 
@@ -56,6 +60,8 @@ public class ForeignKey implements Cloneable
     public ForeignKey(String name)
     {
         _name = name;
+        _onUpdate="none";
+        _onDelete="none";
     }
 
     /**
@@ -123,6 +129,46 @@ public class ForeignKey implements Cloneable
             _foreignTable = null;
         }
         _foreignTableName = foreignTableName;
+    }
+
+    /**
+     * Returns the action for update.
+     * 
+     * @return The name
+     */
+    public String getOnUpdate()
+    {
+        return _onUpdate;
+    }
+
+    /**
+     * Sets the action for update.
+     * 
+     * @param name The name
+     */
+    public void setOnUpdate(String onUpdate)
+    {
+        _onUpdate = onUpdate;
+    }
+
+    /**
+     * Returns the action for update.
+     * 
+     * @return The name
+     */
+    public String getOnDelete()
+    {
+        return _onDelete;
+    }
+
+    /**
+     * Sets the action for update.
+     * 
+     * @param name The name
+     */
+    public void setOnDelete(String onDelete)
+    {
+        _onDelete = onDelete;
     }
 
     /**
@@ -223,6 +269,8 @@ public class ForeignKey implements Cloneable
         result._name             = _name;
         result._foreignTableName = _foreignTableName;
         result._references       = new ListOrderedSet();
+        result._onUpdate         = _onUpdate;
+        result._onDelete         = _onDelete;
 
         for (Iterator it = _references.iterator(); it.hasNext();)
         {
@@ -241,6 +289,15 @@ public class ForeignKey implements Cloneable
         {
             ForeignKey otherFk = (ForeignKey)obj;
 
+            if(otherFk.getOnDelete().equalsIgnoreCase("no action"))
+                otherFk.setOnDelete("none");
+            if(otherFk.getOnUpdate().equalsIgnoreCase("no action"))
+                otherFk.setOnUpdate("none");
+            if(_onDelete.equalsIgnoreCase("no action"))
+                _onDelete="none";
+            if(_onUpdate.equalsIgnoreCase("no action"))
+                _onUpdate="none";
+            
             // Note that this compares case sensitive
             // Note also that we can simply compare the references regardless of their order
             // (which is irrelevant for fks) because they are contained in a set
@@ -250,8 +307,11 @@ public class ForeignKey implements Cloneable
             {
                 builder.append(_name, otherFk._name);
             }
-            return builder.append(_foreignTableName, otherFk._foreignTableName)
+            return builder.append(_name, otherFk._name)
+                            .append(_foreignTableName, otherFk._foreignTableName)
                           .append(_references,       otherFk._references)
+                          .append(_onUpdate,       otherFk._onUpdate)
+                          .append(_onDelete,       otherFk._onDelete)                          
                           .isEquals();
         }
         else
@@ -271,7 +331,25 @@ public class ForeignKey implements Cloneable
         boolean checkName = (_name != null) && (_name.length() > 0) &&
                             (otherFk._name != null) && (otherFk._name.length() > 0);
 
-        if ((!checkName || _name.equalsIgnoreCase(otherFk._name)) &&
+        if(otherFk.getOnDelete().equalsIgnoreCase("no action"))
+            otherFk.setOnDelete("none");
+        if(otherFk.getOnUpdate().equalsIgnoreCase("no action"))
+            otherFk.setOnUpdate("none");
+        if(_onDelete.equalsIgnoreCase("no action"))
+            _onDelete="none";
+        if(_onUpdate.equalsIgnoreCase("no action"))
+            _onUpdate="none";
+            
+        boolean check2=false;
+        if ((_name!=null) && _name.equalsIgnoreCase(otherFk._name) && 
+                (_foreignTableName!=null) && _foreignTableName.equalsIgnoreCase(otherFk._foreignTableName) &&
+                _onUpdate.equalsIgnoreCase(otherFk._onUpdate) &&
+                _onDelete.equalsIgnoreCase(otherFk._onDelete))
+                {
+                    check2=true;
+                }
+        
+        if (check2 && (!checkName || _name.equalsIgnoreCase(otherFk._name)) &&
             _foreignTableName.equalsIgnoreCase(otherFk._foreignTableName))
         {
             HashSet otherRefs = new HashSet();
@@ -314,6 +392,8 @@ public class ForeignKey implements Cloneable
         return new HashCodeBuilder(17, 37).append(_name)
                                           .append(_foreignTableName)
                                           .append(_references)
+                                          .append(_onUpdate)
+                                          .append(_onDelete)
                                           .toHashCode();
     }
 
