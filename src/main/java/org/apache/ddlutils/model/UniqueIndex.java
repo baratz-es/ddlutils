@@ -82,6 +82,64 @@ public class UniqueIndex extends IndexImpBase
         {
             UniqueIndex otherIndex = (UniqueIndex)other;
 
+            //si el numero de columnas no coincide siempre son distintos
+            if(otherIndex.getColumnCount() != getColumnCount())
+            {
+                return false;
+            }
+
+            //caso 1, índice de sistema
+            if((_name.toUpperCase().startsWith("SYS_C")||otherIndex.getName().toUpperCase().startsWith("SYS_C")) 
+                    && getColumnCount()==1)
+            {
+                IndexColumn indexColumn = getColumn(0);                
+                if(indexColumn.equalsIgnoreCase(otherIndex.getColumn(0)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            
+            //resto de casos
+            //si el nombre no es igual se considera distinto independientemente de las columnas
+            if(!_name.equalsIgnoreCase(otherIndex.getName()))
+            {
+                return false;
+            }
+            //mismos nombres
+            else
+            {
+                for (int idx = 0; idx < getColumnCount(); idx++)
+                {
+                    boolean found = false;
+                    IndexColumn indexColumn = getColumn(idx);
+                    for (int idx2 = 0; idx2 < otherIndex.getColumnCount(); idx2++)
+                    {
+                        if(indexColumn.equalsIgnoreCase(otherIndex.getColumn(idx2)))
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found)
+                        return false;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+    
+
+    public boolean equalsIgnoreCaseOriginal(Index other)
+    {
+        if (other instanceof UniqueIndex)
+        {
+            UniqueIndex otherIndex = (UniqueIndex)other;
+
             boolean checkName = (_name != null) && (_name.length() > 0) &&
                                 (otherIndex._name != null) && (otherIndex._name.length() > 0);
 
@@ -100,7 +158,7 @@ public class UniqueIndex extends IndexImpBase
         }
         return false;
     }
-
+    
     /**
      * {@inheritDoc}
      */
