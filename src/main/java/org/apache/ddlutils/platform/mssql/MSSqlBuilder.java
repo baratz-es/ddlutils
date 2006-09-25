@@ -367,7 +367,7 @@ public class MSSqlBuilder extends SqlBuilder
 
                 if (!processedColumns.contains(targetColumn))
                 {
-                    processColumnChange(sourceTable, targetTable, sourceColumn, targetColumn);
+                    processColumnChange(sourceTable, targetTable, sourceColumn, targetColumn, change);
                     processedColumns.add(targetColumn);
                 }
                 changes.remove(change);
@@ -484,7 +484,8 @@ public class MSSqlBuilder extends SqlBuilder
     protected void processColumnChange(Table  sourceTable,
                                        Table  targetTable,
                                        Column sourceColumn,
-                                       Column targetColumn) throws IOException
+                                       Column targetColumn,
+                                       ColumnChange change) throws IOException
     {
         boolean hasDefault       = sourceColumn.getParsedDefaultValue() != null;
         boolean shallHaveDefault = targetColumn.getParsedDefaultValue() != null;
