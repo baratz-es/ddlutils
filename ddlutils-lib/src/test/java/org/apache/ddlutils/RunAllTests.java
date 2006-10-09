@@ -24,6 +24,8 @@ import org.apache.ddlutils.io.TestConstraints;
 import org.apache.ddlutils.io.TestDataReader;
 import org.apache.ddlutils.io.TestDatabaseIO;
 import org.apache.ddlutils.io.TestDatatypes;
+import org.apache.ddlutils.io.converters.TestDateConverter;
+import org.apache.ddlutils.io.converters.TestTimeConverter;
 import org.apache.ddlutils.model.TestArrayAccessAtTable;
 import org.apache.ddlutils.platform.TestCloudscapePlatform;
 import org.apache.ddlutils.platform.TestDB2Platform;
@@ -89,6 +91,8 @@ public class RunAllTests extends TestCase
         suite.addTestSuite(TestPlatformUtils.class);
         suite.addTestSuite(TestDatabaseIO.class);
         suite.addTestSuite(TestDataReader.class);
+        suite.addTestSuite(TestDateConverter.class);
+        suite.addTestSuite(TestTimeConverter.class);
         suite.addTestSuite(TestCloudscapePlatform.class);
         suite.addTestSuite(TestDB2Platform.class);
         suite.addTestSuite(TestDerbyPlatform.class);
