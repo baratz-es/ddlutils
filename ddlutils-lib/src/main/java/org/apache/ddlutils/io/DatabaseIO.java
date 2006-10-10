@@ -46,6 +46,9 @@ import org.xml.sax.SAXException;
  */
 public class DatabaseIO
 {
+    /** XML attribute name for Base64-encoded column values in data XML (DDLUTILS-63). */
+    public static final String BASE64_ATTR_NAME = "base64";
+
     /** Whether to validate the XML. */
     private boolean _validateXml = true;
     /** Whether to use the internal dtd that comes with DdlUtils. */

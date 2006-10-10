@@ -21,7 +21,7 @@ import org.apache.ddlutils.alteration.TestModelComparator;
 import org.apache.ddlutils.dynabean.TestDynaSqlQueries;
 import org.apache.ddlutils.io.TestAlteration;
 import org.apache.ddlutils.io.TestConstraints;
-import org.apache.ddlutils.io.TestDataReader;
+import org.apache.ddlutils.io.TestDataReaderAndWriter;
 import org.apache.ddlutils.io.TestDatabaseIO;
 import org.apache.ddlutils.io.TestDatatypes;
 import org.apache.ddlutils.io.converters.TestDateConverter;
@@ -90,7 +90,7 @@ public class RunAllTests extends TestCase
         suite.addTestSuite(SqlBuilderTest.class);
         suite.addTestSuite(TestPlatformUtils.class);
         suite.addTestSuite(TestDatabaseIO.class);
-        suite.addTestSuite(TestDataReader.class);
+        suite.addTestSuite(TestDataReaderAndWriter.class);
         suite.addTestSuite(TestDateConverter.class);
         suite.addTestSuite(TestTimeConverter.class);
         suite.addTestSuite(TestCloudscapePlatform.class);
