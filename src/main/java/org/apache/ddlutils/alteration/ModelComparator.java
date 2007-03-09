@@ -279,14 +279,22 @@ public class ModelComparator
             }
             else
             {
-                for (int pkColumnIdx = 0; (pkColumnIdx < sourcePK.length) && !changePK; pkColumnIdx++)
+                //Si son iguales hay que ver que sean iguales sin importar el orden
+                changePK = false;
+                int contador=0;
+                for (int pkColumnIdx = 0; (pkColumnIdx < sourcePK.length); pkColumnIdx++)
                 {
-                    if ((_caseSensitive  && !sourcePK[pkColumnIdx].getName().equals(targetPK[pkColumnIdx].getName())) ||
-                        (!_caseSensitive && !sourcePK[pkColumnIdx].getName().equalsIgnoreCase(targetPK[pkColumnIdx].getName())))
+                    for (int pkColumn2Idx = 0; (pkColumn2Idx < targetPK.length); pkColumn2Idx++)
                     {
-                        changePK = true;
+                        if ((_caseSensitive  && sourcePK[pkColumnIdx].getName().equals(targetPK[pkColumn2Idx].getName())) ||
+                                (!_caseSensitive && sourcePK[pkColumnIdx].getName().equalsIgnoreCase(targetPK[pkColumn2Idx].getName())))
+                            {
+                                contador++;
+                            }
                     }
                 }
+                if(contador!=targetPK.length)
+                    changePK=true;
             }
             if (changePK)
             {
