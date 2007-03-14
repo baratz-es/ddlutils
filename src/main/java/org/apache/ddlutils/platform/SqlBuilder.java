@@ -356,7 +356,7 @@ public abstract class SqlBuilder
     {
         ModelComparator comparator = new ModelComparator(getPlatformInfo(),
                                                          getPlatform().isDelimitedIdentifierModeOn());
-        List            changes    = comparator.compare(currentModel, desiredModel);
+        List            changes    = comparator.compare(currentModel, desiredModel, true);
 
         processChanges(currentModel, desiredModel, changes, params);
     }

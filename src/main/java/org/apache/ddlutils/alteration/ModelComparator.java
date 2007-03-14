@@ -70,7 +70,7 @@ public class ModelComparator
      * @param targetModel The target model
      * @return The changes
      */
-    public List compare(Database sourceModel, Database targetModel)
+    public List compare(Database sourceModel, Database targetModel, boolean borrarTablas)
     {
         ArrayList changes = new ArrayList();
 
@@ -98,26 +98,30 @@ public class ModelComparator
                 changes.addAll(compareTables(sourceModel, sourceTable, targetModel, targetTable));
             }
         }
-
-        for (int tableIdx = 0; tableIdx < sourceModel.getTableCount(); tableIdx++)
+        
+        //opcion de conservar tablas
+        if(borrarTablas)
         {
-            Table sourceTable = sourceModel.getTable(tableIdx);
-            Table targetTable = targetModel.findTable(sourceTable.getName(), _caseSensitive);
-
-            if ((targetTable == null) && (sourceTable.getName() != null) && (sourceTable.getName().length() > 0))
+            for (int tableIdx = 0; tableIdx < sourceModel.getTableCount(); tableIdx++)
             {
-                if (_log.isInfoEnabled())
+                Table sourceTable = sourceModel.getTable(tableIdx);
+                Table targetTable = targetModel.findTable(sourceTable.getName(), _caseSensitive);
+    
+                if ((targetTable == null) && (sourceTable.getName() != null) && (sourceTable.getName().length() > 0))
                 {
-                    _log.info("Table " + sourceTable.getName() + " needs to be removed");
-                }
-                changes.add(new RemoveTableChange(sourceTable));
-                // we assume that the target model is sound, ie. that there are no longer any foreign
-                // keys to this table in the target model; thus we already have removeFK changes for
-                // these from the compareTables method and we only need to create changes for the fks
-                // originating from this table
-                for (int fkIdx = 0; fkIdx < sourceTable.getForeignKeyCount(); fkIdx++)
-                {
-                    changes.add(new RemoveForeignKeyChange(sourceTable, sourceTable.getForeignKey(fkIdx)));
+                    if (_log.isInfoEnabled())
+                    {
+                        _log.info("Table " + sourceTable.getName() + " needs to be removed");
+                    }
+                    changes.add(new RemoveTableChange(sourceTable));
+                    // we assume that the target model is sound, ie. that there are no longer any foreign
+                    // keys to this table in the target model; thus we already have removeFK changes for
+                    // these from the compareTables method and we only need to create changes for the fks
+                    // originating from this table
+                    for (int fkIdx = 0; fkIdx < sourceTable.getForeignKeyCount(); fkIdx++)
+                    {
+                        changes.add(new RemoveForeignKeyChange(sourceTable, sourceTable.getForeignKey(fkIdx)));
+                    }
                 }
             }
         }
