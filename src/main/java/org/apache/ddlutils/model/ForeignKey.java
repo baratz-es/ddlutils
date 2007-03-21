@@ -307,12 +307,19 @@ public class ForeignKey implements Cloneable
             {
                 builder.append(_name, otherFk._name);
             }
+            
             return builder.append(_name, otherFk._name)
                             .append(_foreignTableName, otherFk._foreignTableName)
                           .append(_references,       otherFk._references)
                           .append(_onUpdate,       otherFk._onUpdate)
                           .append(_onDelete,       otherFk._onDelete)                          
-                          .isEquals();
+                          .isEquals() ||
+                          builder.append(_name, this.shortenName(otherFk._name, 30))
+                          .append(_foreignTableName, otherFk._foreignTableName)
+                        .append(_references,       otherFk._references)
+                        .append(_onUpdate,       otherFk._onUpdate)
+                        .append(_onDelete,       otherFk._onDelete)                          
+                        .isEquals();
         }
         else
         {
@@ -320,6 +327,36 @@ public class ForeignKey implements Cloneable
         }
     }
 
+    protected String shortenName(String name, int desiredLength)
+    {
+        // TODO: Find an algorithm that generates unique names
+        if(name==null)
+            return null;
+        
+        int originalLength = name.length();
+
+        if ((desiredLength <= 0) || (originalLength <= desiredLength))
+        {
+            return name;
+        }
+
+        int delta    = originalLength - desiredLength;
+        int startCut = desiredLength / 2;
+
+        StringBuffer result = new StringBuffer();
+
+        result.append(name.substring(0, startCut));
+        if (((startCut == 0) || (name.charAt(startCut - 1) != '_')) &&
+            ((startCut + delta + 1 == originalLength) || (name.charAt(startCut + delta + 1) != '_')))
+        {
+            // just to make sure that there isn't already a '_' right before or right
+            // after the cutting place (which would look odd with an aditional one)
+            result.append("_");
+        }
+        result.append(name.substring(startCut + delta + 1, originalLength));
+        return result.toString();
+    }
+    
     /**
      * Compares this foreign key to the given one while ignoring the case of identifiers.
      * 
@@ -341,7 +378,8 @@ public class ForeignKey implements Cloneable
             _onUpdate="none";
             
         boolean check2=false;
-        if ((_name!=null) && _name.equalsIgnoreCase(otherFk._name) && 
+        if ((_name!=null) && (_name.equalsIgnoreCase(otherFk._name) || _name.equalsIgnoreCase(this.shortenName(otherFk._name,30)) ||
+                ((otherFk._name!=null) && (otherFk._name.equalsIgnoreCase(this.shortenName(_name,30)) || otherFk._name.equalsIgnoreCase(_name)))) && 
                 (_foreignTableName!=null) && _foreignTableName.equalsIgnoreCase(otherFk._foreignTableName) &&
                 _onUpdate.equalsIgnoreCase(otherFk._onUpdate) &&
                 _onDelete.equalsIgnoreCase(otherFk._onDelete))
@@ -349,7 +387,9 @@ public class ForeignKey implements Cloneable
                     check2=true;
                 }
         
-        if (check2 && (!checkName || _name.equalsIgnoreCase(otherFk._name)) &&
+        if (check2 && (!checkName || _name.equalsIgnoreCase(otherFk._name) ||
+                _name.equalsIgnoreCase(this.shortenName(otherFk._name,30)) || otherFk._name.equalsIgnoreCase(_name) ||
+                otherFk._name.equalsIgnoreCase(this.shortenName(_name,30))) &&
             _foreignTableName.equalsIgnoreCase(otherFk._foreignTableName))
         {
             HashSet otherRefs = new HashSet();
