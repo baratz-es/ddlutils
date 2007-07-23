@@ -411,6 +411,24 @@ public class ModelComparator
         for (int fkIdx = 0; fkIdx < table.getForeignKeyCount(); fkIdx++)
         {
             ForeignKey curFk = table.getForeignKey(fkIdx);
+            
+            /* Si la constraint nueva no tiene nombre se le pone por defecto 
+             * para ver si coincide con la original
+             */
+            if(curFk.getName()==null)
+            {
+                StringBuffer name = new StringBuffer();
+                
+                for (int idx = 0; idx < fk.getReferenceCount(); idx++)
+                {
+                    name.append(fk.getReference(idx).getLocalColumnName());
+                    name.append("_");
+                }
+                name.append(fk.getForeignTableName());
+                
+                String fkName = this.getConstraintName(null, table, "FK", name.toString());
+                curFk.setName(fkName);
+            }
 
             if ((_caseSensitive  && fk.equals(curFk)) ||
                 (!_caseSensitive && fk.equalsIgnoreCase(curFk)))
@@ -421,6 +439,108 @@ public class ModelComparator
         return null;
     }
 
+    
+    /**
+     * Returns the name to be used for the given foreign key. If the foreign key has no
+     * specified name, this method determines a unique name for it. The name will also
+     * be shortened to honor the maximum identifier length imposed by the platform.
+     * 
+     * @param table The table for whith the foreign key is defined
+     * @param fk    The foreign key
+     * @return The name
+     */
+    public String getForeignKeyName(Table table, ForeignKey fk)
+    {
+        String  fkName    = fk.getName();
+        boolean needsName = (fkName == null) || (fkName.length() == 0);
+
+        if (needsName)
+        {
+            StringBuffer name = new StringBuffer();
+    
+            for (int idx = 0; idx < fk.getReferenceCount(); idx++)
+            {
+                name.append(fk.getReference(idx).getLocalColumnName());
+                name.append("_");
+            }
+            name.append(fk.getForeignTableName());
+            fkName = getConstraintName(null, table, "FK", name.toString());
+        }
+        fkName = shortenName(fkName, -1);
+
+        if (needsName)
+        {
+            _log.warn("Encountered a foreign key in table " + table.getName() + " that has no name. " +
+                      "DdlUtils will use the auto-generated and shortened name " + fkName + " instead.");
+        }
+
+        return fkName;
+    }
+    
+    /**
+     * Generates a version of the name that has at most the specified
+     * length.
+     * 
+     * @param name          The original name
+     * @param desiredLength The desired maximum length
+     * @return The shortened version
+     */
+    protected String shortenName(String name, int desiredLength)
+    {
+        // TODO: Find an algorithm that generates unique names
+        int originalLength = name.length();
+
+        if ((desiredLength <= 0) || (originalLength <= desiredLength))
+        {
+            return name;
+        }
+
+        int delta    = originalLength - desiredLength;
+        int startCut = desiredLength / 2;
+
+        StringBuffer result = new StringBuffer();
+
+        result.append(name.substring(0, startCut));
+        if (((startCut == 0) || (name.charAt(startCut - 1) != '_')) &&
+            ((startCut + delta + 1 == originalLength) || (name.charAt(startCut + delta + 1) != '_')))
+        {
+            // just to make sure that there isn't already a '_' right before or right
+            // after the cutting place (which would look odd with an aditional one)
+            result.append("_");
+        }
+        result.append(name.substring(startCut + delta + 1, originalLength));
+        return result.toString();
+    }
+    
+    /**
+     * Returns the constraint name. This method takes care of length limitations imposed by some databases.
+     * 
+     * @param prefix     The constraint prefix, can be <code>null</code>
+     * @param table      The table that the constraint belongs to
+     * @param secondPart The second name part, e.g. the name of the constraint column
+     * @param suffix     The constraint suffix, e.g. a counter (can be <code>null</code>)
+     * @return The constraint name
+     */
+    public String getConstraintName(String prefix, Table table, String secondPart, String suffix)
+    {
+        StringBuffer result = new StringBuffer();
+        
+        if (prefix != null)
+        {
+            result.append(prefix);
+            result.append("_");
+        }
+        result.append(table.getName());
+        result.append("_");
+        result.append(secondPart);
+        if (suffix != null)
+        {
+            result.append("_");
+            result.append(suffix);
+        }
+        return shortenName(result.toString(), -1);
+    }
+    
     /**
      * Searches in the given table for a corresponding index. If the given index
      * has no name, then a index to the same table with the same columns in the
