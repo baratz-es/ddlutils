@@ -91,6 +91,7 @@ Java class or method name.
     ) "VARCHAR"
   javaType (object|primitive) #IMPLIED
   size CDATA #IMPLIED
+  parteEntera CDATA #IMPLIED	
   default CDATA #IMPLIED
   autoIncrement (true|false) "false"
   inheritance (single|false) "false"
