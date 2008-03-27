@@ -55,8 +55,8 @@ public class Column implements Cloneable, Serializable
     private int _typeCode;
     /** The name of the JDBC type. */
     private String _type;
-    /** The parteEntera of the column for JDBC types that require/support this. */
-    private int _parteEntera;
+    /** The integerPart of the column for JDBC types that require/support this. */
+    private int _integerPart;
     /** The size of the column for JDBC types that require/support this. */
     private String _size;
     /** The size of the column for JDBC types that require/support this. */
@@ -346,9 +346,9 @@ public class Column implements Cloneable, Serializable
      * 
      * @return The scale
      */
-    public int getParteEntera()
+    public int getIntegerPart()
     {
-        return _parteEntera;
+        return _integerPart;
     }
 
     /**
@@ -356,10 +356,10 @@ public class Column implements Cloneable, Serializable
      *
      * @param scale The scale
      */
-    public void setParteEntera(int parteEntera)
+    public void setIntegerPart(int integerPart)
     {
-        this.setSizeAndScale(parteEntera,this.getSizeAsInt());
-        _parteEntera = parteEntera;
+        this.setSizeAndScale(integerPart,this.getSizeAsInt());
+        _integerPart = integerPart;
     }
     
     /**
@@ -519,7 +519,7 @@ public class Column implements Cloneable, Serializable
         result._defaultValue    = _defaultValue;
         result._scale           = _scale;
         result._size            = _size;
-        result._parteEntera     = _parteEntera;
+        result._integerPart     = _integerPart;
         result._sizeAsInt       = _sizeAsInt;
 
         return result;
@@ -548,7 +548,7 @@ public class Column implements Cloneable, Serializable
             {
                 comparator.append(_size,  other._size);
                 comparator.append(_scale, other._scale);
-                comparator.append(_parteEntera, other._parteEntera);                
+                comparator.append(_integerPart, other._integerPart);                
             }
             else if ((_typeCode == Types.CHAR) || (_typeCode == Types.VARCHAR) ||
                      (_typeCode == Types.BINARY) || (_typeCode == Types.VARBINARY))
@@ -582,7 +582,7 @@ public class Column implements Cloneable, Serializable
         if (!TypeMap.isNumericType(_typeCode))
         {
             builder.append(_size);
-            builder.append(_parteEntera);
+            builder.append(_integerPart);
         }
         
         return builder.toHashCode();
@@ -635,8 +635,8 @@ public class Column implements Cloneable, Serializable
         result.append(getPrecisionRadix());
         result.append("; scale=");
         result.append(getScale());
-        result.append("; parteEntera=");
-        result.append(getParteEntera());
+        result.append("; integerPart=");
+        result.append(getIntegerPart());
         result.append("]");
 
         return result.toString();

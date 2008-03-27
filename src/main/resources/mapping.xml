@@ -33,7 +33,7 @@
       <attribute name="description"   property="description"/>
       <attribute name="javaName"      property="javaName"/>
 	  <!-- nuevo atributo para la parte entera en decimales -->
-      <attribute name="parteEntera"   property="parteEntera"/>
+      <attribute name="integerPart"   property="integerPart"/>
     </element>
   </class>
 
