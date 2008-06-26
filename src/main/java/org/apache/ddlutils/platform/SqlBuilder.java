@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -354,9 +355,11 @@ public abstract class SqlBuilder
      */
     public void alterDatabase(Database currentModel, Database desiredModel, CreationParameters params) throws IOException
     {
+        Set listaPrefix = new HashSet();
+        
         ModelComparator comparator = new ModelComparator(getPlatformInfo(),
                                                          getPlatform().isDelimitedIdentifierModeOn());
-        List            changes    = comparator.compare(currentModel, desiredModel, true);
+        List            changes    = comparator.compare(currentModel, desiredModel, true, listaPrefix);
 
         processChanges(currentModel, desiredModel, changes, params);
     }

@@ -18,8 +18,11 @@ package org.apache.ddlutils.alteration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -70,7 +73,7 @@ public class ModelComparator
      * @param targetModel The target model
      * @return The changes
      */
-    public List compare(Database sourceModel, Database targetModel, boolean borrarTablas)
+    public List compare(Database sourceModel, Database targetModel, boolean borrarTablas, Set elementsPrefixIgnore)
     {
         ArrayList changes = new ArrayList();
 
@@ -109,18 +112,38 @@ public class ModelComparator
     
                 if ((targetTable == null) && (sourceTable.getName() != null) && (sourceTable.getName().length() > 0))
                 {
-                    if (_log.isInfoEnabled())
+                    Iterator it = elementsPrefixIgnore.iterator();
+                    boolean borrarTablaConcreta = true;
+                    while(it.hasNext() && borrarTablaConcreta)
                     {
-                        _log.info("Table " + sourceTable.getName() + " needs to be removed");
+                        String prefijo = ObjectUtils.toString(it.next(),StringUtils.EMPTY);
+                        String nombreTabla = sourceTable.getName();
+                        if(!_caseSensitive)
+                        {
+                            prefijo = prefijo.toUpperCase();
+                            nombreTabla = nombreTabla.toUpperCase();
+                        }
+                        if(nombreTabla.startsWith(prefijo))
+                            borrarTablaConcreta = false;
                     }
-                    changes.add(new RemoveTableChange(sourceTable));
-                    // we assume that the target model is sound, ie. that there are no longer any foreign
-                    // keys to this table in the target model; thus we already have removeFK changes for
-                    // these from the compareTables method and we only need to create changes for the fks
-                    // originating from this table
-                    for (int fkIdx = 0; fkIdx < sourceTable.getForeignKeyCount(); fkIdx++)
+                    //Si al final se decide borrar esta tabla concreta
+                    //es decir, si la opcion de general está marcada y además no hay 
+                    //ningún prefijo que lo impida, se borra
+                    if(borrarTablaConcreta)
                     {
-                        changes.add(new RemoveForeignKeyChange(sourceTable, sourceTable.getForeignKey(fkIdx)));
+                        if (_log.isInfoEnabled())
+                        {
+                            _log.info("Table " + sourceTable.getName() + " needs to be removed");
+                        }
+                        changes.add(new RemoveTableChange(sourceTable));
+                        // we assume that the target model is sound, ie. that there are no longer any foreign
+                        // keys to this table in the target model; thus we already have removeFK changes for
+                        // these from the compareTables method and we only need to create changes for the fks
+                        // originating from this table
+                        for (int fkIdx = 0; fkIdx < sourceTable.getForeignKeyCount(); fkIdx++)
+                        {
+                            changes.add(new RemoveForeignKeyChange(sourceTable, sourceTable.getForeignKey(fkIdx)));
+                        }
                     }
                 }
             }
