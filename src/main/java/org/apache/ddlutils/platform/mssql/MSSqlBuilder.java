@@ -29,6 +29,7 @@ import org.apache.ddlutils.alteration.AddColumnChange;
 import org.apache.ddlutils.alteration.AddPrimaryKeyChange;
 import org.apache.ddlutils.alteration.ColumnAutoIncrementChange;
 import org.apache.ddlutils.alteration.ColumnChange;
+import org.apache.ddlutils.alteration.ColumnDefaultValueChange;
 import org.apache.ddlutils.alteration.PrimaryKeyChange;
 import org.apache.ddlutils.alteration.RemoveColumnChange;
 import org.apache.ddlutils.alteration.RemovePrimaryKeyChange;
@@ -51,6 +52,7 @@ import org.apache.ddlutils.util.Jdbc3Utils;
  */
 public class MSSqlBuilder extends SqlBuilder
 {
+    private List cambiosDefault = new ArrayList();
     /**
      * Creates a new builder instance.
      * 
@@ -369,6 +371,11 @@ public class MSSqlBuilder extends SqlBuilder
                 {
                     processColumnChange(sourceTable, targetTable, sourceColumn, targetColumn, change);
                     processedColumns.add(targetColumn);
+                    //Se añade el cambio de valor por defecto hecho en la columna para no hacerlo posteriormente
+                    //y así evitar que salga un error
+                    if(change instanceof ColumnDefaultValueChange){
+                        this.cambiosDefault.add (targetTable.getName ().toUpperCase () + "." + targetColumn.getName ().toUpperCase ());
+                    }
                 }
                 changes.remove(change);
                 change.apply(currentModel, getPlatform().isDelimitedIdentifierModeOn());
@@ -553,5 +560,21 @@ public class MSSqlBuilder extends SqlBuilder
             printIdentifier(getColumnName(sourceColumn));
             printEndOfStatement();
         }
+    }
+
+    /**
+     * @return Devuelve el valor de cambiosDefault.
+     */
+    public List getCambiosDefault ()
+    {
+        return cambiosDefault;
+    }
+
+    /**
+     * @param cambiosDefault Nuevo valor para cambiosDefault.
+     */
+    public void setCambiosDefault (List cambiosDefault)
+    {
+        this.cambiosDefault = cambiosDefault;
     }
 }
