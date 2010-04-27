@@ -434,24 +434,6 @@ public class ModelComparator
         for (int fkIdx = 0; fkIdx < table.getForeignKeyCount(); fkIdx++)
         {
             ForeignKey curFk = table.getForeignKey(fkIdx);
-            
-            /* Si la constraint nueva no tiene nombre se le pone por defecto 
-             * para ver si coincide con la original
-             */
-            if(curFk.getName()==null)
-            {
-                StringBuffer name = new StringBuffer();
-                
-                for (int idx = 0; idx < fk.getReferenceCount(); idx++)
-                {
-                    name.append(fk.getReference(idx).getLocalColumnName());
-                    name.append("_");
-                }
-                name.append(fk.getForeignTableName());
-                
-                String fkName = this.getConstraintName(null, table, "FK", name.toString());
-                curFk.setName(fkName);
-            }
 
             if ((_caseSensitive  && fk.equals(curFk)) ||
                 (!_caseSensitive && fk.equalsIgnoreCase(curFk)))
