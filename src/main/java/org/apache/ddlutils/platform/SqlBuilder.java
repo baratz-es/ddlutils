@@ -1579,6 +1579,17 @@ public abstract class SqlBuilder
         return shortenName(table.getName(), getPlatformInfo().getMaxIdentifierLength());
     }
     
+    /**
+     * Returns the table name. This method takes care of length limitations imposed by some databases.
+     * 
+     * @param table The table
+     * @return The table name
+     */
+    public String getTableName(String tableName)
+    {
+        return shortenName(tableName, getPlatformInfo().getMaxIdentifierLength());
+    }    
+    
     /** 
      * Outputs a comment for the table.
      * 

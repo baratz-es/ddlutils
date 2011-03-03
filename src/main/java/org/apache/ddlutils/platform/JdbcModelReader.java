@@ -547,6 +547,10 @@ public class JdbcModelReader
      */
     protected Table readTable(DatabaseMetaDataWrapper metaData, Map values) throws SQLException
     {
+        return readTable(metaData, values, false);
+    }
+    protected Table readTable(DatabaseMetaDataWrapper metaData, Map values, boolean readExternalForeignKey) throws SQLException
+    {
         String tableName = (String)values.get("TABLE_NAME");
         Table  table     = null;
         
@@ -562,6 +566,9 @@ public class JdbcModelReader
 
             table.addColumns(readColumns(metaData, tableName));
             table.addForeignKeys(readForeignKeys(metaData, tableName));
+            if(readExternalForeignKey){
+                table.addExportedForeignKeys(readExportedForeignKeys(metaData, tableName));
+            }
             table.addIndices(readIndices(metaData, tableName));
 
             Collection primaryKeys = readPrimaryKeyNames(metaData, tableName);
@@ -860,6 +867,39 @@ public class JdbcModelReader
         }
         return fks.values();
     }
+    
+    /**
+     * Retrieves the foreign keys of the indicated table.
+     *
+     * @param metaData  The database meta data
+     * @param tableName The name of the table from which to retrieve FK information
+     * @return The foreign keys
+     */
+    protected Collection readExportedForeignKeys(DatabaseMetaDataWrapper metaData, String tableName) throws SQLException
+    {
+        Map       fks    = new ListOrderedMap();
+        ResultSet fkData = null;
+
+        try
+        {
+            fkData = metaData.getExportedForeignKeys (tableName);
+
+            while (fkData.next())
+            {
+                Map values = readColumns(fkData, getColumnsForFK());
+
+                readForeignKey(metaData, values, fks);
+            }
+        }
+        finally
+        {
+            if (fkData != null)
+            {
+                fkData.close();
+            }
+        }
+        return fks.values();
+    }    
 
     /**
      * Reads the next foreign key spec from the result set.

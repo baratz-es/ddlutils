@@ -57,6 +57,8 @@ public class Table implements Serializable, Cloneable
     private ArrayList _foreignKeys = new ArrayList();
     /** The indices applied to this table. */
     private ArrayList _indices = new ArrayList();
+    /** The exported foreign keys associated to this table. */
+    private ArrayList _exportedForeignKeys = new ArrayList();
 
     /**
      * Returns the catalog of this table as read from the database.
@@ -283,6 +285,16 @@ public class Table implements Serializable, Cloneable
     {
         return _foreignKeys.size();
     }
+    
+    /**
+     * Returns the number of foreign keys.
+     * 
+     * @return The number of foreign keys
+     */
+    public int getExportedForeignKeyCount()
+    {
+        return _exportedForeignKeys.size();
+    }    
 
     /**
      * Returns the foreign key at the given position.
@@ -294,6 +306,17 @@ public class Table implements Serializable, Cloneable
     {
         return (ForeignKey)_foreignKeys.get(idx);
     }
+    
+    /**
+     * Returns the exported foreign key at the given position.
+     * 
+     * @param idx The foreign key index
+     * @return The foreign key
+     */
+    public ForeignKey getExportedForeignKey(int idx)
+    {
+        return (ForeignKey)_exportedForeignKeys.get(idx);
+    }    
 
     /**
      * Returns the foreign keys of this table.
@@ -304,6 +327,16 @@ public class Table implements Serializable, Cloneable
     {
         return (ForeignKey[])_foreignKeys.toArray(new ForeignKey[_foreignKeys.size()]);
     }
+    
+    /**
+     * Returns the exported foreign keys of this table.
+     * 
+     * @return The foreign keys
+     */
+    public ForeignKey[] getExportedForeignKeys()
+    {
+        return (ForeignKey[])_exportedForeignKeys.toArray(new ForeignKey[_exportedForeignKeys.size()]);
+    }    
 
     /**
      * Adds the given foreign key.
@@ -317,6 +350,19 @@ public class Table implements Serializable, Cloneable
             _foreignKeys.add(foreignKey);
         }
     }
+    
+    /**
+     * Adds the given foreign key.
+     * 
+     * @param foreignKey The foreign key
+     */
+    public void addExportedForeignKey(ForeignKey foreignKey)
+    {
+        if (foreignKey != null)
+        {
+            _exportedForeignKeys.add(foreignKey);
+        }
+    }    
 
     /**
      * Adds the given foreign key at the specified position.
@@ -331,6 +377,20 @@ public class Table implements Serializable, Cloneable
             _foreignKeys.add(idx, foreignKey);
         }
     }
+    
+    /**
+     * Adds the given foreign key at the specified position.
+     * 
+     * @param idx        The index to add the foreign key at
+     * @param foreignKey The foreign key
+     */
+    public void addExportedForeignKey(int idx, ForeignKey foreignKey)
+    {
+        if (foreignKey != null)
+        {
+            _exportedForeignKeys.add(idx, foreignKey);
+        }
+    }    
 
     /**
      * Adds the given foreign keys.
@@ -344,6 +404,19 @@ public class Table implements Serializable, Cloneable
             addForeignKey((ForeignKey)it.next());
         }
     }
+    
+    /**
+     * Adds the given foreign keys.
+     * 
+     * @param foreignKeys The foreign keys
+     */
+    public void addExportedForeignKeys(Collection foreignKeys)
+    {
+        for (Iterator it = foreignKeys.iterator(); it.hasNext();)
+        {
+            addExportedForeignKey ((ForeignKey)it.next());
+        }
+    }    
 
     /**
      * Removes the given foreign key.
@@ -357,6 +430,19 @@ public class Table implements Serializable, Cloneable
             _foreignKeys.remove(foreignKey);
         }
     }
+    
+    /**
+     * Removes the given foreign key.
+     * 
+     * @param foreignKey The foreign key to remove
+     */
+    public void removeExportedForeignKey(ForeignKey foreignKey)
+    {
+        if (foreignKey != null)
+        {
+            _exportedForeignKeys.remove(foreignKey);
+        }
+    }    
 
     /**
      * Removes the indicated foreign key.
@@ -367,6 +453,16 @@ public class Table implements Serializable, Cloneable
     {
         _foreignKeys.remove(idx);
     }
+    
+    /**
+     * Removes the indicated foreign key.
+     * 
+     * @param idx The index of the foreign key to remove
+     */
+    public void removeExportedForeignKey(int idx)
+    {
+        _exportedForeignKeys.remove(idx);
+    }    
 
     /**
      * Returns the number of indices.
@@ -732,6 +828,34 @@ public class Table implements Serializable, Cloneable
     }
     
     /**
+     * Sorts the foreign keys alphabetically.
+     * 
+     * @param caseSensitive Whether case matters
+     */
+    public void sortExportedForeignKeys(final boolean caseSensitive)
+    {
+        if (!_exportedForeignKeys.isEmpty())
+        {
+            final Collator collator = Collator.getInstance();
+    
+            Collections.sort(_exportedForeignKeys, new Comparator() {
+                public int compare(Object obj1, Object obj2)
+                {
+                    String fk1Name = ((ForeignKey)obj1).getName();
+                    String fk2Name = ((ForeignKey)obj2).getName();
+
+                    if (!caseSensitive)
+                    {
+                        fk1Name = (fk1Name != null ? fk1Name.toLowerCase() : null);
+                        fk2Name = (fk2Name != null ? fk2Name.toLowerCase() : null);
+                    }
+                    return collator.compare(fk1Name, fk2Name);
+                }
+            });
+        }
+    }    
+    
+    /**
      * {@inheritDoc}
      */
     public Object clone() throws CloneNotSupportedException
@@ -744,6 +868,7 @@ public class Table implements Serializable, Cloneable
         result._type        = _type;
         result._columns     = (ArrayList)_columns.clone();
         result._foreignKeys = (ArrayList)_foreignKeys.clone();
+        result._exportedForeignKeys = (ArrayList)_exportedForeignKeys.clone();        
         result._indices     = (ArrayList)_indices.clone();
 
         return result;
@@ -763,6 +888,7 @@ public class Table implements Serializable, Cloneable
             return new EqualsBuilder().append(_name,                     other._name)
                                       .append(_columns,                  other._columns)
                                       .append(new HashSet(_foreignKeys), new HashSet(other._foreignKeys))
+                                      .append(new HashSet(_exportedForeignKeys), new HashSet(other._exportedForeignKeys))
                                       .append(new HashSet(_indices),     new HashSet(other._indices))
                                       .isEquals();
         }
@@ -781,6 +907,7 @@ public class Table implements Serializable, Cloneable
         return new HashCodeBuilder(17, 37).append(_name)
                                           .append(_columns)
                                           .append(new HashSet(_foreignKeys))
+                                          .append(new HashSet(_exportedForeignKeys))
                                           .append(new HashSet(_indices))
                                           .toHashCode();
     }

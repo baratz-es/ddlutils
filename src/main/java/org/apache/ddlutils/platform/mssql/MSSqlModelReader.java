@@ -95,7 +95,7 @@ public class MSSqlModelReader extends JdbcModelReader
             }
         }
 
-        Table table = super.readTable(metaData, values);
+        Table table = super.readTable(metaData, values, true);
 
         if (table != null)
         {

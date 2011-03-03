@@ -173,6 +173,20 @@ public class DatabaseMetaDataWrapper
     {
         return getMetaData().getImportedKeys(getCatalog(), getSchemaPattern(), tableNamePattern);
     }
+    
+    /**
+     * Convenience method to return the foreign key meta data using the configured catalog and
+     * schema pattern.
+     * 
+     * @param tableNamePattern The pattern identifying for which tables to return info
+     * @return The foreign key meta data
+     * @throws SQLException If an error occurred retrieving the meta data
+     * @see DatabaseMetaData#getImportedKeys(java.lang.String, java.lang.String, java.lang.String)
+     */
+    public ResultSet getExportedForeignKeys(String tableNamePattern) throws SQLException
+    {
+        return getMetaData().getExportedKeys (getCatalog(), getSchemaPattern(), tableNamePattern);
+    }    
 
     /**
      * Convenience method to return the index meta data using the configured catalog and
