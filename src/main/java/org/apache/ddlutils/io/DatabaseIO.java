@@ -21,10 +21,12 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.net.URL;
 
 import org.apache.commons.betwixt.io.BeanReader;
 import org.apache.commons.betwixt.io.BeanWriter;
@@ -97,7 +99,52 @@ public class DatabaseIO
      */
     protected InputSource getBetwixtMapping()
     {
-        return new InputSource(getClass().getResourceAsStream("/mapping.xml"));
+        try {
+            return new InputSource(this.getStream("/mapping.xml"));
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    // TODO Mover este código a un ResourcesUtil
+    private InputStream getStream(String resourceName)
+        throws IOException
+    {
+        if (resourceName.contains("..")) {
+            return null;
+        }
+        URL url = getURL(resourceName);
+        if (url == null) {
+            return null;
+        }
+        return url.openStream();
+    }
+
+    private URL getURL(String resourceName)
+    {
+        String normalizedResourceName = normalizeResourceName(resourceName);
+        URL url = this.getClass().getResource(normalizedResourceName);
+        if (url == null) {
+            url = this.getClass().getResource(normalizedResourceName.substring(1));
+        }
+        if (url == null) {
+            url = Thread.currentThread().getContextClassLoader().getResource(normalizedResourceName);
+        }
+        if (url == null) {
+            url = Thread.currentThread().getContextClassLoader().getResource(normalizedResourceName.substring(1));
+        }
+        return url;
+    }
+
+    private static final String RESOURCE_PATH_SEPARATOR = "/";
+
+    private String normalizeResourceName(String resourceName)
+    {
+        String res = resourceName.replaceAll("\\\\", RESOURCE_PATH_SEPARATOR);
+        if (!res.startsWith(RESOURCE_PATH_SEPARATOR)) {
+            res = RESOURCE_PATH_SEPARATOR + res;
+        }
+        return res;
     }
     
     /**
