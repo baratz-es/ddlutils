@@ -2,13 +2,13 @@ package org.apache.ddlutils.platform.mssql;
 
 /*
  * Copyright 1999-2006 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,7 +45,7 @@ import org.apache.ddlutils.util.Jdbc3Utils;
 
 /**
  * The SQL Builder for the Microsoft SQL Server.
- * 
+ *
  * @author James Strachan
  * @author Thomas Dudziak
  * @version $Revision$
@@ -55,7 +55,7 @@ public class MSSqlBuilder extends SqlBuilder
     private List cambiosDefault = new ArrayList();
     /**
      * Creates a new builder instance.
-     * 
+     *
      * @param platform The plaftform this builder belongs to
      */
     public MSSqlBuilder(Platform platform)
@@ -67,6 +67,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     public void createTable(Database database, Table table, Map parameters) throws IOException
     {
         writeQuotationOnStatement();
@@ -76,6 +77,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     public void dropTable(Table table) throws IOException
     {
         String tableName         = getTableName(table);
@@ -111,6 +113,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     public void dropExternalForeignKeys(Table table) throws IOException
     {
         writeQuotationOnStatement();
@@ -120,6 +123,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     protected String getNativeDefaultValue(Column column)
     {
     	// Sql Server wants BIT default values as 0 or 1
@@ -137,6 +141,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void writeColumnAutoIncrementStmt(Table table, Column column) throws IOException
     {
         print("IDENTITY (1,1) ");
@@ -145,6 +150,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     public void writeExternalIndexDropStmt(Table table, Index index) throws IOException
     {
         print("DROP INDEX ");
@@ -157,6 +163,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void writeExternalForeignKeyDropStmt(Table table, ForeignKey foreignKey) throws IOException
     {
         String constraintName = getForeignKeyName(table, foreignKey);
@@ -187,6 +194,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getSelectLastIdentityValues(Table table)
     {
         return "SELECT @@IDENTITY";
@@ -195,6 +203,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getDeleteSql(Table table, Map pkValues, boolean genPlaceholders)
     {
         return getQuotationOnStatement() + super.getDeleteSql(table, pkValues, genPlaceholders);
@@ -203,6 +212,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getInsertSql(Table table, Map columnValues, boolean genPlaceholders)
     {
         return getQuotationOnStatement() + super.getInsertSql(table, columnValues, genPlaceholders);
@@ -211,6 +221,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getUpdateSql(Table table, Map columnValues, boolean genPlaceholders)
     {
         return getQuotationOnStatement() + super.getUpdateSql(table, columnValues, genPlaceholders);
@@ -218,7 +229,7 @@ public class MSSqlBuilder extends SqlBuilder
 
     /**
      * Returns the statement that turns on the ability to write delimited identifiers.
-     * 
+     *
      * @return The quotation-on statement
      */
     private String getQuotationOnStatement()
@@ -234,9 +245,9 @@ public class MSSqlBuilder extends SqlBuilder
     }
 
     /**
-     * Prints the given identifier with enforced single quotes around it regardless of whether 
+     * Prints the given identifier with enforced single quotes around it regardless of whether
      * delimited identifiers are turned on or not.
-     * 
+     *
      * @param identifier The identifier
      */
     private void printAlwaysSingleQuotedIdentifier(String identifier) throws IOException
@@ -249,6 +260,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void writeCopyDataStatement(Table sourceTable, Table targetTable) throws IOException
     {
         // Sql Server per default does not allow us to insert values explicitly into
@@ -276,6 +288,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void processChanges(Database currentModel, Database desiredModel, List changes, CreationParameters params) throws IOException
     {
         if (!changes.isEmpty())
@@ -288,6 +301,7 @@ public class MSSqlBuilder extends SqlBuilder
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void processTableStructureChanges(Database currentModel,
                                                 Database desiredModel,
                                                 Table    sourceTable,
@@ -346,7 +360,7 @@ public class MSSqlBuilder extends SqlBuilder
             else if (change instanceof ColumnAutoIncrementChange)
             {
                 // Sql Server has no way of adding or removing a IDENTITY constraint
-                // Thus we have to rebuild the table anyway and can ignore all the other 
+                // Thus we have to rebuild the table anyway and can ignore all the other
                 // column changes
                 columnChanges = null;
             }
@@ -407,7 +421,7 @@ public class MSSqlBuilder extends SqlBuilder
 
     /**
      * Processes the addition of a column to a table.
-     * 
+     *
      * @param currentModel The current database schema
      * @param desiredModel The desired database schema
      * @param change       The change object
@@ -426,7 +440,7 @@ public class MSSqlBuilder extends SqlBuilder
 
     /**
      * Processes the removal of a column from a table.
-     * 
+     *
      * @param currentModel The current database schema
      * @param desiredModel The desired database schema
      * @param change       The change object
@@ -435,17 +449,25 @@ public class MSSqlBuilder extends SqlBuilder
                                  Database           desiredModel,
                                  RemoveColumnChange change) throws IOException
     {
+        /*
         print("ALTER TABLE ");
         printlnIdentifier(getTableName(change.getChangedTable()));
         printIndent();
         print("DROP COLUMN ");
         printIdentifier(getColumnName(change.getColumn()));
         printEndOfStatement();
+        */
+        // Llamamos al procedimeinto almacenado (en util-db) para borrar la columna
+        print("EXEC sp_DropColumn ");
+        printlnIdentifier(getTableName(change.getChangedTable()));
+        print(", ");
+        printIdentifier(getColumnName(change.getColumn()));
+        printEndOfStatement();
     }
 
     /**
      * Processes the removal of a primary key from a table.
-     * 
+     *
      * @param currentModel The current database schema
      * @param desiredModel The desired database schema
      * @param change       The change object
@@ -482,7 +504,7 @@ public class MSSqlBuilder extends SqlBuilder
 
     /**
      * Processes a change to a column.
-     * 
+     *
      * @param sourceTable  The current table
      * @param targetTable  The desired table
      * @param sourceColumn The current column
