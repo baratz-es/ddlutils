@@ -47,7 +47,7 @@ public class MSSqlPlatform extends PlatformImplBase
      */
     public MSSqlPlatform()
     {
-        PlatformInfo info = getPlatformInfo();
+        PlatformInfo info = this.getPlatformInfo();
 
         info.setMaxIdentifierLength(128);
         info.setNullAsDefaultValueRequired(false);
@@ -83,13 +83,14 @@ public class MSSqlPlatform extends PlatformImplBase
         info.setDefaultSize(Types.BINARY,     254);
         info.setDefaultSize(Types.VARBINARY,  254);
 
-        setSqlBuilder(new MSSqlBuilder(this));
-        setModelReader(new MSSqlModelReader(this));
+        this.setSqlBuilder(new MSSqlBuilder(this));
+        this.setModelReader(new MSSqlModelReader(this));
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getName()
     {
         return DATABASENAME;
