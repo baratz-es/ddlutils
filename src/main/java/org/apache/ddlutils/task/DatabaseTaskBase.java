@@ -19,7 +19,7 @@ package org.apache.ddlutils.task;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.model.Database;
 import org.apache.tools.ant.AntClassLoader;

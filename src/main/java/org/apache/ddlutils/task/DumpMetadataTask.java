@@ -32,7 +32,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.commons.collections.set.ListOrderedSet;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;

@@ -2,13 +2,13 @@ package org.apache.ddlutils.task;
 
 /*
  * Copyright 1999-2006 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,10 +17,10 @@ package org.apache.ddlutils.task;
  */
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.apache.commons.dbcp.BasicDataSource;
+
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.model.Database;
 import org.apache.tools.ant.BuildException;
@@ -29,7 +29,7 @@ import org.apache.tools.ant.Task;
 
 /**
  * Command for creating a database.
- * 
+ *
  * @author Thomas Dudziak
  * @version $Revision: 231306 $
  */
@@ -40,17 +40,18 @@ public class CreateDatabaseCommand extends DatabaseCommand
 
     /**
      * Adds a parameter which is a name-value pair.
-     * 
+     *
      * @param param The parameter
      */
     public void addConfiguredParameter(Parameter param)
     {
-        _parameters.add(param);
+        this._parameters.add(param);
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isRequiringModel()
     {
         return false;
@@ -59,47 +60,45 @@ public class CreateDatabaseCommand extends DatabaseCommand
     /**
      * {@inheritDoc}
      */
+    @Override
     public void execute(Task task, Database model) throws BuildException
     {
-        BasicDataSource dataSource = getDataSource();
+        BasicDataSource dataSource = this.getDataSource();
 
         if (dataSource == null)
         {
             throw new BuildException("No database specified.");
         }
 
-        Platform platform = getPlatform();
-        
+        Platform platform = this.getPlatform();
+
         try
         {
             platform.createDatabase(dataSource.getDriverClassName(),
                                     dataSource.getUrl(),
                                     dataSource.getUsername(),
                                     dataSource.getPassword(),
-                                    getFilteredParameters(platform.getName()));
+                                    this.getFilteredParameters(platform.getName()));
 
             task.log("Created database", Project.MSG_INFO);
         }
         catch (UnsupportedOperationException ex)
         {
-            task.log("Database platform "+getPlatform().getName()+" does not support database creation via JDBC or there was an error while creating it: "+ex.getMessage(), Project.MSG_ERR);
+            task.log("Database platform "+this.getPlatform().getName()+" does not support database creation via JDBC or there was an error while creating it: "+ex.getMessage(), Project.MSG_ERR);
         }
         catch (Exception ex)
         {
-            if (isFailOnError())
+            if (this.isFailOnError())
             {
                 throw new BuildException(ex);
             }
-            else
-            {
-                task.log(ex.getLocalizedMessage(), Project.MSG_ERR);
-            }
+            task.log(ex.getLocalizedMessage(), Project.MSG_ERR);
         }
     }
 
     /**
      * Filters the parameters for the indicated platform.
-     * 
+     *
      * @param platformName The name of the platform
      * @return The filtered parameters
      */
@@ -107,9 +106,8 @@ public class CreateDatabaseCommand extends DatabaseCommand
     {
         LinkedHashMap parameters = new LinkedHashMap();
 
-        for (Iterator it = _parameters.iterator(); it.hasNext();)
-        {
-            Parameter param = (Parameter)it.next();
+        for (Object element : this._parameters) {
+            Parameter param = (Parameter)element;
 
             if (param.isForPlatform(platformName))
             {
