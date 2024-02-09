@@ -104,7 +104,7 @@ public class CreateDatabaseCommand extends DatabaseCommand
      */
     private Map getFilteredParameters(String platformName)
     {
-        LinkedHashMap parameters = new LinkedHashMap();
+        LinkedHashMap parameters = new LinkedHashMap<>();
 
         for (Object element : this._parameters) {
             Parameter param = (Parameter)element;

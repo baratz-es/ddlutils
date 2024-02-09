@@ -38,7 +38,7 @@ public abstract class DatabaseTaskBase extends Task
     /** The platform configuration. */
     private PlatformConfiguration _platformConf = new PlatformConfiguration();
     /** The sub tasks to execute. */
-    private ArrayList _commands = new ArrayList();
+    private ArrayList _commands = new ArrayList<>();
 
     /**
      * Returns the database type.
