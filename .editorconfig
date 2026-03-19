@@ -1,0 +1,23 @@
+# top-most EditorConfig file
+root = true
+
+[*]
+#end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{java,groovy,xml}]
+indent_style = space
+indent_size = 4
+
+
+[*.{sh,yml}]
+end_of_line = lf
+
+# Charsets
+[*.{sh,yml}]
+charset = utf-8
+
+[*.{sql,cmd,properties}]
+charset = latin1
+
