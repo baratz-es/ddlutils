@@ -1,0 +1,10 @@
+# ...Unless the name matches the following
+# overriding patterns
+
+# Definitively text files
+*.sh eol=lf
+
+# Config a local filter to execute unix2dos
+*.xml filter=dosify
+*.java filter=dosify
+*.groovy filter=dosify
