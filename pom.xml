@@ -19,80 +19,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.apache</groupId>
-    <artifactId>apache</artifactId>
-    <version>1</version>
-  </parent>
-  <groupId>org.apache.db.ddlutils</groupId>
+  <groupId>com.digibis</groupId>
   <artifactId>ddlutils</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>Apache DdlUtils</name>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>Apache DdlUtils - Digibís fork</name>
   <description>
     DdlUtils is a small, easy-to-use component for working with Database Definition (DDL) files.
   </description>
   <inceptionYear>2005</inceptionYear>
   <url>http://db.apache.org/ddlutils</url>
+  <licenses>
+      <license>
+          <name>The Apache Software License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+          <distribution>repo</distribution>
+      </license>
+  </licenses>
 
-  <mailingLists>
-    <mailingList>
-      <name>Ddlutils Dev List</name>
-      <post>ddlutils-dev@db.apache.org</post>
-      <subscribe>ddlutils-dev-subscribe@db.apache.org</subscribe>
-      <unsubscribe>ddlutils-dev-unsubscribe@db.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/db-ddlutils-dev/</archive>
-      <otherArchives>
-        <otherArchive>http://www.mail-archive.com/ddlutils-dev@db.apache.org/</otherArchive>
-        <otherArchive>http://www.nabble.com/Apache-DdlUtils---Dev-f14475.html</otherArchive>
-      </otherArchives>
-    </mailingList>
-    <mailingList>
-      <name>Ddlutils User List</name>
-      <post>ddlutils-user@db.apache.org</post>
-      <subscribe>ddlutils-user-subscribe@db.apache.org</subscribe>
-      <unsubscribe>ddlutils-user-unsubscribe@db.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/db-ddlutils-user/</archive>
-      <otherArchives>
-        <otherArchive>http://www.mail-archive.com/ddlutils-user@db.apache.org/</otherArchive>
-        <otherArchive>http://www.nabble.com/Apache-DdlUtils---User-f14474.html</otherArchive>
-      </otherArchives>
-    </mailingList>
-  </mailingLists>
+  <organization>
+    <name>Baratz Servicios de Teledocumentación, S.A.U.</name>
+    <url>https://https://www.baratz.es/</url>
+  </organization>
 
-  <issueManagement>
-    <system>jira</system>
-    <url>http://issues.apache.org/jira/browse/DDLUTILS</url>
-  </issueManagement>
-
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/db/ddlutils/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/db/ddlutils/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/db/ddlutils/trunk/</url>
-  </scm>
-
-  <distributionManagement>
-    <site>
-      <id>apache.website</id>
-      <url>scp://minotaur.apache.org/www/db.apache.org/ddlutils/</url>
-    </site>
-  </distributionManagement>
-
-  <developers>
-    <developer>
-      <id>tomdz</id>
-      <name>Thomas Dudziak</name>
-      <email>tomdz@maven.org</email>
-      <organization>ASF</organization>
-    </developer>
-  </developers>
+  <properties>
+    <maven.compiler.release>8</maven.compiler.release>
+    <java.version>1.${maven.compiler.release}</java.version>
+    <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+    <junit4.version>4.13.2</junit4.version>
+    <junit5.version>5.9.1</junit5.version>
+    <junit-platform-runner.version>1.9.1</junit-platform-runner.version>
+    <jdbc.properties.file>jdbc.properties.hsqldb</jdbc.properties.file>
+    <hsqldb.version>1.8.0.1</hsqldb.version>
+  </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-    </dependency>
     <dependency>
       <groupId>ant</groupId>
       <artifactId>ant</artifactId>
@@ -101,8 +62,6 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <!-- TODO: There is no 0.8 version of betwixt at the moment so this will fail
-                 But this is better than specifying 0.7 which will not work with DdlUtils -->
       <groupId>commons-betwixt</groupId>
       <artifactId>commons-betwixt</artifactId>
       <version>0.8</version>
@@ -131,6 +90,12 @@
       <groupId>commons-pool</groupId>
       <artifactId>commons-pool</artifactId>
       <version>1.2</version>
+        <exclusions>
+          <exclusion>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+          </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -156,7 +121,7 @@
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
-      <version>1.6</version>
+      <version>1.16.0</version>
     </dependency>
     <dependency>
       <groupId>oro</groupId>
@@ -165,13 +130,41 @@
     </dependency>
     <dependency>
       <groupId>commons-logging</groupId>
-      <artifactId>commons-logging-api</artifactId>
-      <version>1.0.4</version>
+      <artifactId>commons-logging</artifactId>
+      <version>1.2</version>
+    </dependency>
+
+    <!-- Test dependencies -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit5.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- jUnit backwards comaptibility -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit4.version}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.0.4</version>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>${junit5.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit5.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-engine</artifactId>
+      <version>${junit-platform-runner.version}</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -189,8 +182,9 @@
     <dependency>
       <groupId>hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
-      <version>1.8.0.1</version>
+      <version>${hsqldb.version}</version>
       <scope>test</scope>
+      <!--<classifier>jdk8</classifier>-->
     </dependency>
     <dependency>
       <groupId>mckoi</groupId>
@@ -213,15 +207,7 @@
     <!-- NB: No public driver for DB2, interbase, sapdb, oracle, sqlserver -->
   </dependencies>
 
-  <properties>
-    <maven.compiler.release>8</maven.compiler.release>
-    <java.version>1.${maven.compiler.release}</java.version>
-    <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-    <jdbc.properties.file>jdbc.properties.hsqldb</jdbc.properties.file>
-  </properties>
-
   <build>
-    <sourceDirectory>src/main/java</sourceDirectory>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -231,7 +217,7 @@
         </includes>
       </resource>
     </resources>
-    <testSourceDirectory>src/test/java</testSourceDirectory>
+
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
@@ -240,6 +226,216 @@
         </includes>
       </testResource>
     </testResources>
+
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.3.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.2.1</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                            <phase>verify</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.5.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.13.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.3.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.4.2</version>
+                    <configuration>
+                        <archive>
+                            <addMavenDescriptor>false</addMavenDescriptor>
+                            <manifest>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                <addBuildEnvironmentEntries>true</addBuildEnvironmentEntries>
+                            </manifest>
+                            <manifestEntries>
+                                <date>${maven.build.timestamp}</date>
+                                <Implementation-Title>${project.parent.artifactId}</Implementation-Title>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>3.1.4</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>3.1.4</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.6.2</version>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <doclint>none</doclint>
+                        <failOnError>false</failOnError>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>animal-sniffer-maven-plugin</artifactId>
+                    <version>1.23</version>
+                    <!-- Verificacion de que no se usa la API de una JDK superior -->
+                    <configuration>
+                        <signature>
+                            <groupId>org.codehaus.mojo.signature</groupId>
+                            <artifactId>java18</artifactId>
+                            <version>1.0</version>
+                        </signature>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>ensure-java-1.8-class-library</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>3.1.1</version>
+                    <!-- Configuración de los tags para release -->
+                    <configuration>
+                        <goals>deploy</goals>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <addSchema>true</addSchema>
+                        <tagNameFormat>v@{project.version}</tagNameFormat>
+                        <releaseProfiles>release</releaseProfiles>
+                        <pushChanges>false</pushChanges>
+                        <localCheckout>true</localCheckout>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>1.1.0</version>
+                    <executions>
+                        <!-- enable flattening -->
+                        <execution>
+                            <id>flatten</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>flatten</goal>
+                            </goals>
+                        </execution>
+                        <!-- ensure proper cleanup -->
+                        <execution>
+                            <id>flatten.clean</id>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>clean</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>3.2.0</version>
+                    <configuration>
+                        <items>
+                            <item>scmVersion</item>
+                        </items>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>create</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Tests includen ficheros SPOCK -->
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*Spec</include>
+                            <include>**/*Test</include>
+                            <include>**/Test*.java</include>
+                            <include>**/*TestCase.java</include>
+                        </includes>
+                        <enableAssertions>true</enableAssertions>
+                        <useModulePath>false</useModulePath> <!-- https://issues.apache.org/jira/browse/SUREFIRE-1809 -->
+                    </configuration>
+                </plugin>
+
+                <!-- Eclipse cconfig -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>flatten-maven-plugin</artifactId>
+                                        <versionRange>[1.0.0,)</versionRange>
+                                        <goals>
+                                            <goal>flatten</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-jar-plugin</artifactId>
+                                        <versionRange>[2.6,)</versionRange>
+                                        <goals>
+                                            <goal>jar</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -262,6 +458,47 @@
           </systemProperties>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.6</version>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <version>${maven.compiler.release}</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <artifactId>animal-sniffer-maven-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+      </plugin>
+
     </plugins>
   </build>
 </project>
