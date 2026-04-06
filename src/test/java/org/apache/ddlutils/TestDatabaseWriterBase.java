@@ -19,6 +19,7 @@ package org.apache.ddlutils;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
@@ -28,7 +29,7 @@ import javax.sql.DataSource;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaProperty;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ddlutils.io.DataReader;
 import org.apache.ddlutils.io.DataToDatabaseSink;
 import org.apache.ddlutils.model.Database;
@@ -58,6 +59,8 @@ public abstract class TestDatabaseWriterBase extends TestPlatformBase
     private static String _databaseName;
     /** The database model. */
     private Database _model;
+    
+    private static final String RESOURCE_PATH_SEPARATOR = "/";
 
     /**
      * Creates a new test case instance.
@@ -85,7 +88,11 @@ public abstract class TestDatabaseWriterBase extends TestPlatformBase
 	        }
 	        try
 	        {
-	            InputStream propStream = getClass().getResourceAsStream(propFile);
+	            URL url = getURL( propFile);
+                if (url == null) {
+                    throw new RuntimeException("Property file not found : " + propFile);
+                }
+	            InputStream propStream = url.openStream();
 	
 	            if (propStream == null)
 	            {
@@ -102,6 +109,38 @@ public abstract class TestDatabaseWriterBase extends TestPlatformBase
 	        }
     	}
     	return _testProps;
+    }
+    
+    private static URL getURL(String resourceName)
+    {
+        String normalizedResourceName = normalizeResourceName(resourceName);
+
+        // Primero se prueba con el ClassLoader de la clase
+        URL url = TestDatabaseWriterBase.class.getResource(normalizedResourceName);
+
+        // Si no funciona empezando con / se prueba sin la / al principio
+        if (url == null) {
+            url = TestDatabaseWriterBase.class.getResource(normalizedResourceName.substring(1));
+        }
+
+        // Si no se encuentra, se vuelve a probar, pero con el ClassLoader de contexto del thread
+        if (url == null) {
+            url = Thread.currentThread().getContextClassLoader().getResource(normalizedResourceName);
+        }
+        if (url == null) {
+            url = Thread.currentThread().getContextClassLoader().getResource(normalizedResourceName.substring(1));
+        }
+
+        return url;
+    }
+    
+    private static String normalizeResourceName(String resourceName)
+    {
+        String res = resourceName.replaceAll("\\\\", RESOURCE_PATH_SEPARATOR);
+        if (!res.startsWith(RESOURCE_PATH_SEPARATOR)) {
+            res = RESOURCE_PATH_SEPARATOR + res;
+        }
+        return res;
     }
     
     /**

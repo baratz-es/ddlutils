@@ -17,6 +17,7 @@ package org.apache.ddlutils.alteration;
  */
 
 import java.sql.Types;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.ddlutils.PlatformInfo;
@@ -109,7 +110,7 @@ public class TestModelComparator extends TestBase
 
         Database model1  = parseDatabaseFromString(MODEL1);
         Database model2  = parseDatabaseFromString(MODEL2);
-        List     changes = createModelComparator(false).compare(model1, model2);
+        List changes = createModelComparator(false).compare(model1, model2, true, Collections.emptySet());
 
         assertEquals(1,
                      changes.size());
@@ -142,7 +143,7 @@ public class TestModelComparator extends TestBase
 
         Database model1  = parseDatabaseFromString(MODEL1);
         Database model2  = parseDatabaseFromString(MODEL2);
-        List     changes = createModelComparator(true).compare(model1, model2);
+        List changes = createModelComparator(true).compare(model1, model2, true, Collections.emptySet());
 
         assertEquals(2,
                      changes.size());

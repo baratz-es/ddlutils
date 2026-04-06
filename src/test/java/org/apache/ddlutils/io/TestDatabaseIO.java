@@ -34,6 +34,7 @@ import org.apache.ddlutils.model.IndexColumn;
 import org.apache.ddlutils.model.ModelException;
 import org.apache.ddlutils.model.Reference;
 import org.apache.ddlutils.model.Table;
+import org.junit.Ignore;
 
 /**
  * Tests the database reading/writing via the {@link org.apache.ddlutils.io.DatabaseIO} class.
@@ -130,7 +131,8 @@ public class TestDatabaseIO extends TestCase
         assertEquals(
             "  <database name=\"test\">\n" +
             "    <table name=\"SomeTable\" description=\"Some table\">\n" +
-            "      <column name=\"ID\" primaryKey=\"true\" required=\"true\" type=\"INTEGER\" autoIncrement=\"false\" description=\"The primary key\" javaName=\"javaId\"/>\n" +
+                "      <column name=\"ID\" primaryKey=\"true\" required=\"true\" type=\"INTEGER\" autoIncrement=\"false\" description=\"The primary key\" javaName=\"javaId\" integerPart=\"0\"/>\n"
+                +
             "    </table>\n" +
             "  </database>\n",
             writeModel(model));
@@ -254,12 +256,14 @@ public class TestDatabaseIO extends TestCase
         assertEquals(
             "  <database name=\"test\">\n" +
             "    <table name=\"SomeTable\" description=\"Some table\">\n" +
-            "      <column name=\"ID\" primaryKey=\"true\" required=\"true\" type=\"VARCHAR\" size=\"16\" autoIncrement=\"false\" description=\"The primary key\"/>\n" +
+                "      <column name=\"ID\" primaryKey=\"true\" required=\"true\" type=\"VARCHAR\" size=\"16\" autoIncrement=\"false\" description=\"The primary key\" integerPart=\"0\"/>\n"
+                +
             "    </table>\n" +
             "    <table name=\"AnotherTable\" description=\"And another table\">\n" +
-            "      <column name=\"Some_ID\" primaryKey=\"false\" required=\"false\" type=\"VARCHAR\" size=\"16\" autoIncrement=\"false\" description=\"The foreign key\"/>\n" +
-            "      <foreign-key foreignTable=\"SomeTable\">\n" +
-            "        <reference local=\"Some_ID\" foreign=\"ID\"/>\n" +
+                "      <column name=\"Some_ID\" primaryKey=\"false\" required=\"false\" type=\"VARCHAR\" size=\"16\" autoIncrement=\"false\" description=\"The foreign key\" integerPart=\"0\"/>\n"
+                +
+                "      <foreign-key foreignTable=\"SomeTable\" onUpdate=\"none\" onDelete=\"none\">\n" +
+                "        <reference local=\"Some_ID\" foreign=\"ID\"/>\n" +
             "      </foreign-key>\n" +
             "    </table>\n" +
             "  </database>\n",
@@ -392,9 +396,12 @@ public class TestDatabaseIO extends TestCase
         assertEquals(
             "  <database name=\"test\">\n" +
             "    <table name=\"TableWidthIndex\">\n" +
-            "      <column name=\"id\" primaryKey=\"true\" required=\"true\" type=\"DOUBLE\" autoIncrement=\"false\"/>\n" +
-            "      <column name=\"when\" primaryKey=\"false\" required=\"true\" type=\"TIMESTAMP\" autoIncrement=\"false\"/>\n" +
-            "      <column name=\"value\" primaryKey=\"false\" required=\"false\" type=\"SMALLINT\" default=\"1\" autoIncrement=\"false\"/>\n" +
+                "      <column name=\"id\" primaryKey=\"true\" required=\"true\" type=\"DOUBLE\" autoIncrement=\"false\" integerPart=\"0\"/>\n"
+                +
+                "      <column name=\"when\" primaryKey=\"false\" required=\"true\" type=\"TIMESTAMP\" autoIncrement=\"false\" integerPart=\"0\"/>\n"
+                +
+                "      <column name=\"value\" primaryKey=\"false\" required=\"false\" type=\"SMALLINT\" default=\"1\" autoIncrement=\"false\" integerPart=\"0\"/>\n"
+                +
             "      <index name=\"test index\">\n" +
             "        <index-column name=\"value\"/>\n" +
             "      </index>\n" +
@@ -510,8 +517,10 @@ public class TestDatabaseIO extends TestCase
         assertEquals(
             "  <database name=\"test\">\n" +
             "    <table name=\"TableWidthIndices\">\n" +
-            "      <column name=\"id\" primaryKey=\"false\" required=\"true\" type=\"SMALLINT\" autoIncrement=\"true\"/>\n" +
-            "      <column name=\"when\" primaryKey=\"false\" required=\"false\" type=\"DATE\" autoIncrement=\"false\"/>\n" +
+                "      <column name=\"id\" primaryKey=\"false\" required=\"true\" type=\"SMALLINT\" autoIncrement=\"true\" integerPart=\"0\"/>\n"
+                +
+                "      <column name=\"when\" primaryKey=\"false\" required=\"false\" type=\"DATE\" autoIncrement=\"false\" integerPart=\"0\"/>\n"
+                +
             "      <unique name=\"important column\">\n" +
             "        <unique-column name=\"id\"/>\n" +
             "      </unique>\n" +
@@ -914,10 +923,13 @@ public class TestDatabaseIO extends TestCase
         assertEquals(
             "  <database name=\"test\">\n" +
             "    <table name=\"A\" description=\"Table A\">\n" +
-            "      <column name=\"id\" primaryKey=\"true\" required=\"true\" type=\"INTEGER\" autoIncrement=\"true\" description=\"The primary key of table A\"/>\n" +
-            "      <column name=\"parentId\" primaryKey=\"false\" required=\"false\" type=\"INTEGER\" autoIncrement=\"false\" description=\"The field for the foreign key parent\"/>\n" +
-            "      <column name=\"name\" primaryKey=\"false\" required=\"true\" type=\"VARCHAR\" size=\"32\" autoIncrement=\"false\" description=\"The name\"/>\n" +
-            "      <foreign-key foreignTable=\"A\" name=\"parent\">\n" +
+                "      <column name=\"id\" primaryKey=\"true\" required=\"true\" type=\"INTEGER\" autoIncrement=\"true\" description=\"The primary key of table A\" integerPart=\"0\"/>\n"
+                +
+                "      <column name=\"parentId\" primaryKey=\"false\" required=\"false\" type=\"INTEGER\" autoIncrement=\"false\" description=\"The field for the foreign key parent\" integerPart=\"0\"/>\n"
+                +
+                "      <column name=\"name\" primaryKey=\"false\" required=\"true\" type=\"VARCHAR\" size=\"32\" autoIncrement=\"false\" description=\"The name\" integerPart=\"0\"/>\n"
+                +
+                "      <foreign-key foreignTable=\"A\" name=\"parent\" onUpdate=\"none\" onDelete=\"none\">\n" +
             "        <reference local=\"parentId\" foreign=\"id\"/>\n" +
             "      </foreign-key>\n" +
             "      <unique>\n" +
@@ -925,13 +937,16 @@ public class TestDatabaseIO extends TestCase
             "      </unique>\n" +
             "    </table>\n" +
             "    <table name=\"B\" description=\"Table B\">\n" +
-            "      <column name=\"id\" primaryKey=\"true\" required=\"true\" type=\"TIMESTAMP\" autoIncrement=\"false\" description=\"The primary key of table B\"/>\n" +
-            "      <column name=\"aid\" primaryKey=\"false\" required=\"false\" type=\"INTEGER\" autoIncrement=\"false\" description=\"The field for the foreign key towards A\"/>\n" +
-            "      <column name=\"cid\" primaryKey=\"false\" required=\"false\" type=\"CHAR\" size=\"32\" autoIncrement=\"false\" description=\"The field for the foreign key towards C\"/>\n" +
-            "      <foreign-key foreignTable=\"A\">\n" +
+                "      <column name=\"id\" primaryKey=\"true\" required=\"true\" type=\"TIMESTAMP\" autoIncrement=\"false\" description=\"The primary key of table B\" integerPart=\"0\"/>\n"
+                +
+                "      <column name=\"aid\" primaryKey=\"false\" required=\"false\" type=\"INTEGER\" autoIncrement=\"false\" description=\"The field for the foreign key towards A\" integerPart=\"0\"/>\n"
+                +
+                "      <column name=\"cid\" primaryKey=\"false\" required=\"false\" type=\"CHAR\" size=\"32\" autoIncrement=\"false\" description=\"The field for the foreign key towards C\" integerPart=\"0\"/>\n"
+                +
+                "      <foreign-key foreignTable=\"A\" onUpdate=\"none\" onDelete=\"none\">\n" +
             "        <reference local=\"aid\" foreign=\"id\"/>\n" +
             "      </foreign-key>\n" +
-            "      <foreign-key foreignTable=\"C\">\n" +
+                "      <foreign-key foreignTable=\"C\" onUpdate=\"none\" onDelete=\"none\">\n" +
             "        <reference local=\"cid\" foreign=\"id\"/>\n" +
             "      </foreign-key>\n" +
             "      <index>\n" +
@@ -940,8 +955,10 @@ public class TestDatabaseIO extends TestCase
             "      </index>\n" +
             "    </table>\n" +
             "    <table name=\"C\" description=\"Table C\">\n" +
-            "      <column name=\"id\" primaryKey=\"true\" required=\"true\" type=\"CHAR\" size=\"32\" autoIncrement=\"false\" description=\"The primary key of table C\"/>\n" +
-            "      <column name=\"text\" primaryKey=\"false\" required=\"false\" type=\"LONGVARCHAR\" autoIncrement=\"false\" description=\"The text\"/>\n" +
+                "      <column name=\"id\" primaryKey=\"true\" required=\"true\" type=\"CHAR\" size=\"32\" autoIncrement=\"false\" description=\"The primary key of table C\" integerPart=\"0\"/>\n"
+                +
+                "      <column name=\"text\" primaryKey=\"false\" required=\"false\" type=\"LONGVARCHAR\" autoIncrement=\"false\" description=\"The text\" integerPart=\"0\"/>\n"
+                +
             "      <index name=\"byText\">\n" +
             "        <index-column name=\"text\"/>\n" +
             "      </index>\n" +
@@ -1333,8 +1350,10 @@ public class TestDatabaseIO extends TestCase
         assertEquals(
             "  <database name=\"test\">\n" +
             "    <table name=\"SomeTable\">\n" +
-            "      <column name=\"intField\" primaryKey=\"false\" required=\"false\" type=\"TINYINT\" autoIncrement=\"false\"/>\n" +
-            "      <column name=\"charField\" primaryKey=\"false\" required=\"false\" type=\"CHAR\" autoIncrement=\"false\"/>\n" +
+                "      <column name=\"intField\" primaryKey=\"false\" required=\"false\" type=\"TINYINT\" autoIncrement=\"false\" integerPart=\"0\"/>\n"
+                +
+                "      <column name=\"charField\" primaryKey=\"false\" required=\"false\" type=\"CHAR\" autoIncrement=\"false\" integerPart=\"0\"/>\n"
+                +
             "    </table>\n" +
             "  </database>\n",
             writeModel(model));

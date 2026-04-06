@@ -17,6 +17,7 @@ package org.apache.ddlutils.alteration;
  */
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -65,6 +66,11 @@ public class ModelComparator
         _caseSensitive = caseSensitive;
     }
 
+    @Deprecated
+    public List compare(Database sourceModel, Database targetModel)
+    {
+        return this.compare(sourceModel, targetModel, false, Collections.emptySet());
+    }
     /**
      * Compares the two models and returns the changes necessary to create the second
      * model from the first one.
