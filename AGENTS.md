@@ -3,14 +3,24 @@
 ## Build & Test Commands
 
 ```bash
-# Run all tests (uses in-memory HSQLDB by default)
+# Run all tests (all modules, uses in-memory HSQLDB by default)
 mvn test
 
-# Run a single test class
-mvn test -Dtest=TestDatabaseIO
+# Run tests for a specific module
+mvn test -pl ddlutils-lib
+mvn test -pl ddlutils-ant
+
+# Run a single test class (in ddlutils-lib)
+mvn test -pl ddlutils-lib -Dtest=TestDatabaseIO
 
 # Run tests against a specific database
 mvn test -Djdbc.properties.file=jdbc.properties.postgresql
+
+# Build specific module with dependencies
+mvn install -pl ddlutils-lib -am
+
+# Build all modules
+mvn install
 ```
 
 ## Test Configuration
@@ -39,11 +49,24 @@ mvn test -Djdbc.properties.file=jdbc.properties.postgresql
 
 ## Project Structure
 
-- `src/main/java/org/apache/ddlutils/` - Core library
-- `src/test/java/org/apache/ddlutils/` - Tests (platform-specific tests in `platform/` subdirectory)
-- `src/test/resources/` - Test resources including DTD and XML schemas
+Multi-module Maven project with the following modules:
 
-## Key Packages
+- `ddlutils-lib/` - Core library
+  - `src/main/java/org/apache/ddlutils/` - Core library source
+  - `src/test/java/org/apache/ddlutils/` - Tests
+  - `src/test/resources/` - Test resources including DTD and XML schemas
+
+- `ddlutils-ant/` - Ant task implementations
+  - `src/main/java/org/apache/ddlutils/task/` - Ant task source
+
+- `old_stuff/` - Legacy/unused files (to be cleaned up)
+
+## Modules
+
+- **ddlutils-lib**: Core library containing DDL parsing, database platform support, XML I/O, and schema alteration/migration
+- **ddlutils-ant**: Ant task implementations for DdlUtils operations
+
+## Key Packages (in ddlutils-lib)
 
 - `org.apache.ddlutils` - Core API (Platform, PlatformFactory, PlatformUtils)
 - `org.apache.ddlutils.model` - Database model classes (Database, Table, Column, ForeignKey)
@@ -51,7 +74,7 @@ mvn test -Djdbc.properties.file=jdbc.properties.postgresql
 - `org.apache.ddlutils.io` - XML parsing/writing (DatabaseIO, DataReader)
 - `org.apache.ddlutils.alteration` - Schema comparison and migration
 - `org.apache.ddlutils.dynabean` - Dynamic bean support for query results
-- `org.apache.ddlutils.task` - Ant task implementations
+- `org.apache.ddlutils.task` - Ant task implementations (in ddlutils-ant)
 
 ## Git Branch Naming
 
