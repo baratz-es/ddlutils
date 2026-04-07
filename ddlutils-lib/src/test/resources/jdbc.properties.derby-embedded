@@ -1,0 +1,16 @@
+# JDBC properties for Derby >= 10.14.2.0 (Embedded mode)
+
+# Use this property if ddlutils does not recognize the platform from the settings
+ddlutils.platform=Derby
+
+# Properties starting with "datasource." will be fed into the datasource instance of the
+# class configured via the datasource.class property
+
+datasource.class=org.apache.commons.dbcp2.BasicDataSource
+
+# Embedded mode
+
+datasource.driverClassName=org.apache.derby.jdbc.EmbeddedDriver
+datasource.url=jdbc:derby:memory:ddlutils;create=true
+datasource.username=ddlutils
+datasource.password=ddlutils
