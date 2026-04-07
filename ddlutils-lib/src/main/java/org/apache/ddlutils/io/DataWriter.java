@@ -179,7 +179,7 @@ public class DataWriter
     }
 
     /**
-     * Writes the start of the XML document, i.e. the "<?xml?>" section and the start of the
+     * Writes the start of the XML document, i.e. the "&lt;?xml?&gt;" section and the start of the
      * root node.
      */
     public void writeDocumentStart() throws DataWriterException

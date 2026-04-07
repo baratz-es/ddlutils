@@ -142,10 +142,10 @@ public class SybasePlatform extends PlatformImplBase
     }
 
     
-	/**
-     * {@inheritDoc}
+    /**
+     * 
      */
-	protected Object extractColumnValue(ResultSet resultSet, String columnName, int jdbcType) throws SQLException
+    protected Object extractColumnValue(ResultSet resultSet, String columnName, int jdbcType) throws SQLException
 	{
 		if (jdbcType == Types.LONGVARBINARY)
 		{

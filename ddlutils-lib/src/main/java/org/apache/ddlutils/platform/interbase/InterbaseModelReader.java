@@ -244,7 +244,7 @@ public class InterbaseModelReader extends JdbcModelReader
     }
 
     /**
-     * {@inheritDoc}
+     * 
      */
     protected void adjustColumns(Table table)
     {

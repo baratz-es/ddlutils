@@ -151,7 +151,7 @@ public class IndexColumn implements Cloneable, Serializable
     }
 
     /**
-     * {@inheritDoc}
+     * 
      */
     public boolean equalsIgnoreCase(IndexColumn other)
     {
