@@ -35,8 +35,8 @@ import java.util.Map;
 
 import org.apache.commons.collections.map.ListOrderedMap;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.PlatformInfo;
 import org.apache.ddlutils.model.Column;
@@ -59,7 +59,7 @@ import org.apache.ddlutils.model.UniqueIndex;
 public class JdbcModelReader
 {
     /** The Log to which logging calls will be made. */
-    private final Log _log = LogFactory.getLog(JdbcModelReader.class);
+    private final Logger _log = LoggerFactory.getLogger(JdbcModelReader.class);
 
     /** The descriptors for the relevant columns in the table meta data. */
     private final List _columnsForTable;

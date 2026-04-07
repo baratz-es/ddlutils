@@ -36,8 +36,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.map.ListOrderedMap;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ddlutils.DdlUtilsException;
 import org.apache.ddlutils.DynaSqlException;
 import org.apache.ddlutils.Platform;
@@ -99,7 +99,7 @@ public abstract class SqlBuilder
     protected static final String SIZE_PLACEHOLDER = "{0}";
 
     /** The Log to which logging calls will be made. */
-    protected final Log _log = LogFactory.getLog(SqlBuilder.class);
+    protected final Logger _log = LoggerFactory.getLogger(SqlBuilder.class);
     
     /** The platform that this builder belongs to. */
     private Platform _platform;

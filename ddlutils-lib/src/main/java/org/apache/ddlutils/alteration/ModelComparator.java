@@ -25,8 +25,8 @@ import java.util.Set;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ddlutils.PlatformInfo;
 import org.apache.ddlutils.model.Column;
 import org.apache.ddlutils.model.Database;
@@ -47,7 +47,7 @@ import org.apache.ddlutils.model.Table;
 public class ModelComparator
 {
     /** The log for this comparator. */
-    private final Log _log = LogFactory.getLog(ModelComparator.class);
+    private final Logger _log = LoggerFactory.getLogger(ModelComparator.class);
 
     /** The platform information. */
     private PlatformInfo _platformInfo;
@@ -133,8 +133,8 @@ public class ModelComparator
                             borrarTablaConcreta = false;
                     }
                     //Si al final se decide borrar esta tabla concreta
-                    //es decir, si la opcion de general está marcada y además no hay 
-                    //ningún prefijo que lo impida, se borra
+                    //es decir, si la opcion de general estï¿½ marcada y ademï¿½s no hay 
+                    //ningï¿½n prefijo que lo impida, se borra
                     if(borrarTablaConcreta)
                     {
                         if (_log.isInfoEnabled())

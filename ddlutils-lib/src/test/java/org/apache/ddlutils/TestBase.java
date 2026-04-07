@@ -20,8 +20,8 @@ import java.io.StringReader;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ddlutils.io.DatabaseIO;
 import org.apache.ddlutils.model.Database;
 import org.junit.Ignore;
@@ -35,14 +35,14 @@ import org.junit.Ignore;
 public abstract class TestBase extends TestCase
 {
     /** The log for the tests. */
-    private final Log _log = LogFactory.getLog(getClass());
+    private final Logger _log = LoggerFactory.getLogger(getClass());
 
     /**
      * Returns the log.
      * 
      * @return The log
      */
-    protected Log getLog()
+    protected Logger getLog()
     {
         return _log;
     }

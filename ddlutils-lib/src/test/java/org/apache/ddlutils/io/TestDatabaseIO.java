@@ -24,8 +24,8 @@ import java.util.Arrays;
 import junit.framework.TestCase;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ddlutils.model.Column;
 import org.apache.ddlutils.model.Database;
 import org.apache.ddlutils.model.ForeignKey;
@@ -45,7 +45,7 @@ import org.junit.Ignore;
 public class TestDatabaseIO extends TestCase
 {
     /** The log for the tests. */
-    private final Log _log = LogFactory.getLog(TestDatabaseIO.class);
+    private final Logger _log = LoggerFactory.getLogger(TestDatabaseIO.class);
 
     /**
      * Reads the database model from the given string.

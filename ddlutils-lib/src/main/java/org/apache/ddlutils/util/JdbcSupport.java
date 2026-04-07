@@ -24,8 +24,8 @@ import java.util.Iterator;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ddlutils.DynaSqlException;
 
 /**
@@ -39,7 +39,7 @@ import org.apache.ddlutils.DynaSqlException;
 public abstract class JdbcSupport
 {
     /** The Log to which logging calls will be made. */
-    private final Log _log = LogFactory.getLog(JdbcSupport.class);
+    private final Logger _log = LoggerFactory.getLogger(JdbcSupport.class);
     /** The data source. */
     private DataSource _dataSource;
     /** The username for accessing the database. */

@@ -41,8 +41,8 @@ import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ddlutils.DdlUtilsException;
 import org.apache.ddlutils.DynaSqlException;
 import org.apache.ddlutils.Platform;
@@ -70,7 +70,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
     protected static final String MODEL_DEFAULT_NAME = "default";
 
     /** The log for this platform. */
-    private final Log _log = LogFactory.getLog(getClass());
+    private final Logger _log = LoggerFactory.getLogger(PlatformImplBase.class);
 
     /** The platform info. */
     private PlatformInfo _info = new PlatformInfo();
@@ -212,7 +212,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
      * 
      * @return The log
      */
-    protected Log getLog()
+    protected Logger getLog()
     {
         return _log;
     }
@@ -229,7 +229,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
 
         while (warning != null)
         {
-            getLog().warn(warning.getLocalizedMessage(), warning.getCause());
+            getLog().warn(warning.getLocalizedMessage());
             warning = warning.getNextWarning();
         }
     }
@@ -303,7 +303,7 @@ public abstract class PlatformImplBase extends JdbcSupport implements Platform
                         _log.warn("SQL Command " + command + " failed with: " + ex.getMessage());
                         if (_log.isDebugEnabled())
                         {
-                            _log.debug(ex);
+                            _log.debug(ex.toString());
                         }
                         errors++;
                     }

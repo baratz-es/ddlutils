@@ -21,8 +21,8 @@ import java.sql.Types;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Conatains information about the database platform such as supported features and native type mappings.
@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
 public class PlatformInfo
 {
     /** The Log to which logging calls will be made. */
-    private final Log _log = LogFactory.getLog(PlatformInfo.class);
+    private final Logger _log = LoggerFactory.getLogger(PlatformInfo.class);
 
     // properties influencing the definition of columns
     

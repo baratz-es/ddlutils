@@ -28,8 +28,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
 import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ddlutils.dynabean.SqlDynaBean;
 import org.apache.ddlutils.dynabean.SqlDynaClass;
 import org.apache.ddlutils.io.converters.ConversionException;
@@ -54,7 +54,7 @@ public class DataWriter
     private static final String INDENT_STRING = "  ";
 
     /** Our log. */
-    private final Log _log = LogFactory.getLog(DataWriter.class);
+    private final Logger _log = LoggerFactory.getLogger(DataWriter.class);
 
     /** The converters. */
     private ConverterConfiguration _converterConf = new ConverterConfiguration();

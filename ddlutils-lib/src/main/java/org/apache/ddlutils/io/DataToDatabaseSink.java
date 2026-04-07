@@ -24,8 +24,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.ddlutils.DynaSqlException;
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.dynabean.SqlDynaClass;
@@ -46,7 +46,7 @@ import org.apache.ddlutils.model.Table;
 public class DataToDatabaseSink implements DataSink
 {
     /** Our log. */
-    private final Log _log = LogFactory.getLog(DataToDatabaseSink.class);
+    private final Logger _log = LoggerFactory.getLogger(DataToDatabaseSink.class);
  
     /** Generates the sql and writes it to the database. */
     private Platform _platform;
