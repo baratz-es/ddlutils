@@ -25,8 +25,8 @@ mvn install
 
 ## Test Configuration
 
-- Default test database: in-memory HSQLDB (via `jdbc.properties.file` property in pom.xml)
-- Test property files in `src/test/resources/jdbc.properties.*`: `hsqldb`, `derby`, `mysql41`, `mysql50`, `postgresql`, `firebird`, `mckoi`, `axion`
+- Default test database: in-memory Derby (via `jdbc.properties.file` property in pom.xml)
+- Test property files in `src/test/resources/jdbc.properties.*`: `hsqldb`, `derby`, `derby-embbed`, `mysql41`, `mysql50`, `postgresql`, `firebird`
 - Tests requiring live database connection are gated on `jdbc.properties.file` being set
 - Test patterns: `**/Test*.java`, `**/*TestCase.java`
 
