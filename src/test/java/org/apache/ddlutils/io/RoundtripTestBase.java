@@ -22,8 +22,6 @@ import java.lang.reflect.Modifier;
 import java.sql.Types;
 import java.util.List;
 
-import junit.framework.TestSuite;
-
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.ddlutils.DdlUtilsException;
 import org.apache.ddlutils.PlatformFactory;
@@ -41,6 +39,8 @@ import org.apache.ddlutils.model.Reference;
 import org.apache.ddlutils.model.Table;
 import org.apache.ddlutils.model.TypeMap;
 import org.apache.ddlutils.platform.DefaultValueHelper;
+
+import junit.framework.TestSuite;
 
 /**
  * Base class for database roundtrip (creation & reconstruction from the database).
@@ -116,16 +116,17 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
      */
     protected void setUseDelimitedIdentifiers(boolean useDelimitedIdentifiers)
     {
-        _useDelimitedIdentifiers = useDelimitedIdentifiers;
+        this._useDelimitedIdentifiers = useDelimitedIdentifiers;
     }
     
     /**
      * {@inheritDoc}
      */
+    @Override
     protected void setUp() throws Exception
     {
         super.setUp();
-        getPlatform().setDelimitedIdentifierModeOn(_useDelimitedIdentifiers);
+        this.getPlatform().setDelimitedIdentifierModeOn(this._useDelimitedIdentifiers);
     }
 
     /**
@@ -136,8 +137,8 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
      */
     protected void insertRow(String tableName, Object[] columnValues)
     {
-        Table    table = getModel().findTable(tableName);
-        DynaBean bean  = getModel().createDynaBeanFor(table);
+        Table    table = this.getModel().findTable(tableName);
+        DynaBean bean  = this.getModel().createDynaBeanFor(table);
 
         for (int idx = 0; (idx < table.getColumnCount()) && (idx < columnValues.length); idx++)
         {
@@ -145,7 +146,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
 
             bean.set(column.getName(), columnValues[idx]);
         }
-        getPlatform().insert(getModel(), bean);
+        this.getPlatform().insert(this.getModel(), bean);
     }
 
     /**
@@ -156,21 +157,21 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
      */
     protected List getRows(String tableName)
     {
-        Table        table = getModel().findTable(tableName, getPlatform().isDelimitedIdentifierModeOn());
+        Table        table = this.getModel().findTable(tableName, this.getPlatform().isDelimitedIdentifierModeOn());
         StringBuffer query = new StringBuffer();
 
         query.append("SELECT * FROM ");
-        if (getPlatform().isDelimitedIdentifierModeOn())
+        if (this.getPlatform().isDelimitedIdentifierModeOn())
         {
-            query.append(getPlatformInfo().getDelimiterToken());
+            query.append(this.getPlatformInfo().getDelimiterToken());
         }
         query.append(table.getName());
-        if (getPlatform().isDelimitedIdentifierModeOn())
+        if (this.getPlatform().isDelimitedIdentifierModeOn())
         {
-            query.append(getPlatformInfo().getDelimiterToken());
+            query.append(this.getPlatformInfo().getDelimiterToken());
         }
         
-        return getPlatform().fetch(getModel(), query.toString(), new Table[] { table });
+        return this.getPlatform().fetch(this.getModel(), query.toString(), new Table[] { table });
     }
 
     /**
@@ -183,7 +184,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
     {
         try
         {
-            Database model = (Database)getModel().clone();
+            Database model = (Database)this.getModel().clone();
 
             for (int tableIdx = 0; tableIdx < model.getTableCount(); tableIdx++)
             {
@@ -193,7 +194,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
                 {
                     Column column     = table.getColumn(columnIdx);
                     int    origType   = column.getTypeCode();
-                    int    targetType = getPlatformInfo().getTargetJdbcType(origType);
+                    int    targetType = this.getPlatformInfo().getTargetJdbcType(origType);
 
                     // we adjust the column types if the native type would back-map to a
                     // different jdbc type
@@ -203,16 +204,16 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
                         // we should also adapt the default value
                         if (column.getDefaultValue() != null)
                         {
-                            DefaultValueHelper helper = getPlatform().getSqlBuilder().getDefaultValueHelper();
+                            DefaultValueHelper helper = this.getPlatform().getSqlBuilder().getDefaultValueHelper();
 
                             column.setDefaultValue(helper.convert(column.getDefaultValue(), origType, targetType));
                         }
                     }
                     // we also promote the default size if the column has no size
                     // spec of its own
-                    if ((column.getSize() == null) && getPlatformInfo().hasSize(targetType))
+                    if ((column.getSize() == null) && this.getPlatformInfo().hasSize(targetType))
                     {
-                        Integer defaultSize = getPlatformInfo().getDefaultSize(targetType);
+                        Integer defaultSize = this.getPlatformInfo().getDefaultSize(targetType);
 
                         if (defaultSize != null)
                         {
@@ -221,7 +222,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
                     }
                     // finally the platform might return a synthetic default value if the column
                     // is a primary key column
-                    if (getPlatformInfo().isSyntheticDefaultValueForRequiredReturned() &&
+                    if (this.getPlatformInfo().isSyntheticDefaultValueForRequiredReturned() &&
                         (column.getDefaultValue() == null) && column.isRequired() && !column.isAutoIncrement())
                     {
                         switch (column.getTypeCode())
@@ -253,7 +254,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
 
                     if (fk.getName() == null)
                     {
-                        fk.setName(getPlatform().getSqlBuilder().getForeignKeyName(table, fk));
+                        fk.setName(this.getPlatform().getSqlBuilder().getForeignKeyName(table, fk));
                     }
                 }
             }
@@ -309,7 +310,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
                          actual.getTableCount());
             for (int tableIdx = 0; tableIdx < actual.getTableCount(); tableIdx++)
             {
-                assertEquals(expected.getTable(tableIdx),
+                this.assertEquals(expected.getTable(tableIdx),
                              actual.getTable(tableIdx));
             }
         }
@@ -320,12 +321,12 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
 
             dbIo.write(expected, writer);
 
-            getLog().error("Expected model:\n" + writer.toString());
+            this.getLog().error("Expected model:\n" + writer.toString());
             
             writer = new StringWriter();
             dbIo.write(actual, writer);
 
-            getLog().error("Actual model:\n" + writer.toString());
+            this.getLog().error("Actual model:\n" + writer.toString());
 
             if (ex instanceof Error)
             {
@@ -346,7 +347,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
      */
     protected void assertEquals(Table expected, Table actual)
     {
-        if (_useDelimitedIdentifiers)
+        if (this._useDelimitedIdentifiers)
         {
             assertEquals("Table names do not match.",
                          expected.getName(),
@@ -363,7 +364,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
                      actual.getColumnCount());
         for (int columnIdx = 0; columnIdx < actual.getColumnCount(); columnIdx++)
         {
-            assertEquals(expected.getColumn(columnIdx),
+            this.assertEquals(expected.getColumn(columnIdx),
                          actual.getColumn(columnIdx));
         }
         assertEquals("Not the same number of foreign keys in table "+actual.getName()+".",
@@ -380,10 +381,10 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
                 ForeignKey actualFk   = actual.getForeignKey(actualFkIdx);
                 String     actualName = actualFk.getName();
 
-                if ((_useDelimitedIdentifiers  && expectedName.equals(actualName)) ||
-                    (!_useDelimitedIdentifiers && expectedName.equalsIgnoreCase(actualName)))
+                if ((this._useDelimitedIdentifiers  && expectedName.equals(actualName)) ||
+                    (!this._useDelimitedIdentifiers && expectedName.equalsIgnoreCase(actualName)))
                 {
-                    assertEquals(expectedFk, actualFk);
+                    this.assertEquals(expectedFk, actualFk);
                 }
             }
         }
@@ -392,7 +393,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
                      actual.getIndexCount());
         for (int indexIdx = 0; indexIdx < actual.getIndexCount(); indexIdx++)
         {
-            assertEquals(expected.getIndex(indexIdx),
+            this.assertEquals(expected.getIndex(indexIdx),
                          actual.getIndex(indexIdx));
         }
     }
@@ -405,7 +406,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
      */
     protected void assertEquals(Column expected, Column actual)
     {
-        if (_useDelimitedIdentifiers)
+        if (this._useDelimitedIdentifiers)
         {
             assertEquals("Column names do not match.",
                          expected.getName(),
@@ -423,7 +424,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
         assertEquals("Required status not the same for column "+actual.getName()+".",
                      expected.isRequired(),
                      actual.isRequired());
-        if (getPlatformInfo().getIdentityStatusReadingSupported())
+        if (this.getPlatformInfo().getIdentityStatusReadingSupported())
         {
         	// we're only comparing this if the platform can actually read the
         	// auto-increment status back from an existing database
@@ -471,7 +472,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
      */
     protected void assertEquals(ForeignKey expected, ForeignKey actual)
     {
-        if (_useDelimitedIdentifiers)
+        if (this._useDelimitedIdentifiers)
         {
             assertEquals("Foreign key names do not match.",
                          expected.getName(),
@@ -494,7 +495,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
                      actual.getReferenceCount());
         for (int refIdx = 0; refIdx < actual.getReferenceCount(); refIdx++)
         {
-            assertEquals(expected.getReference(refIdx),
+            this.assertEquals(expected.getReference(refIdx),
                          actual.getReference(refIdx));
         }
     }
@@ -507,7 +508,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
      */
     protected void assertEquals(Reference expected, Reference actual)
     {
-        if (_useDelimitedIdentifiers)
+        if (this._useDelimitedIdentifiers)
         {
             assertEquals("Local column names do not match.",
                          expected.getLocalColumnName(),
@@ -535,7 +536,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
      */
     protected void assertEquals(Index expected, Index actual)
     {
-        if (_useDelimitedIdentifiers)
+        if (this._useDelimitedIdentifiers)
         {
             assertEquals("Index names do not match.",
                          expected.getName(),
@@ -555,7 +556,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
                      actual.getColumnCount());
         for (int columnIdx = 0; columnIdx < actual.getColumnCount(); columnIdx++)
         {
-            assertEquals(expected.getColumn(columnIdx),
+            this.assertEquals(expected.getColumn(columnIdx),
                          actual.getColumn(columnIdx));
         }
     }
@@ -568,7 +569,7 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
      */
     protected void assertEquals(IndexColumn expected, IndexColumn actual)
     {
-        if (_useDelimitedIdentifiers)
+        if (this._useDelimitedIdentifiers)
         {
             assertEquals("Index column names do not match.",
                          expected.getName(),
@@ -577,11 +578,23 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
         else
         {
             assertEquals("Index column names do not match (ignoring case).",
-                         expected.getName().toUpperCase(),
-                         actual.getName().toUpperCase());
+                          expected.getName().toUpperCase(),
+                          actual.getName().toUpperCase());
         }
         assertEquals("Size not the same for index column "+actual.getName()+".",
                      expected.getSize(),
                      actual.getSize());
+    }
+
+    protected boolean skipForPlatforms(String... platformNames)
+    {
+        String currentPlatform = this.getDatabaseName();
+        for (String platform : platformNames) {
+            if (platform.equalsIgnoreCase(currentPlatform)) {
+                // throw new org.opentest4j.TestAbortedException("Skipped for platform: " + currentPlatform);
+                return true;
+            }
+        }
+        return false;
     }
 }

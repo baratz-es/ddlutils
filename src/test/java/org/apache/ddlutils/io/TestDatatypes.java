@@ -58,7 +58,7 @@ public class TestDatatypes extends RoundtripTestBase
      */
     protected void performDataTypeTest(String modelXml, Object value1, Object value2)
     {
-        performDataTypeTest(modelXml, value1, value2, value1, value2);
+        this.performDataTypeTest(modelXml, value1, value2, value1, value2);
     }
 
     /**
@@ -73,7 +73,7 @@ public class TestDatatypes extends RoundtripTestBase
      */
     protected void performDataTypeTest(String modelXml, Object value1, Object value2, Object defaultValue)
     {
-        performDataTypeTest(modelXml,
+        this.performDataTypeTest(modelXml,
                             value1,
                             value2,
                             value1 == null ? defaultValue : value1,
@@ -94,21 +94,21 @@ public class TestDatatypes extends RoundtripTestBase
      */
     protected void performDataTypeTest(String modelXml, Object inserted1, Object inserted2, Object expected1, Object expected2)
     {
-        createDatabase(modelXml);
-        insertRow("roundtrip", new Object[] { new Integer(1), inserted1 });
-        insertRow("roundtrip", new Object[] { new Integer(2), inserted2 });
+        this.createDatabase(modelXml);
+        this.insertRow("roundtrip", new Object[] { new Integer(1), inserted1 });
+        this.insertRow("roundtrip", new Object[] { new Integer(2), inserted2 });
 
-        List beans = getRows("roundtrip");
+        List beans = this.getRows("roundtrip");
 
-        assertEquals(expected1, beans.get(0), "avalue");
-        assertEquals(expected2, beans.get(1), "avalue");
+        this.assertEquals(expected1, beans.get(0), "avalue");
+        this.assertEquals(expected2, beans.get(1), "avalue");
 
-        Database modelFromDb = readModelFromDatabase("roundtriptest");
+        Database modelFromDb = this.readModelFromDatabase("roundtriptest");
         
-        assertEquals(getAdjustedModel(),
+        this.assertEquals(this.getAdjustedModel(),
                      modelFromDb);
 
-        String alterTablesSql = getAlterTablesSql(modelFromDb).trim();
+        String alterTablesSql = this.getAlterTablesSql(modelFromDb).trim();
 
         assertEquals("",
         		     alterTablesSql);
@@ -128,7 +128,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, Boolean.TRUE, Boolean.FALSE);
+        this.performDataTypeTest(modelXml, Boolean.TRUE, Boolean.FALSE);
     }
 
     /**
@@ -145,7 +145,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, null, Boolean.TRUE, Boolean.FALSE);
+        this.performDataTypeTest(modelXml, null, Boolean.TRUE, Boolean.FALSE);
     }
 
     /**
@@ -162,7 +162,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, Boolean.FALSE, Boolean.TRUE);
+        this.performDataTypeTest(modelXml, Boolean.FALSE, Boolean.TRUE);
     }
 
     /**
@@ -179,7 +179,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, Boolean.TRUE, null, Boolean.TRUE);
+        this.performDataTypeTest(modelXml, Boolean.TRUE, null, Boolean.TRUE);
     }
 
     /**
@@ -196,7 +196,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new Integer(254), new Integer(-254));
+        this.performDataTypeTest(modelXml, new Integer(254), new Integer(-254));
     }
 
     /**
@@ -213,7 +213,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new Integer(128), null, new Integer(-200));
+        this.performDataTypeTest(modelXml, new Integer(128), null, new Integer(-200));
     }
 
     /**
@@ -230,7 +230,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new Integer(Short.MIN_VALUE), new Integer(Short.MAX_VALUE));
+        this.performDataTypeTest(modelXml, new Integer(Short.MIN_VALUE), new Integer(Short.MAX_VALUE));
     }
 
     /**
@@ -247,7 +247,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new Integer(256), null, new Integer(-30000));
+        this.performDataTypeTest(modelXml, new Integer(256), null, new Integer(-30000));
     }
 
     /**
@@ -264,7 +264,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new Integer(0), new Integer(-2147483648));
+        this.performDataTypeTest(modelXml, new Integer(0), new Integer(-2147483648));
     }
 
     /**
@@ -281,7 +281,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, null, new Integer(2147483646), new Integer(2147483647));
+        this.performDataTypeTest(modelXml, null, new Integer(2147483646), new Integer(2147483647));
     }
 
     /**
@@ -298,7 +298,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new Long(Long.MAX_VALUE), new Long(0l));
+        this.performDataTypeTest(modelXml, new Long(Long.MAX_VALUE), new Long(0l));
     }
 
     /**
@@ -315,7 +315,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, null, new Long(-1l), new Long(-9000000000000000000l));
+        this.performDataTypeTest(modelXml, null, new Long(-1l), new Long(-9000000000000000000l));
     }
 
     /**
@@ -323,6 +323,9 @@ public class TestDatatypes extends RoundtripTestBase
      */
     public void testReal()
     {
+        if (this.skipForPlatforms("HsqlDb")) {
+            return;
+        }
         final String modelXml = 
             "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
             "<database name='roundtriptest'>\n"+
@@ -332,7 +335,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new Float(12345.6f), new Float(0.0f));
+        this.performDataTypeTest(modelXml, new Float(12345.6f), new Float(0.0f));
     }
 
     /**
@@ -340,6 +343,9 @@ public class TestDatatypes extends RoundtripTestBase
      */
     public void testRealWithDefault()
     {
+        if (this.skipForPlatforms("HsqlDb")) {
+            return;
+        }
         final String modelXml = 
             "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
             "<database name='roundtriptest'>\n"+
@@ -349,7 +355,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new Float(1e+20f), null, new Float(-1.01234f));
+        this.performDataTypeTest(modelXml, new Float(1e+20f), null, new Float(-1.01234f));
     }
 
     /**
@@ -366,7 +372,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new Double(-1.0), new Double(1e-45));
+        this.performDataTypeTest(modelXml, new Double(-1.0), new Double(1e-45));
     }
 
     /**
@@ -383,7 +389,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, null, new Double(1e+25), new Double(12345678.9012345));
+        this.performDataTypeTest(modelXml, null, new Double(1e+25), new Double(12345678.9012345));
     }
 
     /**
@@ -400,7 +406,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new Double(1e+38), new Double(1.01));
+        this.performDataTypeTest(modelXml, new Double(1e+38), new Double(1.01));
     }
 
     /**
@@ -417,7 +423,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new Double(-1e+25), null, new Double(-987654321.098765));
+        this.performDataTypeTest(modelXml, new Double(-1e+25), null, new Double(-987654321.098765));
     }
 
     /**
@@ -434,7 +440,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new BigDecimal("0"), new BigDecimal("-1234567890123"));
+        this.performDataTypeTest(modelXml, new BigDecimal("0"), new BigDecimal("-1234567890123"));
     }
 
     /**
@@ -451,7 +457,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, null, new BigDecimal("-1"), new BigDecimal("123456789012345"));
+        this.performDataTypeTest(modelXml, null, new BigDecimal("-1"), new BigDecimal("123456789012345"));
     }
 
     /**
@@ -468,7 +474,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new BigDecimal("0.0100001"), new BigDecimal("-87654321.1234567"));
+        this.performDataTypeTest(modelXml, new BigDecimal("0.0100001"), new BigDecimal("-87654321.1234567"));
     }
 
     /**
@@ -485,7 +491,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new BigDecimal("1.0000001"), null, new BigDecimal("12345678.7654321"));
+        this.performDataTypeTest(modelXml, new BigDecimal("1.0000001"), null, new BigDecimal("12345678.7654321"));
     }
 
     /**
@@ -502,7 +508,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new BigDecimal("210987654321"), new BigDecimal("-2"));
+        this.performDataTypeTest(modelXml, new BigDecimal("210987654321"), new BigDecimal("-2"));
     }
 
     /**
@@ -519,7 +525,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, null, new BigDecimal("100"), new BigDecimal("-123456789012345"));
+        this.performDataTypeTest(modelXml, null, new BigDecimal("100"), new BigDecimal("-123456789012345"));
     }
 
     /**
@@ -536,7 +542,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, new BigDecimal("1234567.89012345"), new BigDecimal("1.00000001"));
+        this.performDataTypeTest(modelXml, new BigDecimal("1234567.89012345"), new BigDecimal("1.00000001"));
     }
 
     /**
@@ -553,7 +559,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, null, new BigDecimal("1e-8"), new BigDecimal("-1234567.87654321"));
+        this.performDataTypeTest(modelXml, null, new BigDecimal("1e-8"), new BigDecimal("-1234567.87654321"));
     }
 
     /**
@@ -570,7 +576,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, null, "1234567890");
+        this.performDataTypeTest(modelXml, null, "1234567890");
     }
 
     /**
@@ -587,7 +593,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, null, "123456789012345", "543210987654321", "123456789012345");
+        this.performDataTypeTest(modelXml, null, "123456789012345", "543210987654321", "123456789012345");
     }
 
     /**
@@ -604,7 +610,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, "123456789012345678", null);
+        this.performDataTypeTest(modelXml, "123456789012345678", null);
     }
 
     /**
@@ -626,7 +632,7 @@ public class TestDatatypes extends RoundtripTestBase
             "1234567890123456789012345678901234567890123456789012345678901234"+
             "12345678901234567890123456789012345678901234567890123456789012";
 
-        performDataTypeTest(modelXml, null, value, "some value");
+        this.performDataTypeTest(modelXml, null, value, "some value");
     }
 
     /**
@@ -643,7 +649,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, null, "123456", "someone's");
+        this.performDataTypeTest(modelXml, null, "123456", "someone's");
     }
 
     /**
@@ -660,7 +666,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, null, "123456", "'");
+        this.performDataTypeTest(modelXml, null, "123456", "'");
     }
 
     /**
@@ -668,6 +674,9 @@ public class TestDatatypes extends RoundtripTestBase
      */
     public void testLongVarChar()
     {
+        if (this.skipForPlatforms("HsqlDb")) {
+            return;
+        }
         final String modelXml = 
             "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
             "<database name='roundtriptest'>\n"+
@@ -677,7 +686,7 @@ public class TestDatatypes extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
 
-        performDataTypeTest(modelXml, null, "some not too long text");
+        this.performDataTypeTest(modelXml, null, "some not too long text");
     }
 
     /**
@@ -685,11 +694,14 @@ public class TestDatatypes extends RoundtripTestBase
      */
     public void testLongVarCharWithDefault()
     {
-        if (!getPlatformInfo().isDefaultValuesForLongTypesSupported())
+        if (!this.getPlatformInfo().isDefaultValuesForLongTypesSupported())
         {
             return;
         }
 
+        if (this.skipForPlatforms("HsqlDb")) {
+            return;
+        }
         final String modelXml = 
             "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
             "<database name='roundtriptest'>\n"+
@@ -704,7 +716,7 @@ public class TestDatatypes extends RoundtripTestBase
             "1234567890123456789012345678901234567890123456789012345678901234"+
             "1234567890123456789012345678901234567890123456789012345678901234";
         
-        performDataTypeTest(modelXml, null, value, "some value");
+        this.performDataTypeTest(modelXml, null, value, "some value");
     }
 
     /**
@@ -722,7 +734,7 @@ public class TestDatatypes extends RoundtripTestBase
             "</database>";
 
         // we would use Calendar but that might give Locale problems
-        performDataTypeTest(modelXml, null, new Date(103, 12, 25));
+        this.performDataTypeTest(modelXml, null, new Date(103, 12, 25));
     }
 
     /**
@@ -730,6 +742,9 @@ public class TestDatatypes extends RoundtripTestBase
      */
     public void testDateWithDefault()
     {
+        if (this.skipForPlatforms("HsqlDb")) {
+            return;
+        }
         final String modelXml = 
             "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
             "<database name='roundtriptest'>\n"+
@@ -740,7 +755,7 @@ public class TestDatatypes extends RoundtripTestBase
             "</database>";
 
         // we would use Calendar but that might give Locale problems
-        performDataTypeTest(modelXml, new Date(105, 0, 1), null, new Date(100, 0, 1));
+        this.performDataTypeTest(modelXml, new Date(105, 0, 1), null, new Date(100, 0, 1));
     }
 
     /**
@@ -758,7 +773,7 @@ public class TestDatatypes extends RoundtripTestBase
             "</database>";
 
         // we would use Calendar but that might give Locale problems
-        performDataTypeTest(modelXml, new Time(03, 47, 15), null);
+        this.performDataTypeTest(modelXml, new Time(03, 47, 15), null);
     }
 
     /**
@@ -766,6 +781,9 @@ public class TestDatatypes extends RoundtripTestBase
      */
     public void testTimeWithDefault()
     {
+        if (this.skipForPlatforms("HsqlDb")) {
+            return;
+        }
         final String modelXml = 
             "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
             "<database name='roundtriptest'>\n"+
@@ -776,7 +794,7 @@ public class TestDatatypes extends RoundtripTestBase
             "</database>";
 
         // we would use Calendar but that might give Locale problems
-        performDataTypeTest(modelXml, new Time(23, 59, 59), null, new Time(11, 27, 03));
+        this.performDataTypeTest(modelXml, new Time(23, 59, 59), null, new Time(11, 27, 03));
     }
 
     /**
@@ -796,7 +814,7 @@ public class TestDatatypes extends RoundtripTestBase
         // we would use Calendar but that might give Locale problems
         // also we leave out the fractional part because databases differ
         // in their support here
-        performDataTypeTest(modelXml, new Timestamp(70, 0, 1, 0, 0, 0, 0), new Timestamp(100, 10, 11, 10, 10, 10, 0));
+        this.performDataTypeTest(modelXml, new Timestamp(70, 0, 1, 0, 0, 0, 0), new Timestamp(100, 10, 11, 10, 10, 10, 0));
     }
 
     /**
@@ -804,6 +822,9 @@ public class TestDatatypes extends RoundtripTestBase
      */
     public void testTimestampWithDefault()
     {
+        if (this.skipForPlatforms("HsqlDb")) {
+            return;
+        }
         final String modelXml = 
             "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
             "<database name='roundtriptest'>\n"+
@@ -816,7 +837,7 @@ public class TestDatatypes extends RoundtripTestBase
         // we would use Calendar but that might give Locale problems
         // also we leave out the fractional part because databases differ
         // in their support here
-        performDataTypeTest(modelXml, new Timestamp(90, 9, 21, 20, 25, 39, 0), null, new Timestamp(85, 5, 17, 16, 17, 18, 0));
+        this.performDataTypeTest(modelXml, new Timestamp(90, 9, 21, 20, 25, 39, 0), null, new Timestamp(85, 5, 17, 16, 17, 18, 0));
     }
 
     /**
@@ -824,6 +845,9 @@ public class TestDatatypes extends RoundtripTestBase
      */
     public void testBinary()
     {
+        if (this.skipForPlatforms("HsqlDb")) {
+            return;
+        }
         final String modelXml = 
             "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
             "<database name='roundtriptest'>\n"+
@@ -841,7 +865,7 @@ public class TestDatatypes extends RoundtripTestBase
 
         BinaryObjectsHelper helper = new BinaryObjectsHelper();
 
-        performDataTypeTest(modelXml,
+        this.performDataTypeTest(modelXml,
                             helper.serialize(value1), helper.serialize(value2),
                             value1, value2);
     }
@@ -867,7 +891,7 @@ public class TestDatatypes extends RoundtripTestBase
 
         BinaryObjectsHelper helper = new BinaryObjectsHelper();
 
-        performDataTypeTest(modelXml,
+        this.performDataTypeTest(modelXml,
                             helper.serialize(value1), helper.serialize(value2),
                             value1, value2);
     }
@@ -877,6 +901,9 @@ public class TestDatatypes extends RoundtripTestBase
      */
     public void testLongVarBinary()
     {
+        if (this.skipForPlatforms("HsqlDb")) {
+            return;
+        }
         final String modelXml = 
             "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
             "<database name='roundtriptest'>\n"+
@@ -893,7 +920,7 @@ public class TestDatatypes extends RoundtripTestBase
 
         BinaryObjectsHelper helper = new BinaryObjectsHelper();
 
-        performDataTypeTest(modelXml,
+        this.performDataTypeTest(modelXml,
                             helper.serialize(value), null,
                             value, null);
     }
@@ -903,6 +930,9 @@ public class TestDatatypes extends RoundtripTestBase
      */
     public void testBlob()
     {
+        if (this.skipForPlatforms("HsqlDb")) {
+            return;
+        }
         final String modelXml = 
             "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
             "<database name='roundtriptest'>\n"+
@@ -919,7 +949,7 @@ public class TestDatatypes extends RoundtripTestBase
 
         BinaryObjectsHelper helper = new BinaryObjectsHelper();
 
-        performDataTypeTest(modelXml,
+        this.performDataTypeTest(modelXml,
                             helper.serialize(value), null,
                             value, null);
     }
@@ -929,6 +959,9 @@ public class TestDatatypes extends RoundtripTestBase
      */
     public void testClob()
     {
+        if (this.skipForPlatforms("HsqlDb")) {
+            return;
+        }
         final String modelXml = 
             "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
             "<database name='roundtriptest'>\n"+
@@ -943,6 +976,6 @@ public class TestDatatypes extends RoundtripTestBase
             "1234567890123456789012345678901234567890123456789012345678901234"+
             "1234567890123456789012345678901234567890123456789012345678901234";
 
-        performDataTypeTest(modelXml, null, value);
+        this.performDataTypeTest(modelXml, null, value);
     }
 }
