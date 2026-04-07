@@ -104,4 +104,49 @@ public abstract class Jdbc4Utils
             throw new UnsupportedOperationException("The jdbc type NCLOB is not supported");
         }
     }
+
+    /**
+     * Determines whether the system supports the JDBC 4.2 Types
+     */
+    public static boolean supportsJdbc42Types()
+    {
+        try {
+            return (Types.class.getField(TypeMap.TIME_WITH_TIMEZONE) != null) &&
+                (Types.class.getField(TypeMap.TIMESTAMP_WITH_TIMEZONE) != null);
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    /**
+     * Determines the type code for the TIME WITH TIMEZONE JDBC type.
+     *
+     * @return The type code
+     * @throws UnsupportedOperationException If the TIME WITH TIMEZONE type is not supported
+     */
+    public static int determineTimeWithTimezoneTypeCode()
+        throws UnsupportedOperationException
+    {
+        try {
+            return Types.class.getField(TypeMap.TIME_WITH_TIMEZONE).getInt(null);
+        } catch (Exception ex) {
+            throw new UnsupportedOperationException("The jdbc type TIME WITH TIMEZONE is not supported");
+        }
+    }
+
+    /**
+     * Determines the type code for the TIMESTAMP WITH TIMEZONE JDBC type.
+     *
+     * @return The type code
+     * @throws UnsupportedOperationException If the TIMESTAMP WITH TIMEZONE type is not supported
+     */
+    public static int determineTimestampWithTimezoneTypeCode()
+        throws UnsupportedOperationException
+    {
+        try {
+            return Types.class.getField(TypeMap.TIMESTAMP_WITH_TIMEZONE).getInt(null);
+        } catch (Exception ex) {
+            throw new UnsupportedOperationException("The jdbc type TIMESTAMP WITH TIMEZONE is not supported");
+        }
+    }
 }

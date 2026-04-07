@@ -105,6 +105,10 @@ public abstract class TypeMap
     public static final String LONGNVARCHAR   = "LONGNVARCHAR";
     /** The string representation of the {@link java.sql.Types#NCLOB} constant. */
     public static final String NCLOB          = "NCLOB";
+    /** The string representation of the {@link java.sql.Types#TIME_WITH_TIMEZONE} constant. */
+    public static final String TIME_WITH_TIMEZONE       = "TIME_WITH_TIMEZONE";
+    /** The string representation of the {@link java.sql.Types#TIMESTAMP_WITH_TIMEZONE} constant. */
+    public static final String TIMESTAMP_WITH_TIMEZONE  = "TIMESTAMP_WITH_TIMEZONE";
 
     /** Maps type names to the corresponding {@link java.sql.Types} constants. */
     private static Map<String, Integer> _typeNameToTypeCode = new HashMap<>();
@@ -166,6 +170,16 @@ public abstract class TypeMap
             }
             try {
                 registerJdbcType(Jdbc4Utils.determineNClobTypeCode(), NCLOB, JdbcTypeCategoryEnum.TEXTUAL);
+            } catch (UnsupportedOperationException ex) {
+            }
+        }
+        if (Jdbc4Utils.supportsJdbc42Types()) {
+            try {
+                registerJdbcType(Jdbc4Utils.determineTimeWithTimezoneTypeCode(), TIME_WITH_TIMEZONE, JdbcTypeCategoryEnum.DATETIME);
+            } catch (UnsupportedOperationException ex) {
+            }
+            try {
+                registerJdbcType(Jdbc4Utils.determineTimestampWithTimezoneTypeCode(), TIMESTAMP_WITH_TIMEZONE, JdbcTypeCategoryEnum.DATETIME);
             } catch (UnsupportedOperationException ex) {
             }
         }
