@@ -19,7 +19,6 @@ package org.apache.ddlutils;
 import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
-import org.apache.ddlutils.platform.axion.AxionPlatform;
 import org.apache.ddlutils.platform.cloudscape.CloudscapePlatform;
 import org.apache.ddlutils.platform.db2.Db2Platform;
 import org.apache.ddlutils.platform.derby.DerbyPlatform;
@@ -27,7 +26,6 @@ import org.apache.ddlutils.platform.firebird.FirebirdPlatform;
 import org.apache.ddlutils.platform.hsqldb.HsqlDbPlatform;
 import org.apache.ddlutils.platform.interbase.InterbasePlatform;
 import org.apache.ddlutils.platform.maxdb.MaxDbPlatform;
-import org.apache.ddlutils.platform.mckoi.MckoiPlatform;
 import org.apache.ddlutils.platform.mssql.MSSqlPlatform;
 import org.apache.ddlutils.platform.mysql.MySqlPlatform;
 import org.apache.ddlutils.platform.mysql.MySql50Platform;
@@ -179,7 +177,6 @@ public class PlatformFactory
      */
     private static void registerPlatforms()
     {
-        addPlatform(_platforms, AxionPlatform.DATABASENAME,      AxionPlatform.class);
         addPlatform(_platforms, CloudscapePlatform.DATABASENAME, CloudscapePlatform.class);
         addPlatform(_platforms, Db2Platform.DATABASENAME,        Db2Platform.class);
         addPlatform(_platforms, DerbyPlatform.DATABASENAME,      DerbyPlatform.class);
@@ -187,7 +184,6 @@ public class PlatformFactory
         addPlatform(_platforms, HsqlDbPlatform.DATABASENAME,     HsqlDbPlatform.class);
         addPlatform(_platforms, InterbasePlatform.DATABASENAME,  InterbasePlatform.class);
         addPlatform(_platforms, MaxDbPlatform.DATABASENAME,      MaxDbPlatform.class);
-        addPlatform(_platforms, MckoiPlatform.DATABASENAME,      MckoiPlatform.class);
         addPlatform(_platforms, MSSqlPlatform.DATABASENAME,      MSSqlPlatform.class);
         addPlatform(_platforms, MySqlPlatform.DATABASENAME,      MySqlPlatform.class);
         addPlatform(_platforms, MySql50Platform.DATABASENAME,    MySql50Platform.class);

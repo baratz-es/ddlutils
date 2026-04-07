@@ -17,7 +17,6 @@ package org.apache.ddlutils.platform;
  */
 
 import org.apache.ddlutils.PlatformUtils;
-import org.apache.ddlutils.platform.axion.AxionPlatform;
 import org.apache.ddlutils.platform.cloudscape.CloudscapePlatform;
 import org.apache.ddlutils.platform.db2.Db2Platform;
 import org.apache.ddlutils.platform.derby.DerbyPlatform;
@@ -25,7 +24,6 @@ import org.apache.ddlutils.platform.firebird.FirebirdPlatform;
 import org.apache.ddlutils.platform.hsqldb.HsqlDbPlatform;
 import org.apache.ddlutils.platform.interbase.InterbasePlatform;
 import org.apache.ddlutils.platform.maxdb.MaxDbPlatform;
-import org.apache.ddlutils.platform.mckoi.MckoiPlatform;
 import org.apache.ddlutils.platform.mssql.MSSqlPlatform;
 import org.apache.ddlutils.platform.mysql.MySqlPlatform;
 import org.apache.ddlutils.platform.oracle.Oracle8Platform;
@@ -59,26 +57,6 @@ public class TestPlatformUtils extends TestCase
     protected void tearDown() throws Exception
     {
         _platformUtils = null;
-    }
-
-    /**
-     * Tests the determination of the Axion platform via its JDBC driver.
-     */
-    public void testAxionDriver()
-    {
-        assertEquals(AxionPlatform.DATABASENAME,
-                     _platformUtils.determineDatabaseType("org.axiondb.jdbc.AxionDriver", null));
-    }
-
-    /**
-     * Tests the determination of the Axion platform via JDBC connection urls.
-     */
-    public void testAxionUrl()
-    {
-        assertEquals(AxionPlatform.DATABASENAME,
-                     _platformUtils.determineDatabaseType(null, "jdbc:axiondb:testdb"));
-        assertEquals(AxionPlatform.DATABASENAME,
-                     _platformUtils.determineDatabaseType(null, "jdbc:axiondb:testdb:/tmp/testdbdir"));
     }
 
     /**
@@ -212,26 +190,6 @@ public class TestPlatformUtils extends TestCase
 
     /**
      * Tests the determination of the McKoi platform via its JDBC driver.
-     */
-    public void testMckoiDriver()
-    {
-        assertEquals(MckoiPlatform.DATABASENAME,
-                     _platformUtils.determineDatabaseType("com.mckoi.JDBCDriver", null));
-    }
-
-    /**
-     * Tests the determination of the McKoi platform via JDBC connection urls.
-     */
-    public void testMckoiUrl()
-    {
-        assertEquals(MckoiPlatform.DATABASENAME,
-                     _platformUtils.determineDatabaseType(null, "jdbc:mckoi:local://./db.conf"));
-        assertEquals(MckoiPlatform.DATABASENAME,
-                     _platformUtils.determineDatabaseType(null, "jdbc:mckoi://db.myhost.org/"));
-    }
-
-    /**
-     * Tests the determination of the Microsoft Sql Server platform via its JDBC drivers.
      */
     public void testMsSqlDriver()
     {

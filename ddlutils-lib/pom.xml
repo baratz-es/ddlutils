@@ -134,12 +134,6 @@
     </dependency>
 
     <dependency>
-      <groupId>axion</groupId>
-      <artifactId>axion</artifactId>
-      <version>1.0-M3-dev</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derby</artifactId>
       <version>10.14.2.0</version>
@@ -157,12 +151,6 @@
       <version>${hsqldb.version}</version>
       <scope>test</scope>
       <classifier>jdk8</classifier>
-    </dependency>
-    <dependency>
-      <groupId>mckoi</groupId>
-      <artifactId>mckoi</artifactId>
-      <version>1.0.2</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
