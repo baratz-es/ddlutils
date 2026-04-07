@@ -90,7 +90,12 @@ public class HsqlDbModelReader extends JdbcModelReader
     {
         String name = index.getName();
 
-        return (name != null) && name.startsWith("SYS_IDX_");
+        if ((name != null) && name.startsWith("SYS_IDX_"))
+        {
+            return true;
+        }
+        String fkName = getPlatform().getSqlBuilder().getForeignKeyName(table, fk);
+        return (fkName != null) && fkName.equals(name);
     }
 
     /**

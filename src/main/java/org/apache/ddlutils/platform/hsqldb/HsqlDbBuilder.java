@@ -28,6 +28,7 @@ import org.apache.ddlutils.alteration.AddColumnChange;
 import org.apache.ddlutils.alteration.RemoveColumnChange;
 import org.apache.ddlutils.alteration.TableChange;
 import org.apache.ddlutils.model.Database;
+import org.apache.ddlutils.model.Index;
 import org.apache.ddlutils.model.Table;
 import org.apache.ddlutils.platform.SqlBuilder;
 
@@ -165,6 +166,14 @@ public class HsqlDbBuilder extends SqlBuilder
         printIndent();
         print("DROP COLUMN ");
         printIdentifier(getColumnName(change.getColumn()));
+        printEndOfStatement();
+    }
+
+    @Override
+    public void writeExternalIndexDropStmt(Table table, Index index) throws IOException
+    {
+        print("DROP INDEX ");
+        printIdentifier(getIndexName(index));
         printEndOfStatement();
     }
 }
