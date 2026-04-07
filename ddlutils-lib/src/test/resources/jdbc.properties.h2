@@ -1,0 +1,14 @@
+# JDBC properties for H2
+
+# Use this property if ddlutils does not recognize the platform from the settings
+ddlutils.platform=H2
+
+# Properties starting with "datasource." will be fed into the datasource instance of the
+# class configured via the datasource.class property
+datasource.class=org.apache.commons.dbcp2.BasicDataSource
+datasource.driverClassName=org.h2.Driver
+
+# In-memory mode
+datasource.url=jdbc:h2:mem:DBNAME;DB_CLOSE_DELAY=-1
+datasource.username=sa
+datasource.password=
