@@ -13,8 +13,8 @@ mvn test -pl ddlutils-ant
 # Run a single test class (in ddlutils-lib)
 mvn test -pl ddlutils-lib -Dtest=TestDatabaseIO
 
-# Run tests against a specific database
-mvn test -Djdbc.properties.file=jdbc.properties.postgresql
+# Run tests against a specific database (ddlutils-lib; JDBC settings in src/test/resources)
+mvn test -pl ddlutils-lib -Djdbc.properties.file=jdbc.properties.postgresql
 
 # Build specific module with dependencies
 mvn install -pl ddlutils-lib -am
@@ -22,6 +22,50 @@ mvn install -pl ddlutils-lib -am
 # Build all modules
 mvn install
 ```
+
+## Tests contra PostgreSQL (Podman)
+
+Los ajustes de conexión están en `ddlutils-lib/src/test/resources/jdbc.properties.postgresql` (por defecto: `localhost`, puerto **5432**, base **ddlutils**, usuario **postgres**, contraseña **root123**). El contenedor debe usar los mismos valores.
+
+1. **Descargar la imagen** (si no la tienes en local):
+
+```bash
+podman pull docker.io/library/postgres:14
+```
+
+2. **Levantar PostgreSQL 14** (ajusta el nombre del contenedor si ya existe):
+
+```bash
+podman run -d --name ddlutils-pg14 \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=root123 \
+  -e POSTGRES_DB=ddlutils \
+  -p 5432:5432 \
+  docker.io/library/postgres:14
+```
+
+Si el puerto **5432** del host está ocupado, mapea otro (p. ej. `-p 5433:5432`) y en `jdbc.properties.postgresql` cambia la URL a `jdbc:postgresql://localhost:5433/ddlutils`.
+
+3. **Comprobar** que acepta conexiones:
+
+```bash
+podman exec ddlutils-pg14 pg_isready -U postgres -d ddlutils
+podman exec ddlutils-pg14 psql -U postgres -d ddlutils -c 'select 1'
+```
+
+4. **Ejecutar tests** desde el directorio `ddlutils-fork`:
+
+```bash
+# Una sola clase (p. ej. comprobar conexión antes de la suite completa)
+mvn test -pl ddlutils-lib \
+  -Djdbc.properties.file=jdbc.properties.postgresql \
+  -Dtest=TestDynaSqlQueries
+
+# Todos los tests del módulo ddlutils-lib contra PostgreSQL
+mvn test -pl ddlutils-lib -Djdbc.properties.file=jdbc.properties.postgresql
+```
+
+**Nota:** `TestDatatypes` no ejecuta sus casos cuando el perfil JDBC es PostgreSQL (los roundtrips de tipos están alineados con Derby/HSQL embebidos; el comportamiento en PostgreSQL difiere). El resto de tests del módulo sí se ejecutan contra la base indicada.
 
 ## Test Configuration
 
