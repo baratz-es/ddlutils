@@ -48,7 +48,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testChangeDatatype1()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -56,7 +56,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -86,7 +86,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testChangeDatatype2()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -94,7 +94,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -128,7 +128,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testChangeSize()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -136,7 +136,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -164,7 +164,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testChangeDatatypeAndSize()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -172,7 +172,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -200,7 +200,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testChangeNull()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -208,7 +208,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -236,7 +236,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddDefault()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -244,7 +244,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -272,7 +272,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testChangeDefault()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -280,7 +280,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -308,7 +308,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testDropDefault()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -316,7 +316,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -350,7 +350,7 @@ public class TestAlteration extends RoundtripTestBase
 
         boolean isSybase  = SybasePlatform.DATABASENAME.equals(getPlatform().getName());
         String  model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -364,7 +364,7 @@ public class TestAlteration extends RoundtripTestBase
         // comparing the model from the live database with our assumed one
         if (isSybase)
         {
-            model2Xml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            model2Xml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                         "<database name='roundtriptest'>\n"+
                         "  <table name='roundtrip'>\n"+
                         "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -374,7 +374,7 @@ public class TestAlteration extends RoundtripTestBase
         }
         else
         {
-            model2Xml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            model2Xml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                         "<database name='roundtriptest'>\n"+
                         "  <table name='roundtrip'>\n"+
                         "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -420,14 +420,14 @@ public class TestAlteration extends RoundtripTestBase
 
         if (isSybase)
         {
-            model1Xml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            model1Xml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                         "<database name='roundtriptest'>\n"+
                         "  <table name='roundtrip'>\n"+
                         "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
                         "    <column name='avalue' type='NUMERIC' size='12,0' required='true' autoIncrement='true'/>\n"+
                         "  </table>\n"+
                         "</database>";
-            model2Xml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            model2Xml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                         "<database name='roundtriptest'>\n"+
                         "  <table name='roundtrip'>\n"+
                         "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -437,14 +437,14 @@ public class TestAlteration extends RoundtripTestBase
         }
         else
         {
-            model1Xml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            model1Xml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                         "<database name='roundtriptest'>\n"+
                         "  <table name='roundtrip'>\n"+
                         "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
                         "    <column name='avalue' type='INTEGER' autoIncrement='true'/>\n"+
                         "  </table>\n"+
                         "</database>";
-            model2Xml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            model2Xml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                         "<database name='roundtriptest'>\n"+
                         "  <table name='roundtrip'>\n"+
                         "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -480,14 +480,14 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddColumn()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -522,7 +522,7 @@ public class TestAlteration extends RoundtripTestBase
         // we need special catering for Sybase which does not support identity for INTEGER columns
         boolean isSybase  = SybasePlatform.DATABASENAME.equals(getPlatform().getName());
         String  model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -532,7 +532,7 @@ public class TestAlteration extends RoundtripTestBase
 
         if (isSybase)
         {
-            model2Xml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            model2Xml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                         "<database name='roundtriptest'>\n"+
                         "  <table name='roundtrip'>\n"+
                         "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -542,7 +542,7 @@ public class TestAlteration extends RoundtripTestBase
         }
         else
         {
-            model2Xml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            model2Xml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                         "<database name='roundtriptest'>\n"+
                         "  <table name='roundtrip'>\n"+
                         "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -580,7 +580,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddColumns()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -588,7 +588,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -622,7 +622,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddColumnsAtTheEnd()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -631,7 +631,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -675,14 +675,14 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddColumnWithDefault()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -715,14 +715,14 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddRequiredColumn()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -750,7 +750,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testChangeColumnOrder()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -761,7 +761,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -795,7 +795,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testDropColumn()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -803,7 +803,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -836,7 +836,7 @@ public class TestAlteration extends RoundtripTestBase
 
         boolean isSybase = SybasePlatform.DATABASENAME.equals(getPlatform().getName());
         String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -846,7 +846,7 @@ public class TestAlteration extends RoundtripTestBase
 
         if (isSybase)
         {
-            model1Xml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            model1Xml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                         "<database name='roundtriptest'>\n"+
                         "  <table name='roundtrip'>\n"+
                         "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -856,7 +856,7 @@ public class TestAlteration extends RoundtripTestBase
         }
         else
         {
-            model1Xml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            model1Xml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                         "<database name='roundtriptest'>\n"+
                         "  <table name='roundtrip'>\n"+
                         "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -885,7 +885,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddColumnToPK()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -893,7 +893,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -921,7 +921,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testRemoveColumnFromPK()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -929,7 +929,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -957,14 +957,14 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddPKColumn()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -992,14 +992,14 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddPKAndColumn()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' required='true'/>\n"+
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1032,14 +1032,14 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddPKAndPKColumn()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' required='true'/>\n"+
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1067,7 +1067,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testDropPKColumn()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1075,7 +1075,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1107,7 +1107,7 @@ public class TestAlteration extends RoundtripTestBase
         }
 
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1116,7 +1116,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1155,7 +1155,7 @@ public class TestAlteration extends RoundtripTestBase
         }
 
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1163,7 +1163,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1194,7 +1194,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testDropUniqueIndex()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1207,7 +1207,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1242,7 +1242,7 @@ public class TestAlteration extends RoundtripTestBase
         }
 
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1254,7 +1254,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1293,7 +1293,7 @@ public class TestAlteration extends RoundtripTestBase
         }
 
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1306,7 +1306,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1339,7 +1339,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddFK()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1350,7 +1350,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1388,7 +1388,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testDropFK()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk1' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1405,7 +1405,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk1' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1444,7 +1444,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddReferenceToFK()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk1' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1458,7 +1458,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk1' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1501,7 +1501,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testRemoveReferenceFromFK()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk1' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1518,7 +1518,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk1' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1556,14 +1556,14 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddTable1()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
             "  </table>\n"+
            "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1597,7 +1597,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testAddTable2()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1605,7 +1605,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
            "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1617,7 +1617,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
            "</database>";
         final String model3Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1662,7 +1662,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testRemoveTable1()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1673,7 +1673,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -1701,7 +1701,7 @@ public class TestAlteration extends RoundtripTestBase
     public void testRemoveTable2()
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip1'>\n"+
             "    <column name='pk' type='VARCHAR' size='20' primaryKey='true' required='true'/>\n"+
@@ -1715,7 +1715,7 @@ public class TestAlteration extends RoundtripTestBase
             "  </table>\n"+
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip2'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+

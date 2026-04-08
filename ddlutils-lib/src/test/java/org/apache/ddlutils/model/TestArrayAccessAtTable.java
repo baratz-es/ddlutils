@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 /**
  * Test case for DDLUTILS-6.
  * 
- * @author Christoffer Hammarström
+ * @author Christoffer HammarstrÃ¶m
  * @version $Revision: 289996 $
  */
 public class TestArrayAccessAtTable extends TestCase

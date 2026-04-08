@@ -34,7 +34,7 @@ mvn install
 
 - Maven 3.6+
 - Java 8 (enforced by `animal-sniffer-maven-plugin`)
-- Source encoding: ISO-8859-1
+- Source encoding: UTF-8
 
 ## Code Style
 

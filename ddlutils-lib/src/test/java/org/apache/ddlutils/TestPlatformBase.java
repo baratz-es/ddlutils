@@ -33,7 +33,7 @@ public abstract class TestPlatformBase extends TestBase
 {
     /** The database schema for testing the column types. */
     public static final String COLUMN_TEST_SCHEMA =
-        "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+        "<?xml version='1.0' encoding='UTF-8'?>\n" +
         "<database name='datatypetest'>\n" +
         "  <table name='coltype'>\n" +
         "    <column name='COL_ARRAY'           type='ARRAY'/>\n" +
@@ -72,7 +72,7 @@ public abstract class TestPlatformBase extends TestBase
 
     /** The database schema for testing column constraints. */
     public static final String COLUMN_CONSTRAINT_TEST_SCHEMA =
-        "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+        "<?xml version='1.0' encoding='UTF-8'?>\n" +
         "<database name='columnconstraintstest'>\n" +
         "  <table name='constraints'>\n" +
         "    <column name='COL_PK' type='VARCHAR' size='32' primaryKey='true'/>\n" +
@@ -86,7 +86,7 @@ public abstract class TestPlatformBase extends TestBase
 
     /** The database schema for testing table constraints, ie. foreign keys and indices. */
     public static final String TABLE_CONSTRAINT_TEST_SCHEMA =
-        "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+        "<?xml version='1.0' encoding='UTF-8'?>\n" +
         "<database name='tableconstraintstest'>\n" +
         "  <table name='table1'>\n" +
         "    <column name='COL_PK_1' type='VARCHAR' size='32' primaryKey='true' required='true'/>\n" +

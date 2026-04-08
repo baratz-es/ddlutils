@@ -29,7 +29,7 @@ public class TestOracle8Platform extends TestPlatformBase
 {
     /** The database schema for testing escaping of character sequences. */
     public static final String COLUMN_CHAR_SEQUENCES_TO_ESCAPE =
-        "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+        "<?xml version='1.0' encoding='UTF-8'?>\n" +
         "<database name='escapetest'>\n" +
         "  <table name='escapedcharacters'>\n" +
         "    <column name='COL_PK' type='INTEGER' primaryKey='true'/>\n" +

@@ -55,14 +55,14 @@ public class TestModelComparator extends TestBase
     public void testAddTable()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEA'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -91,7 +91,7 @@ public class TestModelComparator extends TestBase
     public void testRemoveTable()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -101,7 +101,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEB'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -127,14 +127,14 @@ public class TestModelComparator extends TestBase
     public void testAddAndRemoveTable()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEA'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -163,7 +163,7 @@ public class TestModelComparator extends TestBase
     public void testAddForeignKey()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -174,7 +174,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEA'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -207,11 +207,11 @@ public class TestModelComparator extends TestBase
     public void testAddTablesWithForeignKeys()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEA'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -261,7 +261,7 @@ public class TestModelComparator extends TestBase
     public void testRemoveForeignKey()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -275,7 +275,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEA'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -305,7 +305,7 @@ public class TestModelComparator extends TestBase
     public void testAddAndRemoveForeignKey1()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -319,7 +319,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -355,7 +355,7 @@ public class TestModelComparator extends TestBase
     public void testAddAndRemoveForeignKey2()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -372,7 +372,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -412,7 +412,7 @@ public class TestModelComparator extends TestBase
     public void testForeignKeyReferenceOrder()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -429,7 +429,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -459,7 +459,7 @@ public class TestModelComparator extends TestBase
     public void testAddIndex()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -467,7 +467,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEA'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -497,7 +497,7 @@ public class TestModelComparator extends TestBase
     public void testRemoveIndex()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -508,7 +508,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -535,7 +535,7 @@ public class TestModelComparator extends TestBase
     public void testAddAndRemoveIndex()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -546,7 +546,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -579,7 +579,7 @@ public class TestModelComparator extends TestBase
     public void testChangeIndexColumnOrder()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -592,7 +592,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -627,7 +627,7 @@ public class TestModelComparator extends TestBase
     public void testAddIndexColumn()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -639,7 +639,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -674,7 +674,7 @@ public class TestModelComparator extends TestBase
     public void testRemoveIndexColumn()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -687,7 +687,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -721,14 +721,14 @@ public class TestModelComparator extends TestBase
     public void testAddPrimaryKey()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' required='true'/>\n" +
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -756,14 +756,14 @@ public class TestModelComparator extends TestBase
     public void testRemovePrimaryKey()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' required='true'/>\n" +
@@ -791,7 +791,7 @@ public class TestModelComparator extends TestBase
     public void testAddPrimaryKeyColumn()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -799,7 +799,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -834,7 +834,7 @@ public class TestModelComparator extends TestBase
     public void testRemovePrimaryKeyColumn()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -842,7 +842,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' required='true'/>\n" +
@@ -877,14 +877,14 @@ public class TestModelComparator extends TestBase
     public void testAddColumn()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -911,7 +911,7 @@ public class TestModelComparator extends TestBase
     public void testChangeColumnOrder()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -921,7 +921,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -955,7 +955,7 @@ public class TestModelComparator extends TestBase
     public void testRemoveColumn()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -963,7 +963,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -989,7 +989,7 @@ public class TestModelComparator extends TestBase
     public void testChangeColumnDataType()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -997,7 +997,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1028,7 +1028,7 @@ public class TestModelComparator extends TestBase
         // note that we also have a size for the INTEGER column, but we don't
         // expect a change for it because the size is not relevant for this type
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' size='8' primaryKey='true' required='true'/>\n" +
@@ -1036,7 +1036,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEA'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1067,7 +1067,7 @@ public class TestModelComparator extends TestBase
     public void testChangeColumnScale()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1075,7 +1075,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1110,7 +1110,7 @@ public class TestModelComparator extends TestBase
     public void testRemoveColumnSize()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1118,7 +1118,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEA'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1139,7 +1139,7 @@ public class TestModelComparator extends TestBase
     public void testChangeDefaultValue()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1147,7 +1147,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1177,7 +1177,7 @@ public class TestModelComparator extends TestBase
     public void testSameDefaultValueExpressedDifferently()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1185,7 +1185,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEA'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1206,7 +1206,7 @@ public class TestModelComparator extends TestBase
     public void testAddDefaultValue()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1214,7 +1214,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1243,7 +1243,7 @@ public class TestModelComparator extends TestBase
     public void testChangeColumnRequired()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1251,7 +1251,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEA'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1278,7 +1278,7 @@ public class TestModelComparator extends TestBase
     public void testChangeColumnAutoIncrement()
     {
         final String MODEL1 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1286,7 +1286,7 @@ public class TestModelComparator extends TestBase
             "  </table>\n" +
             "</database>";
         final String MODEL2 = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEA'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +

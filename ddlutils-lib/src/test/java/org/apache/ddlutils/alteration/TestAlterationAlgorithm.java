@@ -81,7 +81,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testNoChange() throws IOException
     {
         final String modelXml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEA'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -109,14 +109,14 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddTable() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -141,14 +141,14 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddTableWithIndex() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -179,14 +179,14 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddTableWithUniqueIndex() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -217,14 +217,14 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddTableWithForeignKey() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -255,11 +255,11 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddTablesWithForeignKeys() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -301,7 +301,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveTable() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -311,7 +311,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEB'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -329,7 +329,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveTableWithIndex() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -343,7 +343,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEB'>\n" +
             "    <column name='COLPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -361,7 +361,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveTableWithForeignKey() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -375,7 +375,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TABLEB'>\n" +
             "    <column name='COLPK' type='VARCHAR' size='64' primaryKey='true' required='true'/>\n" +
@@ -394,7 +394,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveTableReferencedByForeignKey() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -408,7 +408,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -428,7 +428,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveTablesWithForeignKeys() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -446,7 +446,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "</database>";
 
@@ -464,7 +464,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddIndex() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -472,7 +472,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -494,7 +494,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddUniqueIndex() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -502,7 +502,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -524,7 +524,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveIndex() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -535,7 +535,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -554,7 +554,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveUniqueIndex() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -565,7 +565,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -584,7 +584,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddPrimaryKey() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' required='true'/>\n" +
@@ -592,7 +592,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -611,7 +611,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddPrimaryKeyAndColumn() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' required='true'/>\n" +
@@ -619,7 +619,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -656,7 +656,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemovePrimaryKey() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -664,7 +664,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' required='true'/>\n" +
@@ -696,14 +696,14 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddColumn() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -737,7 +737,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveColumn() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -745,7 +745,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -776,14 +776,14 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddPrimaryKeyColumn() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -817,7 +817,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemovePrimaryKeyColumn() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -825,7 +825,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -857,7 +857,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddColumnsToPrimaryAndForeignKeys() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -871,7 +871,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -935,7 +935,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveColumnsFromPrimaryAndForeignKeys() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -952,7 +952,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1008,7 +1008,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddIndexColumn() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1019,7 +1019,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1062,7 +1062,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveIndexColumn() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1075,7 +1075,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1114,7 +1114,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddUniqueIndexColumn() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1125,7 +1125,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1168,7 +1168,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveUniqueIndexColumn() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1181,7 +1181,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1221,7 +1221,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddColumnToTableWithIndex() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1232,7 +1232,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1275,7 +1275,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddColumnToTableWithForeignKey() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1289,7 +1289,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1337,7 +1337,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddColumnToTableReferencedByForeignKey() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1351,7 +1351,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1395,7 +1395,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddExistingColumnToPrimaryKey() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1403,7 +1403,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1437,7 +1437,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveColumnFromPrimaryKey() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1445,7 +1445,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' required='true'/>\n" +
@@ -1479,7 +1479,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddExistingColumnsToPrimaryAndForeignKey() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1495,7 +1495,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1540,7 +1540,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveExistingColumnsFromPrimaryAndForeignKey() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1557,7 +1557,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK1' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1601,7 +1601,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testAddExistingColumnToIndex() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1613,7 +1613,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1638,7 +1638,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveExistingColumnFromIndex() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1651,7 +1651,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1677,7 +1677,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testRemoveColumnFromTableReferencedByForeignKey() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1692,7 +1692,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1733,7 +1733,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangeColumnDatatype() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1741,7 +1741,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1775,7 +1775,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangePrimaryKeyColumnDatatype() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1783,7 +1783,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='DOUBLE' primaryKey='true' required='true'/>\n" +
@@ -1817,7 +1817,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangeIndexColumnDatatype() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1828,7 +1828,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1868,7 +1868,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangePrimaryAndForeignKeyColumnsDatatype() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1882,7 +1882,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='DOUBLE' primaryKey='true' required='true'/>\n" +
@@ -1939,7 +1939,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangeColumnSize() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1947,7 +1947,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -1981,7 +1981,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangePrimaryKeyColumnSize() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='DECIMAL' size='15,2' primaryKey='true' required='true'/>\n" +
@@ -1989,7 +1989,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='DECIMAL' size='30,4' primaryKey='true' required='true'/>\n" +
@@ -2023,7 +2023,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangeIndexColumnSize() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2034,7 +2034,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2074,7 +2074,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangePrimaryAndForeignKeyColumnsSize() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='VARCHAR' size='32' primaryKey='true' required='true'/>\n" +
@@ -2088,7 +2088,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='VARCHAR' size='64' primaryKey='true' required='true'/>\n" +
@@ -2145,7 +2145,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangeColumnDefault() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2153,7 +2153,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2187,7 +2187,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangePrimaryKeyColumnDefault() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='DECIMAL' size='15,2' default='2.0' primaryKey='true' required='true'/>\n" +
@@ -2195,7 +2195,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='DECIMAL' size='15,2' default='4.0' primaryKey='true' required='true'/>\n" +
@@ -2229,7 +2229,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangeIndexColumnDefault() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2240,7 +2240,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2280,7 +2280,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangePrimaryAndForeignKeyColumnsDefault() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' default='0' primaryKey='true' required='true'/>\n" +
@@ -2294,7 +2294,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' default='1' primaryKey='true' required='true'/>\n" +
@@ -2351,7 +2351,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangeColumnAutoIncrement() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2359,7 +2359,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2393,7 +2393,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangePrimaryKeyColumnAutoIncrement() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' autoIncrement='false' primaryKey='true' required='true'/>\n" +
@@ -2401,7 +2401,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' autoIncrement='true' primaryKey='true' required='true'/>\n" +
@@ -2435,7 +2435,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangeIndexColumnAutoIncrement() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2446,7 +2446,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2487,7 +2487,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangePrimaryAndForeignKeyColumnsAutoIncrement() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' autoIncrement='true' primaryKey='true' required='true'/>\n" +
@@ -2501,7 +2501,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' autoIncrement='false' primaryKey='true' required='true'/>\n" +
@@ -2542,7 +2542,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangeColumnRequired() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2550,7 +2550,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2584,7 +2584,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangePrimaryKeyColumnRequired() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2592,7 +2592,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='false'/>\n" +
@@ -2626,7 +2626,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangeIndexColumnRequired() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2637,7 +2637,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +
@@ -2678,7 +2678,7 @@ public class TestAlterationAlgorithm extends TestBase
     public void testChangePrimaryAndForeignKeyColumnsRequired() throws IOException
     {
         final String model1Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='false'/>\n" +
@@ -2692,7 +2692,7 @@ public class TestAlterationAlgorithm extends TestBase
             "  </table>\n" +
             "</database>";
         final String model2Xml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+            "<?xml version='1.0' encoding='UTF-8'?>\n" +
             "<database name='test'>\n" +
             "  <table name='TableA'>\n" +
             "    <column name='ColPK' type='INTEGER' primaryKey='true' required='true'/>\n" +

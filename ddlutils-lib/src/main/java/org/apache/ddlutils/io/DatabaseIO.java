@@ -106,7 +106,7 @@ public class DatabaseIO
         }
     }
 
-    // TODO Mover este código a un ResourcesUtil
+    // TODO Mover este cÃ³digo a un ResourcesUtil
     private InputStream getStream(String resourceName)
         throws IOException
     {

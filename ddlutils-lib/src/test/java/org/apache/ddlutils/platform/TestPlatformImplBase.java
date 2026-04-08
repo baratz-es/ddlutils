@@ -35,7 +35,7 @@ public class TestPlatformImplBase extends TestPlatformBase
 {
     /** The tested model. */
     private static final String TESTED_MODEL =
-        "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+        "<?xml version='1.0' encoding='UTF-8'?>\n"+
         "<database name='ddlutils'>\n"+
         "  <table name='TestTable'>\n"+
         "    <column name='id' autoIncrement='true' type='INTEGER' primaryKey='true'/>\n"+

@@ -88,7 +88,7 @@ public class UniqueIndex extends IndexImpBase
                 return false;
             }
 
-            //caso 1, índice de sistema
+            //caso 1, Ã­ndice de sistema
             if((_name.toUpperCase().startsWith("SYS_C")||otherIndex.getName().toUpperCase().startsWith("SYS_C")) 
                     && getColumnCount()==1)
             {

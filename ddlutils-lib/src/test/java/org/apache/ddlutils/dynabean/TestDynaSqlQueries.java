@@ -47,7 +47,7 @@ public class TestDynaSqlQueries extends TestDatabaseWriterBase
     public void testSimpleQuery() throws Exception
     {
         createDatabase(
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='ddlutils'>\n"+
             "  <table name='TestTable'>\n"+
             "    <column name='TheId' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -56,7 +56,7 @@ public class TestDynaSqlQueries extends TestDatabaseWriterBase
             "</database>");
 
         insertData(
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<data>\n"+
             "  <TestTable TheId='1' TheText='Text 1'/>\n"+
             "  <TestTable TheId='2' TheText='Text 2'/>\n"+
@@ -106,7 +106,7 @@ public class TestDynaSqlQueries extends TestDatabaseWriterBase
     public void testSimpleFetch() throws Exception
     {
         createDatabase(
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='ddlutils'>\n"+
             "  <table name='TestTable'>\n"+
             "    <column name='TheId' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -115,7 +115,7 @@ public class TestDynaSqlQueries extends TestDatabaseWriterBase
             "</database>");
 
         insertData(
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<data>\n"+
             "  <TestTable TheId='1' TheText='Text 1'/>\n"+
             "  <TestTable TheId='2' TheText='Text 2'/>\n"+
@@ -161,7 +161,7 @@ public class TestDynaSqlQueries extends TestDatabaseWriterBase
 
         if (SybasePlatform.DATABASENAME.equals(getPlatform().getName()))
         {
-            modelXml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            modelXml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                        "<database name='ddlutils'>\n"+
                        "  <table name='TestTable'>\n"+
                        "    <column name='TheId' type='NUMERIC' size='12,0' primaryKey='true' required='true' autoIncrement='true'/>\n"+
@@ -171,7 +171,7 @@ public class TestDynaSqlQueries extends TestDatabaseWriterBase
         }
         else
         {
-            modelXml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            modelXml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                        "<database name='ddlutils'>\n"+
                        "  <table name='TestTable'>\n"+
                        "    <column name='TheId' type='INTEGER' primaryKey='true' required='true' autoIncrement='true'/>\n"+
@@ -271,7 +271,7 @@ public class TestDynaSqlQueries extends TestDatabaseWriterBase
     public void testJoinQuery() throws Exception
     {
         createDatabase(
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='ddlutils'>\n"+
             "  <table name='TestTable1'>\n"+
             "    <column name='Id1' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -284,7 +284,7 @@ public class TestDynaSqlQueries extends TestDatabaseWriterBase
             "</database>");
 
         insertData(
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<data>\n"+
             "  <TestTable1 Id1='1'/>\n"+
             "  <TestTable1 Id1='2' Id2='3'/>\n"+

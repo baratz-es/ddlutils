@@ -72,7 +72,7 @@ public class TestConstraints extends RoundtripTestBase
     public void testNullableColumn()
     {
         final String modelXml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -89,7 +89,7 @@ public class TestConstraints extends RoundtripTestBase
     public void testNotNullableColumn()
     {
         final String modelXml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -116,7 +116,7 @@ public class TestConstraints extends RoundtripTestBase
 
         if (SybasePlatform.DATABASENAME.equals(getPlatform().getName()))
         {
-            modelXml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            modelXml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                        "<database name='roundtriptest'>\n"+
                        "  <table name='roundtrip'>\n"+
                        "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -126,7 +126,7 @@ public class TestConstraints extends RoundtripTestBase
         }
         else
         {
-            modelXml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            modelXml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                        "<database name='roundtriptest'>\n"+
                        "  <table name='roundtrip'>\n"+
                        "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -149,7 +149,7 @@ public class TestConstraints extends RoundtripTestBase
 
         if (SybasePlatform.DATABASENAME.equals(getPlatform().getName()))
         {
-            modelXml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            modelXml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                        "<database name='roundtriptest'>\n"+
                        "  <table name='roundtrip'>\n"+
                        "    <column name='pk' type='NUMERIC' size='12,0' primaryKey='true' required='true' autoIncrement='true'/>\n"+
@@ -158,7 +158,7 @@ public class TestConstraints extends RoundtripTestBase
         }
         else
         {
-            modelXml = "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            modelXml = "<?xml version='1.0' encoding='UTF-8'?>\n"+
                        "<database name='roundtriptest'>\n"+
                        "  <table name='roundtrip'>\n"+
                        "    <column name='pk' type='INTEGER' primaryKey='true' required='true' autoIncrement='true'/>\n"+
@@ -181,7 +181,7 @@ public class TestConstraints extends RoundtripTestBase
         }
 
         final String modelXml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -206,7 +206,7 @@ public class TestConstraints extends RoundtripTestBase
         }
 
         final String modelXml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -233,7 +233,7 @@ public class TestConstraints extends RoundtripTestBase
         }
 
         final String modelXml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip'>\n"+
             "    <column name='pk_1' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -255,7 +255,7 @@ public class TestConstraints extends RoundtripTestBase
     public void testSimpleForeignKey()
     {
         final String modelXml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip_1'>\n"+
             "    <column name='pk' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -278,7 +278,7 @@ public class TestConstraints extends RoundtripTestBase
     public void testOverlappingForeignKeys()
     {
         final String modelXml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip_1'>\n"+
             "    <column name='pk_1' type='INTEGER' primaryKey='true' required='true'/>\n"+
@@ -309,7 +309,7 @@ public class TestConstraints extends RoundtripTestBase
     public void testCircularForeignKeys()
     {
         final String modelXml = 
-            "<?xml version='1.0' encoding='ISO-8859-1'?>\n"+
+            "<?xml version='1.0' encoding='UTF-8'?>\n"+
             "<database name='roundtriptest'>\n"+
             "  <table name='roundtrip_1'>\n"+
             "    <column name='pk_1' type='INTEGER' primaryKey='true' required='true'/>\n"+

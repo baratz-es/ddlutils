@@ -385,8 +385,8 @@ public class MSSqlBuilder extends SqlBuilder
                 {
                     processColumnChange(sourceTable, targetTable, sourceColumn, targetColumn, change);
                     processedColumns.add(targetColumn);
-                    //Se añade el cambio de valor por defecto hecho en la columna para no hacerlo posteriormente
-                    //y así evitar que salga un error
+                    //Se aÃ±ade el cambio de valor por defecto hecho en la columna para no hacerlo posteriormente
+                    //y asÃ­ evitar que salga un error
                     if(change instanceof ColumnDefaultValueChange){
                         this.cambiosDefault.add (targetTable.getName ().toUpperCase () + "." + targetColumn.getName ().toUpperCase ());
                     }

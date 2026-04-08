@@ -30,7 +30,7 @@ public class TestHsqlDbPlatform extends TestPlatformBase
 {
     /** The database schema for testing column constraints. This is an version adapted for HsqlDb. */
     public static final String COLUMN_CONSTRAINT_TEST_SCHEMA =
-        "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+        "<?xml version='1.0' encoding='UTF-8'?>\n" +
         "<database name='columnconstraintstest'>\n" +
         "  <table name='constraints'>\n" +
         "    <column name='COL_PK' type='VARCHAR' size='32' primaryKey='true'/>\n" +
@@ -42,7 +42,7 @@ public class TestHsqlDbPlatform extends TestPlatformBase
         "</database>";
     /** The database schema for testing escaping of character sequences. */
     public static final String COLUMN_CHAR_SEQUENCES_TO_ESCAPE =
-        "<?xml version='1.0' encoding='ISO-8859-1'?>\n" +
+        "<?xml version='1.0' encoding='UTF-8'?>\n" +
         "<database name='escapetest'>\n" +
         "  <table name='escapedcharacters'>\n" +
         "    <column name='COL_PK' type='INTEGER' primaryKey='true'/>\n" +

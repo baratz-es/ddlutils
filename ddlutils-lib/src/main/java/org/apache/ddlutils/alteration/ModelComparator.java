@@ -2,13 +2,13 @@ package org.apache.ddlutils.alteration;
 
 /*
  * Copyright 2006 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,9 +39,9 @@ import org.apache.ddlutils.model.Table;
  * adapt the first model so that it becomes the second one. Neither of the models
  * are changed in the process, however, it is also assumed that the models do not
  * change in between.
- * 
- * TODO: Add support and tests for the change of the column order 
- * 
+ *
+ * TODO: Add support and tests for the change of the column order
+ *
  * @version $Revision: $
  */
 public class ModelComparator
@@ -56,7 +56,7 @@ public class ModelComparator
 
     /**
      * Creates a new model comparator object.
-     * 
+     *
      * @param platformInfo  The platform info
      * @param caseSensitive Whether comparison is case sensitive
      */
@@ -74,7 +74,7 @@ public class ModelComparator
     /**
      * Compares the two models and returns the changes necessary to create the second
      * model from the first one.
-     *  
+     *
      * @param sourceModel The source model
      * @param targetModel The target model
      * @return The changes
@@ -107,7 +107,7 @@ public class ModelComparator
                 changes.addAll(compareTables(sourceModel, sourceTable, targetModel, targetTable));
             }
         }
-        
+
         //opcion de conservar tablas
         if(borrarTablas)
         {
@@ -115,7 +115,7 @@ public class ModelComparator
             {
                 Table sourceTable = sourceModel.getTable(tableIdx);
                 Table targetTable = targetModel.findTable(sourceTable.getName(), _caseSensitive);
-    
+
                 if ((targetTable == null) && (sourceTable.getName() != null) && (sourceTable.getName().length() > 0))
                 {
                     Iterator it = elementsPrefixIgnore.iterator();
@@ -133,8 +133,8 @@ public class ModelComparator
                             borrarTablaConcreta = false;
                     }
                     //Si al final se decide borrar esta tabla concreta
-                    //es decir, si la opcion de general est� marcada y adem�s no hay 
-                    //ning�n prefijo que lo impida, se borra
+                    //es decir, si la opcion de general está marcada y ademá no hay
+                    //ningún prefijo que lo impida, se borra
                     if(borrarTablaConcreta)
                     {
                         if (_log.isInfoEnabled())
@@ -160,7 +160,7 @@ public class ModelComparator
     /**
      * Compares the two tables and returns the changes necessary to create the second
      * table from the first one.
-     *  
+     *
      * @param sourceModel The source model which contains the source table
      * @param sourceTable The source table
      * @param targetModel The target model which contains the target table
@@ -338,7 +338,7 @@ public class ModelComparator
                 changes.add(new PrimaryKeyChange(sourceTable, sourcePK, targetPK));
             }
         }
-        
+
         HashMap columnPosChanges = new HashMap();
 
         for (int columnIdx = 0; columnIdx < sourceTable.getColumnCount(); columnIdx++)
@@ -375,7 +375,7 @@ public class ModelComparator
     /**
      * Compares the two columns and returns the changes necessary to create the second
      * column from the first one.
-     *  
+     *
      * @param sourceTable  The source table which contains the source column
      * @param sourceColumn The source column
      * @param targetTable  The target table which contains the target column
@@ -429,8 +429,8 @@ public class ModelComparator
      * has no name, then a foreign key to the same table with the same columns (but not
      * necessarily in the same order) is searched. If the given key has a name, then the
      * corresponding key also needs to have the same name, or no name at all, but not a
-     * different one. 
-     * 
+     * different one.
+     *
      * @param table The table to search in
      * @param fk    The original foreign key
      * @return The corresponding foreign key if found
@@ -450,12 +450,12 @@ public class ModelComparator
         return null;
     }
 
-    
+
     /**
      * Returns the name to be used for the given foreign key. If the foreign key has no
      * specified name, this method determines a unique name for it. The name will also
      * be shortened to honor the maximum identifier length imposed by the platform.
-     * 
+     *
      * @param table The table for whith the foreign key is defined
      * @param fk    The foreign key
      * @return The name
@@ -468,7 +468,7 @@ public class ModelComparator
         if (needsName)
         {
             StringBuffer name = new StringBuffer();
-    
+
             for (int idx = 0; idx < fk.getReferenceCount(); idx++)
             {
                 name.append(fk.getReference(idx).getLocalColumnName());
@@ -487,11 +487,11 @@ public class ModelComparator
 
         return fkName;
     }
-    
+
     /**
      * Generates a version of the name that has at most the specified
      * length.
-     * 
+     *
      * @param name          The original name
      * @param desiredLength The desired maximum length
      * @return The shortened version
@@ -522,10 +522,10 @@ public class ModelComparator
         result.append(name.substring(startCut + delta + 1, originalLength));
         return result.toString();
     }
-    
+
     /**
      * Returns the constraint name. This method takes care of length limitations imposed by some databases.
-     * 
+     *
      * @param prefix     The constraint prefix, can be <code>null</code>
      * @param table      The table that the constraint belongs to
      * @param secondPart The second name part, e.g. the name of the constraint column
@@ -535,7 +535,7 @@ public class ModelComparator
     public String getConstraintName(String prefix, Table table, String secondPart, String suffix)
     {
         StringBuffer result = new StringBuffer();
-        
+
         if (prefix != null)
         {
             result.append(prefix);
@@ -551,13 +551,13 @@ public class ModelComparator
         }
         return shortenName(result.toString(), -1);
     }
-    
+
     /**
      * Searches in the given table for a corresponding index. If the given index
      * has no name, then a index to the same table with the same columns in the
      * same order is searched. If the given index has a name, then the a corresponding
-     * index also needs to have the same name, or no name at all, but not a different one. 
-     * 
+     * index also needs to have the same name, or no name at all, but not a different one.
+     *
      * @param table The table to search in
      * @param index The original index
      * @return The corresponding index if found
