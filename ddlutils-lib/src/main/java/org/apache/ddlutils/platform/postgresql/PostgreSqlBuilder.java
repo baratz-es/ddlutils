@@ -18,6 +18,8 @@ package org.apache.ddlutils.platform.postgresql;
 
 import java.io.IOException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +27,8 @@ import java.util.Map;
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.alteration.AddColumnChange;
 import org.apache.ddlutils.alteration.AddPrimaryKeyChange;
+import org.apache.ddlutils.alteration.ColumnAutoIncrementChange;
+import org.apache.ddlutils.alteration.ColumnChange;
 import org.apache.ddlutils.alteration.PrimaryKeyChange;
 import org.apache.ddlutils.alteration.RemoveColumnChange;
 import org.apache.ddlutils.alteration.RemovePrimaryKeyChange;
@@ -251,8 +255,9 @@ public class PostgreSqlBuilder extends SqlBuilder
             }
         }
 
-        // Add/remove columns (same rules as before; do not call SqlBuilder.processTableStructureChanges,
-        // which only handles a lone AddPrimaryKeyChange and would leave other changes unprocessed).
+        // Add/remove columns and gather ColumnChange for ALTER COLUMN (same pattern as MSSqlBuilder).
+        ArrayList columnChanges = new ArrayList();
+
         for (Iterator changeIt = changes.iterator(); changeIt.hasNext();)
         {
             TableChange change = (TableChange)changeIt.next();
@@ -283,6 +288,43 @@ public class PostgreSqlBuilder extends SqlBuilder
                 processChange(currentModel, desiredModel, (RemoveColumnChange)change);
                 change.apply(currentModel, getPlatform().isDelimitedIdentifierModeOn());
                 changeIt.remove();
+            }
+            else if (change instanceof ColumnAutoIncrementChange)
+            {
+                // Cannot add/remove legacy nextval identity with a simple ALTER; fall back to rebuild.
+                columnChanges = null;
+            }
+            else if ((change instanceof ColumnChange) && (columnChanges != null))
+            {
+                columnChanges.add(change);
+            }
+        }
+
+        if (columnChanges != null)
+        {
+            boolean caseSensitive = getPlatform().isDelimitedIdentifierModeOn();
+            HashSet   seenColumns = new HashSet();
+
+            for (Iterator chIt = columnChanges.iterator(); chIt.hasNext();)
+            {
+                ColumnChange change       = (ColumnChange)chIt.next();
+                Column       refColumn    = change.getChangedColumn();
+                String       colKey        = caseSensitive ? refColumn.getName() : refColumn.getName().toLowerCase();
+
+                if (!seenColumns.contains(colKey))
+                {
+                    Column sourceCol =
+                        sourceTable.findColumn(refColumn.getName(), caseSensitive);
+                    Column targetCol =
+                        targetTable.findColumn(refColumn.getName(), caseSensitive);
+                    if (sourceCol != null && targetCol != null)
+                    {
+                        processColumnChange(sourceTable, targetTable, sourceCol, targetCol);
+                    }
+                    seenColumns.add(colKey);
+                }
+                changes.remove(change);
+                change.apply(currentModel, caseSensitive);
             }
         }
 
@@ -382,6 +424,111 @@ public class PostgreSqlBuilder extends SqlBuilder
         if (change.getColumn().isAutoIncrement())
         {
             dropAutoIncrementSequence(change.getChangedTable(), change.getColumn());
+        }
+    }
+
+    /**
+     * Emits {@code ALTER COLUMN} for PostgreSQL to move from the current column definition to the target.
+     */
+    protected void processColumnChange(Table  sourceTable,
+                                       Table  targetTable,
+                                       Column sourceColumn,
+                                       Column targetColumn) throws IOException
+    {
+        boolean caseSensitive = getPlatform().isDelimitedIdentifierModeOn();
+
+        if (sourceColumn.getParsedDefaultValue() != null)
+        {
+            print("ALTER TABLE ");
+            printlnIdentifier(getTableName(sourceTable));
+            printIndent();
+            print("ALTER COLUMN ");
+            printIdentifier(getColumnName(sourceColumn));
+            print(" DROP DEFAULT");
+            printEndOfStatement();
+        }
+
+        boolean typeOrSizeDiffers =
+            sourceColumn.getTypeCode() != targetColumn.getTypeCode() ||
+            sourceColumn.getSizeAsInt() != targetColumn.getSizeAsInt() ||
+            sourceColumn.getScale() != targetColumn.getScale();
+
+        if (typeOrSizeDiffers)
+        {
+            print("ALTER TABLE ");
+            printlnIdentifier(getTableName(sourceTable));
+            printIndent();
+            print("ALTER COLUMN ");
+            printIdentifier(getColumnName(sourceColumn));
+            print(" TYPE ");
+            print(getSqlType(targetColumn));
+            writePostgreSqlUsingCastIfNeeded(sourceColumn, targetColumn);
+            printEndOfStatement();
+        }
+
+        if (sourceColumn.isRequired() != targetColumn.isRequired())
+        {
+            print("ALTER TABLE ");
+            printlnIdentifier(getTableName(sourceTable));
+            printIndent();
+            print("ALTER COLUMN ");
+            printIdentifier(getColumnName(sourceColumn));
+            if (targetColumn.isRequired())
+            {
+                print(" SET NOT NULL");
+            }
+            else
+            {
+                print(" DROP NOT NULL");
+            }
+            printEndOfStatement();
+        }
+
+        if (targetColumn.getParsedDefaultValue() != null &&
+            isValidDefaultValue(targetColumn.getDefaultValue(), targetColumn.getTypeCode()))
+        {
+            print("ALTER TABLE ");
+            printlnIdentifier(getTableName(sourceTable));
+            printIndent();
+            print("ALTER COLUMN ");
+            printIdentifier(getColumnName(sourceColumn));
+            print(" SET DEFAULT ");
+            writeColumnDefaultValue(sourceTable, targetColumn);
+            printEndOfStatement();
+        }
+        else if (sourceColumn.getParsedDefaultValue() != null && targetColumn.getParsedDefaultValue() == null)
+        {
+            // default already dropped above if source had one; if only removal was needed, covered by DROP DEFAULT
+        }
+    }
+
+    /**
+     * Appends {@code USING (...)} when PostgreSQL cannot cast implicitly (e.g. timestamp to date).
+     */
+    protected void writePostgreSqlUsingCastIfNeeded(Column sourceColumn, Column targetColumn) throws IOException
+    {
+        int src = sourceColumn.getTypeCode();
+        int tgt = targetColumn.getTypeCode();
+
+        if (src == Types.TIMESTAMP && tgt == Types.DATE)
+        {
+            print(" USING (");
+            printIdentifier(getColumnName(sourceColumn));
+            print("::date)");
+            return;
+        }
+        if (src == Types.TIMESTAMP && tgt == Types.TIME)
+        {
+            print(" USING (");
+            printIdentifier(getColumnName(sourceColumn));
+            print("::time)");
+            return;
+        }
+        if (src == Types.DATE && (tgt == Types.TIMESTAMP || tgt == Types.TIME))
+        {
+            print(" USING (");
+            printIdentifier(getColumnName(sourceColumn));
+            print("::timestamp)");
         }
     }
 }
