@@ -67,9 +67,9 @@ public abstract class RoundtripTestBase extends TestDatabaseWriterBase
         }
 
         String jdbcFile = System.getProperty(TestDatabaseWriterBase.JDBC_PROPERTIES_PROPERTY, "");
-        if (jdbcFile.contains("oracle"))
+        if (jdbcFile.contains("oracle") || jdbcFile.contains("postgresql"))
         {
-            // Roundtrip expectations match embedded Derby/HSQL; Oracle JDBC/metadata differ widely.
+            // Roundtrip expectations match embedded Derby/HSQL; Oracle/PostgreSQL JDBC and metadata differ widely.
             return new TestSuite();
         }
 

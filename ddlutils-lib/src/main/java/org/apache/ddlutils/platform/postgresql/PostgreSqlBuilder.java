@@ -24,7 +24,10 @@ import java.util.Map;
 
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.alteration.AddColumnChange;
+import org.apache.ddlutils.alteration.AddPrimaryKeyChange;
+import org.apache.ddlutils.alteration.PrimaryKeyChange;
 import org.apache.ddlutils.alteration.RemoveColumnChange;
+import org.apache.ddlutils.alteration.RemovePrimaryKeyChange;
 import org.apache.ddlutils.alteration.TableChange;
 import org.apache.ddlutils.model.Column;
 import org.apache.ddlutils.model.Database;
@@ -226,6 +229,30 @@ public class PostgreSqlBuilder extends SqlBuilder
                                                 Map      parameters,
                                                 List     changes) throws IOException
     {
+        // Drop primary keys first (PostgreSQL requires ALTER TABLE ... DROP CONSTRAINT).
+        for (Iterator changeIt = changes.iterator(); changeIt.hasNext();)
+        {
+            TableChange change = (TableChange)changeIt.next();
+
+            if (change instanceof RemovePrimaryKeyChange)
+            {
+                processChange(currentModel, desiredModel, (RemovePrimaryKeyChange)change);
+                change.apply(currentModel, getPlatform().isDelimitedIdentifierModeOn());
+                changeIt.remove();
+            }
+            else if (change instanceof PrimaryKeyChange)
+            {
+                PrimaryKeyChange       pkChange       = (PrimaryKeyChange)change;
+                RemovePrimaryKeyChange removePkChange = new RemovePrimaryKeyChange(pkChange.getChangedTable(),
+                                                                                   pkChange.getOldPrimaryKeyColumns());
+
+                processChange(currentModel, desiredModel, removePkChange);
+                removePkChange.apply(currentModel, getPlatform().isDelimitedIdentifierModeOn());
+            }
+        }
+
+        // Add/remove columns (same rules as before; do not call SqlBuilder.processTableStructureChanges,
+        // which only handles a lone AddPrimaryKeyChange and would leave other changes unprocessed).
         for (Iterator changeIt = changes.iterator(); changeIt.hasNext();)
         {
             TableChange change = (TableChange)changeIt.next();
@@ -258,7 +285,62 @@ public class PostgreSqlBuilder extends SqlBuilder
                 changeIt.remove();
             }
         }
-        super.processTableStructureChanges(currentModel, desiredModel, sourceTable, targetTable, parameters, changes);
+
+        // Add primary keys last (PrimaryKeyChange from comparator becomes AddPrimaryKeyChange here).
+        for (Iterator changeIt = changes.iterator(); changeIt.hasNext();)
+        {
+            TableChange change = (TableChange)changeIt.next();
+
+            if (change instanceof AddPrimaryKeyChange)
+            {
+                processChange(currentModel, desiredModel, (AddPrimaryKeyChange)change);
+                change.apply(currentModel, getPlatform().isDelimitedIdentifierModeOn());
+                changeIt.remove();
+            }
+            else if (change instanceof PrimaryKeyChange)
+            {
+                PrimaryKeyChange    pkChange    = (PrimaryKeyChange)change;
+                AddPrimaryKeyChange addPkChange = new AddPrimaryKeyChange(pkChange.getChangedTable(),
+                                                                          pkChange.getNewPrimaryKeyColumns());
+
+                processChange(currentModel, desiredModel, addPkChange);
+                addPkChange.apply(currentModel, getPlatform().isDelimitedIdentifierModeOn());
+                changeIt.remove();
+            }
+        }
+    }
+
+    /**
+     * Drops the primary key. Embedded {@code PRIMARY KEY} constraints created by PostgreSQL are named
+     * {@code tablename_pkey}; DDL from {@link #writeExternalPrimaryKeysCreateStmt} uses
+     * {@link #getConstraintName} with suffix {@code PK}. Both names are dropped with {@code IF EXISTS}.
+     */
+    protected void processChange(Database               currentModel,
+                                 Database               desiredModel,
+                                 RemovePrimaryKeyChange change) throws IOException
+    {
+        Table  table     = change.getChangedTable();
+        String tableName = getTableName(table);
+        int    maxLen    = getPlatformInfo().getMaxIdentifierLength();
+        String embeddedStylePk = shortenName(tableName + "_pkey", maxLen);
+        String ddlUtilsStylePk = getConstraintName(null, table, "PK", null);
+
+        print("ALTER TABLE ");
+        printlnIdentifier(tableName);
+        printIndent();
+        print("DROP CONSTRAINT IF EXISTS ");
+        printIdentifier(embeddedStylePk);
+        printEndOfStatement();
+
+        if (!embeddedStylePk.equals(ddlUtilsStylePk))
+        {
+            print("ALTER TABLE ");
+            printlnIdentifier(tableName);
+            printIndent();
+            print("DROP CONSTRAINT IF EXISTS ");
+            printIdentifier(ddlUtilsStylePk);
+            printEndOfStatement();
+        }
     }
 
     /**

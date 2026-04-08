@@ -3,7 +3,8 @@
 # class configured via the datasource.class property
 
 # Use this property if ddlutils does not recognize the platform from the settings
-#ddlutils.platform=PostgreSQL
+# (must match org.apache.ddlutils.platform.postgresql.PostgreSqlPlatform.DATABASENAME)
+ddlutils.platform=PostgreSql
 
 #
 # Using the plain DBCP datasource

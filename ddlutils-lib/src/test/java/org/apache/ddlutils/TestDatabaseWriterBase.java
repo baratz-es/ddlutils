@@ -148,12 +148,15 @@ public abstract class TestDatabaseWriterBase extends TestPlatformBase
      */
     private void init()
     {
-        // the data source won't change during the tests, hence
-        // it is static and needs to be initialized only once
-        if (_dataSource != null)
+        // Static datasource is shared across tests; initialize once when both are ready.
+        // If a previous attempt failed after creating the datasource but before platform name
+        // was set, clear and retry (otherwise getDatabaseName() stays null).
+        if (_dataSource != null && _databaseName != null)
         {
             return;
         }
+        _dataSource = null;
+        _databaseName = null;
 
         Properties props = getTestProperties();
 
