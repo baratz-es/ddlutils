@@ -1,0 +1,12 @@
+# JDBC properties for Oracle (18c/19c XE via Podman; tested with gvenzl/oracle-xe:18-slim)
+# Properties starting with "datasource." are applied to the datasource class below.
+
+# Explicit platform (otherwise inferred from JDBC URL / driver)
+ddlutils.platform=Oracle
+
+datasource.class=org.apache.commons.dbcp2.BasicDataSource
+datasource.driverClassName=oracle.jdbc.OracleDriver
+# Pluggable database XEPDB1 (default for Oracle XE 18c+ images)
+datasource.url=jdbc:oracle:thin:@//localhost:1521/XEPDB1
+datasource.username=DDLUTILS
+datasource.password=DdlUtilsApp_1

@@ -52,6 +52,7 @@ public class TestDatatypes extends RoundtripTestBase
         if (jdbcFile.contains("postgresql"))
         {
             // Roundtrip expectations match embedded Derby/HSQL; PostgreSQL differs (defaults, TIME, types).
+            // Oracle: skipped from RoundtripTestBase.getTests when jdbc.properties.file contains "oracle".
             return new TestSuite();
         }
         return getTests(TestDatatypes.class);

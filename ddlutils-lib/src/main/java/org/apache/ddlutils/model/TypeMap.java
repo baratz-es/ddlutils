@@ -105,6 +105,8 @@ public abstract class TypeMap
     public static final String LONGNVARCHAR   = "LONGNVARCHAR";
     /** The string representation of the {@link java.sql.Types#NCLOB} constant. */
     public static final String NCLOB          = "NCLOB";
+    /** The string representation of the {@link java.sql.Types#SQLXML} constant. */
+    public static final String SQLXML         = "SQLXML";
     /** The string representation of the {@link java.sql.Types#TIME_WITH_TIMEZONE} constant. */
     public static final String TIME_WITH_TIMEZONE       = "TIME_WITH_TIMEZONE";
     /** The string representation of the {@link java.sql.Types#TIMESTAMP_WITH_TIMEZONE} constant. */
@@ -172,6 +174,10 @@ public abstract class TypeMap
                 registerJdbcType(Jdbc4Utils.determineNClobTypeCode(), NCLOB, JdbcTypeCategoryEnum.TEXTUAL);
             } catch (UnsupportedOperationException ex) {
             }
+            try {
+                registerJdbcType(Types.SQLXML, SQLXML, JdbcTypeCategoryEnum.SPECIAL);
+            } catch (Throwable ex) {
+            }
         }
         if (Jdbc4Utils.supportsJdbc42Types()) {
             try {
@@ -187,6 +193,15 @@ public abstract class TypeMap
         // Torque/Turbine extensions which we only support when reading from an XML schema
         _typeNameToTypeCode.put("BOOLEANINT",  Types.TINYINT);
         _typeNameToTypeCode.put("BOOLEANCHAR", Types.CHAR);
+
+        // Oracle ojdbc: DatabaseMetaData may report vendor type codes (e.g. -101 = TIMESTAMPTZ)
+        Set<Integer> dateTimeCategory = _typesPerCategory.get(JdbcTypeCategoryEnum.DATETIME);
+        if (dateTimeCategory != null)
+        {
+            Integer oracleTsTz = Integer.valueOf(-101);
+            _typeCodeToTypeName.put(oracleTsTz, TIMESTAMP);
+            dateTimeCategory.add(oracleTsTz);
+        }
     }
 
     /**
