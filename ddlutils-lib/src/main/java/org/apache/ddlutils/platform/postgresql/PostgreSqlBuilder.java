@@ -92,6 +92,19 @@ public class PostgreSqlBuilder extends SqlBuilder
      */
     public void createTable(Database database, Table table, Map parameters) throws IOException
     {
+        createAutoIncrementSequencesBeforeCreateTable(table);
+        super.createTable(database, table, parameters);
+    }
+
+    /**
+     * Emits standalone {@code CREATE SEQUENCE} statements before {@code CREATE TABLE} for legacy
+     * {@code nextval}-based auto-increment columns. Subclasses (e.g. PostgreSQL 14+ IDENTITY) may override
+     * to skip this when the dialect uses {@code GENERATED ... AS IDENTITY} instead.
+     *
+     * @param table The table being created
+     */
+    protected void createAutoIncrementSequencesBeforeCreateTable(Table table) throws IOException
+    {
         for (int idx = 0; idx < table.getColumnCount(); idx++)
         {
             Column column = table.getColumn(idx);
@@ -101,16 +114,15 @@ public class PostgreSqlBuilder extends SqlBuilder
                 createAutoIncrementSequence(table, column);
             }
         }
-        super.createTable(database, table, parameters);
     }
 
     /**
      * Creates the auto-increment sequence that is then used in the column.
-     *  
+     *
      * @param table  The table
      * @param column The column
      */
-    private void createAutoIncrementSequence(Table table, Column column) throws IOException
+    protected void createAutoIncrementSequence(Table table, Column column) throws IOException
     {
         print("CREATE SEQUENCE ");
         printIdentifier(getConstraintName(null, table, column.getName(), "seq"));
@@ -118,12 +130,12 @@ public class PostgreSqlBuilder extends SqlBuilder
     }
 
     /**
-     * Creates the auto-increment sequence that is then used in the column.
-     *  
+     * Drops the auto-increment sequence used by the legacy {@code nextval} default.
+     *
      * @param table  The table
      * @param column The column
      */
-    private void dropAutoIncrementSequence(Table table, Column column) throws IOException
+    protected void dropAutoIncrementSequence(Table table, Column column) throws IOException
     {
         print("DROP SEQUENCE ");
         printIdentifier(getConstraintName(null, table, column.getName(), "seq"));
