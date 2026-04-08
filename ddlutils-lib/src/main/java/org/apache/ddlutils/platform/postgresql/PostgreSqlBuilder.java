@@ -17,6 +17,7 @@ package org.apache.ddlutils.platform.postgresql;
  */
 
 import java.io.IOException;
+import java.sql.Types;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -140,6 +141,38 @@ public class PostgreSqlBuilder extends SqlBuilder
         print("DROP SEQUENCE ");
         printIdentifier(getConstraintName(null, table, column.getName(), "seq"));
         printEndOfStatement();
+    }
+
+    /**
+     * {@inheritDoc}
+     * <p>
+     * BIT/BOOLEAN map to {@code BOOLEAN} in PostgreSQL, but {@link org.apache.ddlutils.model.TypeMap} treats
+     * these JDBC types as numeric, which would emit {@code DEFAULT 0}/{@code DEFAULT 1} (integer literals).
+     * PostgreSQL requires boolean literals for {@code BOOLEAN} columns.
+     */
+    @Override
+    protected void printDefaultValue(Object defaultValue, int typeCode) throws IOException
+    {
+        if (defaultValue != null && (typeCode == Types.BIT || typeCode == Types.BOOLEAN))
+        {
+            String s = defaultValue.toString().trim();
+            if ("1".equals(s) || "true".equalsIgnoreCase(s))
+            {
+                print("TRUE");
+            }
+            else if ("0".equals(s) || "false".equalsIgnoreCase(s))
+            {
+                print("FALSE");
+            }
+            else
+            {
+                super.printDefaultValue(defaultValue, typeCode);
+            }
+        }
+        else
+        {
+            super.printDefaultValue(defaultValue, typeCode);
+        }
     }
 
     /**
