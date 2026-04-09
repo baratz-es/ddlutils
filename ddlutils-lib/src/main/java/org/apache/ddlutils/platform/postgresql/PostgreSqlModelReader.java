@@ -18,7 +18,9 @@ package org.apache.ddlutils.platform.postgresql;
 
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ddlutils.Platform;
@@ -29,6 +31,7 @@ import org.apache.ddlutils.model.Table;
 import org.apache.ddlutils.model.TypeMap;
 import org.apache.ddlutils.platform.DatabaseMetaDataWrapper;
 import org.apache.ddlutils.platform.JdbcModelReader;
+import org.apache.ddlutils.platform.MetaDataColumnDescriptor;
 
 /**
  * Reads a database model from a PostgreSql database.
@@ -49,6 +52,19 @@ public class PostgreSqlModelReader extends JdbcModelReader
         setDefaultCatalogPattern(null);
         setDefaultSchemaPattern(null);
         setDefaultTablePattern(null);
+    }
+
+    /**
+     * Adds {@code TYPE_NAME} so {@link #readColumn} can map PostgreSQL {@code text} to
+     * {@link Types#LONGVARCHAR} when the driver reports {@code VARCHAR} with a large size.
+     *
+     * {@inheritDoc}
+     */
+    protected List initColumnsForColumn()
+    {
+        List result = new ArrayList(super.initColumnsForColumn());
+        result.add(new MetaDataColumnDescriptor("TYPE_NAME", Types.VARCHAR));
+        return result;
     }
 
     /**
@@ -117,6 +133,14 @@ public class PostgreSqlModelReader extends JdbcModelReader
             }
         }
 
+        // Drivers often report TEXT as VARCHAR with a large COLUMN_SIZE; normalize to LONGVARCHAR
+        // so comparison with CLOB (mapped to LONGVARCHAR on PostgreSQL) does not emit spurious ALTERs.
+        if (column.getTypeCode() == Types.VARCHAR && isPostgresqlTextType(values, column))
+        {
+            column.setTypeCode(Types.LONGVARCHAR);
+            column.setSize(null);
+        }
+
         String defaultValue = column.getDefaultValue();
 
         if ((defaultValue != null) && (defaultValue.length() > 0))
@@ -157,6 +181,27 @@ public class PostgreSqlModelReader extends JdbcModelReader
             column.setDefaultValue(defaultValue);
         }
         return column;
+    }
+
+    /**
+     * Returns true if the column is PostgreSQL {@code text} or an unbounded varchar reported as JDBC VARCHAR.
+     */
+    private boolean isPostgresqlTextType(Map values, Column column)
+    {
+        String typeName = values.get("TYPE_NAME") instanceof String
+            ? (String) values.get("TYPE_NAME")
+            : null;
+        if (typeName != null && "text".equalsIgnoreCase(typeName.trim()))
+        {
+            return true;
+        }
+        // Fallback when TYPE_NAME is missing: common JDBC sentinel sizes for unlimited / max text
+        if (column.getSize() != null)
+        {
+            int sz = column.getSizeAsInt();
+            return sz == Integer.MAX_VALUE || sz >= 1_000_000_000;
+        }
+        return false;
     }
 
     /**
