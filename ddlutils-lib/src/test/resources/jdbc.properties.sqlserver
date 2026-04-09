@@ -1,0 +1,12 @@
+# JDBC properties for SQL Server (2017 Linux container + COMPATIBILITY_LEVEL 120; see ddlutils/AGENTS.md)
+# Properties starting with "datasource." are applied to the datasource class below.
+
+# Explicit platform (otherwise inferred from JDBC URL / driver)
+ddlutils.platform=MsSql
+
+datasource.class=org.apache.commons.dbcp2.BasicDataSource
+datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+# Local dev: disable encryption to match typical Podman setup (align password with MSSQL_SA_PASSWORD)
+datasource.url=jdbc:sqlserver://localhost:1433;databaseName=ddlutils;encrypt=false;trustServerCertificate=true
+datasource.username=sa
+datasource.password=DdlUtilsSa_1!

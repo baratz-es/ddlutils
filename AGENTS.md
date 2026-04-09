@@ -16,6 +16,7 @@ mvn test -pl ddlutils-lib -Dtest=TestDatabaseIO
 # Run tests against a specific database (ddlutils-lib; JDBC settings in src/test/resources)
 mvn test -pl ddlutils-lib -Djdbc.properties.file=jdbc.properties.postgresql
 mvn test -pl ddlutils-lib -Djdbc.properties.file=jdbc.properties.oracle
+mvn test -pl ddlutils-lib -Djdbc.properties.file=jdbc.properties.sqlserver
 
 # Build specific module with dependencies
 mvn install -pl ddlutils-lib -am
@@ -115,10 +116,66 @@ mvn test -pl ddlutils-lib -Djdbc.properties.file=jdbc.properties.oracle
 
 **Nota:** Los tests de roundtrip basados en [`RoundtripTestBase`](ddlutils-lib/src/test/java/org/apache/ddlutils/io/RoundtripTestBase.java) (`TestDatatypes`, `TestConstraints`, `TestAlteration`) no se ejecutan cuando el perfil JDBC es Oracle (expectativas alineadas con Derby/HSQL; Oracle difiere en metadatos y tipos JDBC). El resto de tests del módulo sí se ejecutan contra el esquema indicado.
 
+## Tests contra SQL Server 2017 (Podman), compatibilidad 2014
+
+No existe imagen oficial de **SQL Server 2014** para Linux. Este flujo usa **SQL Server 2017** en contenedor y fija **`COMPATIBILITY_LEVEL = 120`** (SQL Server 2014) en la base de tests para aproximar el comportamiento de un motor 2014. El binario sigue siendo 2017; para un SQL Server 2014 estricto haría falta Windows/VM u otro despliegue fuera de Podman Linux.
+
+Los ajustes de conexión están en `ddlutils-lib/src/test/resources/jdbc.properties.sqlserver` (por defecto: `localhost`, puerto **1433**, base **ddlutils**, usuario **`sa`**, contraseña **`DdlUtilsSa_1!`**). Debe coincidir con `MSSQL_SA_PASSWORD` del contenedor.
+
+1. **Descargar la imagen**:
+
+```bash
+podman pull mcr.microsoft.com/mssql/server:2017-latest
+```
+
+2. **Levantar SQL Server 2017** (ajusta el nombre del contenedor si ya existe):
+
+```bash
+podman run -d --name ddlutils-mssql2017 \
+  -e 'ACCEPT_EULA=Y' \
+  -e 'MSSQL_SA_PASSWORD=DdlUtilsSa_1!' \
+  -p 1433:1433 \
+  mcr.microsoft.com/mssql/server:2017-latest
+```
+
+El servicio puede tardar unos segundos en aceptar conexiones. Comprueba logs: `podman logs -f ddlutils-mssql2017` hasta ver que SQL Server está listo.
+
+3. **Crear la base `ddlutils` y fijar compatibilidad 120** (una vez el servidor acepte conexiones). En la imagen 2017 suele estar `sqlcmd` en `/opt/mssql-tools/bin/sqlcmd`; si no, prueba `/opt/mssql-tools18/bin/sqlcmd`.
+
+```bash
+podman exec ddlutils-mssql2017 /opt/mssql-tools/bin/sqlcmd \
+  -S localhost -U sa -P 'DdlUtilsSa_1!' -Q "CREATE DATABASE ddlutils"
+podman exec ddlutils-mssql2017 /opt/mssql-tools/bin/sqlcmd \
+  -S localhost -U sa -P 'DdlUtilsSa_1!' -Q "ALTER DATABASE ddlutils SET COMPATIBILITY_LEVEL = 120"
+```
+
+Si el puerto **1433** del host está ocupado, mapea otro (p. ej. `-p 1434:1433`) y en `jdbc.properties.sqlserver` cambia la URL a `jdbc:sqlserver://localhost:1434;databaseName=ddlutils;encrypt=false;trustServerCertificate=true`.
+
+4. **Comprobar** conexión:
+
+```bash
+podman exec ddlutils-mssql2017 /opt/mssql-tools/bin/sqlcmd \
+  -S localhost -U sa -P 'DdlUtilsSa_1!' -d ddlutils -Q "SELECT @@VERSION"
+```
+
+5. **Ejecutar tests** desde el directorio del fork `ddlutils`:
+
+```bash
+mvn test -pl ddlutils-lib \
+  -Djdbc.properties.file=jdbc.properties.sqlserver \
+  -Dtest=TestDynaSqlQueries
+
+mvn test -pl ddlutils-lib -Djdbc.properties.file=jdbc.properties.sqlserver
+```
+
+**Nota:** Si cambias la contraseña de `sa`, edita `jdbc.properties.sqlserver` en consecuencia.
+
+**Nota (tests):** Los tests de roundtrip basados en [`RoundtripTestBase`](ddlutils-lib/src/test/java/org/apache/ddlutils/io/RoundtripTestBase.java) (`TestDatatypes`, `TestConstraints`, `TestAlteration`) no se ejecutan cuando el perfil JDBC es SQL Server (expectativas alineadas con Derby/HSQL; el driver y los metadatos de SQL Server difieren). El resto de tests del módulo sí se ejecutan contra la base indicada.
+
 ## Test Configuration
 
 - Default test database: in-memory Derby (via `jdbc.properties.file` property in pom.xml)
-- Test property files in `src/test/resources/jdbc.properties.*`: `derby-embedded`, `hsqldb`, `derby`, `mysql41`, `mysql50`, `postgresql`, `oracle`, `firebird`
+- Test property files in `src/test/resources/jdbc.properties.*`: `derby-embedded`, `hsqldb`, `derby`, `mysql41`, `mysql50`, `postgresql`, `oracle`, `sqlserver`, `firebird`
 - Tests requiring live database connection are gated on `jdbc.properties.file` being set
 - Test patterns: `**/Test*.java`, `**/*TestCase.java`
 

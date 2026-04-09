@@ -49,10 +49,11 @@ public class TestDatatypes extends RoundtripTestBase
     public static Test suite() throws Exception
     {
         String jdbcFile = System.getProperty(TestDatabaseWriterBase.JDBC_PROPERTIES_PROPERTY, "");
-        if (jdbcFile.contains("postgresql"))
+        if (jdbcFile.contains("postgresql") || jdbcFile.contains("sqlserver"))
         {
             // Roundtrip expectations match embedded Derby/HSQL; PostgreSQL differs (defaults, TIME, types).
             // Oracle: skipped from RoundtripTestBase.getTests when jdbc.properties.file contains "oracle".
+            // SQL Server: skipped here and in RoundtripTestBase (metadata/driver differences).
             return new TestSuite();
         }
         return getTests(TestDatatypes.class);
