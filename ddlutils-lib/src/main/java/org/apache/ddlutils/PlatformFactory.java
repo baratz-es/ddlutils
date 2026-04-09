@@ -21,6 +21,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 import org.apache.ddlutils.platform.cloudscape.CloudscapePlatform;
 import org.apache.ddlutils.platform.db2.Db2Platform;
+import org.apache.ddlutils.platform.db2.Db2v8Platform;
 import org.apache.ddlutils.platform.derby.DerbyPlatform;
 import org.apache.ddlutils.platform.firebird.FirebirdPlatform;
 import org.apache.ddlutils.platform.h2.H2Platform;
@@ -180,6 +181,7 @@ public class PlatformFactory
     {
         addPlatform(_platforms, CloudscapePlatform.DATABASENAME, CloudscapePlatform.class);
         addPlatform(_platforms, Db2Platform.DATABASENAME,        Db2Platform.class);
+        addPlatform(_platforms, Db2v8Platform.DATABASENAME,      Db2v8Platform.class);
         addPlatform(_platforms, DerbyPlatform.DATABASENAME,      DerbyPlatform.class);
         addPlatform(_platforms, FirebirdPlatform.DATABASENAME,   FirebirdPlatform.class);
         addPlatform(_platforms, H2Platform.DATABASENAME,         H2Platform.class);

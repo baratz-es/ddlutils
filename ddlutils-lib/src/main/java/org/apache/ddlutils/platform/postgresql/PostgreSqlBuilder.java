@@ -363,7 +363,7 @@ public class PostgreSqlBuilder extends SqlBuilder
     {
         Table  table     = change.getChangedTable();
         String tableName = getTableName(table);
-        int    maxLen    = getPlatformInfo().getMaxIdentifierLength();
+        int    maxLen    = getPlatformInfo().getMaxConstraintNameLength();
         String embeddedStylePk = shortenName(tableName + "_pkey", maxLen);
         String ddlUtilsStylePk = getConstraintName(null, table, "PK", null);
 
