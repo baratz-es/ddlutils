@@ -4,7 +4,7 @@ pipeline {
   tools {
     git 'Default'  // Usa la instalación configurada en Jenkins
     jdk 'OPENJDK 17'
-    maven 'apache-maven-3.9.9' //vesion de maven para el proyecto
+    maven 'apache-maven-3.9.16' //vesion de maven para el proyecto
   }
   options {
     ansiColor('xterm')
