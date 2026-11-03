@@ -177,7 +177,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.3.1</version>
                 <!-- Configuración de los tags para release -->
                 <configuration>
                     <goals>deploy</goals>
@@ -289,4 +289,11 @@
         </plugins>
     </pluginManagement>
 </build>
+    <scm>
+        <url>scm:git:git@github.com:baratz-es/ddlutils.git</url>
+        <connection>scm:git:git@github.com:baratz-es/ddlutils.git</connection>
+        <developerConnection>scm:git:git@github.com:baratz-es/ddlutils.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
 </project>
